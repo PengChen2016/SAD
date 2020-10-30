@@ -1,60 +1,5 @@
 %% Abstract
-% RF-ICP源功率沉积模型，负源激励器功率分析代码
-%% History
-% v190111 等效媒质模型与变压器模型初版自左晨，赵鹏
-% 190916 by陈鹏 进行等效媒质模型代码整理
-
-% v200413 by陈鹏 完成等效媒质模型与变压器模型检查，单点计算可靠
-% 以2018Jain中ELISE case做benchmark：见main_v200413.m和result_of_main_v200413.md
-% CHARLIE case：见main_v200413_2.m和result_of_main_v200413_2.md
-% 1.随机加热频率vst根据1995Vahedia修改
-% 2.变压器模型中二次线圈理论计算式进行了长冈系数校正；互感表达式考虑了线圈电感。校正后在ELISE case中与2018Jainb结果相近，在CHARLIE中比2018Jainb结果更优
-
-% v200418 by陈鹏 进行代码修改
-% 有损介质中波长公式，考虑电导率影响;考虑有限半径几何效应的等效集肤深度;M考虑Lp
-% 分析见result_of_main_v200418.md，并提供新的ELISE case benchmark
-
-% v181211 解析电模型初版自李增山。
-% v200420 by陈鹏 将解析电模型加入main。
-% 与LZS结果做对比，有较大区别，结果见result_of_main_v200420_1.md
-% 改正了解析电模型中的Lplasma与LD表达式；考虑线圈阻抗的几何校正
-% v200421 by陈鹏 fix了无法使用LZS的veff的bug，与LZS的解析电磁模型一致
-
-% v200424 多自变量运行模式及后处理可用；改用2014Cazzador拟合表达式计算vst
-% v200425 新的ELISE case benchmark，见result_of_main_v200418.md与eP
-% 典型参数下适用与结果分析 参数化分析
-% 复电导率虚部的影响
-
-% v200514 不同种类碰撞频率绘图。与2014Cazzador结果一致。
-
-% v200607
-% 以2019Raunera-fig7为benchmark，基本一致，见Result\benchmark_nu_with2019Raunera.png
-% 2018Jainb-fig.41中vstoc与气压负相关(计算式中与气压无关)，且值偏大。
-% 气压加入参数化。
-% CHARLIE实现一一对应参数耦合计算
-
-% v200916
-% 英文论文绘图代码
-
-%% TODO
-% 解析电模型中，复坡印廷矢量积分结果与复杂表达式结果不一致
-% 磁场估算与拉莫尔半径计算
-
-%更高层次的抽象：新建代码文件，然后写出几个函数，对于每个参数集都只做单点计算，然后在main中去做循环架构
-%既适用于不同参数如频率的参数化分析，又适用于不均匀等离子体自动计算参数，至少能到5层
-
-%% Introduction
-% 见 eP-190821-01激励器FEM模型.docx
-% 注意：电模型非函数，修改了全局变量形式的输入参数――因此每次只能运行一个电模型
-% 使用：
-% 1. 修改控制位
-% 2. 补充输入条件
-% 参数化分析时，有两处需要手动修改
-% 3. 后处理
-
-% 典型情况
-% ELISE 单点/多点
-% CHARLIE 参数一一对应
+% RF-ICP源功率沉积模型，负源激励器功率耦合（激励器等效阻抗与RF传输效率）分析代码
 
 close all
 clear
@@ -85,16 +30,18 @@ if flag_parametric_analysis
 end
 
 % 实验数据、输入条件来源
-flag_experiment_data='ELISE_base'; %Ref from Jain by CP
+% flag_experiment_data='ELISE_base'; %Ref from Jain by CP
 % flag_experiment_data='BATMAN_base'; %no data
 % flag_experiment_data='HUST_small_driver_base'; %by ZP
 % flag_experiment_data='CHARLIE_base'; %Ref from Rauner by CP
 % flag_experiment_data='small_source1_LZS'; %Ref from 李增山-整体模型耦合解析电模型-2020.03.30\ by CP
 % flag_experiment_data='NIO1_base'; %no data
-% flag_experiment_data='HUST_excitation'; %CP201029
+flag_experiment_data='HUST_large_driver_base'; %by CP, LJW 201029
 
-flag_Rmetal='experiment-woplasma';
-flag_Rmetal='theory-coil-woplasma';
+flag_Rmetal='experiment-measured-woplasma';
+% flag_Rmetal='theory-coil-woplasma';
+flag_Lcoil='experiment-measured';
+% flag_Lcoil='theory-coil';
 
 % stoc表达式
 % flag_vst_expression='Vahedi-simplify';
@@ -104,8 +51,8 @@ flag_electric_model='transformer_base';
 % flag_electric_model='analytical_base';
 % flag_electric_model='transformer_2011Chabert';
 
-flag_sigma_only_real=false;
-% flag_sigma_only_real=true;
+flag_good_conductor_approximation=false;
+% flag_good_conductor_approximation=true;
 
 flag_output_plasma_model=true;
 flag_output_plasma_model=false;
@@ -124,7 +71,7 @@ if flag_output_for_paper
     flag_vst_expression='Cazzador-fit';
             flag_vst_expression='Vahedi-simplify'; %用于对比st模型
     flag_electric_model='transformer_base';
-    flag_sigma_only_real=false;
+    flag_good_conductor_approximation=false;
     
 %     flag_experiment_data='CHARLIE_base';
 %     flag_parametric_analysis=false; 
@@ -153,6 +100,12 @@ if ~flag_parametric_analysis
             %2010Mcneely中为中心1.5e18，>10eV
             ne=1.5e18;                 %电子密度[m^-3]
             Te=10;                     %电子温度[eV]
+            %2006Fantz报道激励器内1000K，2018Fantz报道整体630K
+            p=0.3;                      %气压[Pa]
+            Tg=630;                     %气体温度[K]
+        case 'HUST_large_driver_base'
+             ne=5e17;                 %电子密度[m^-3]
+            Te=9;                     %电子温度[eV]
             %2006Fantz报道激励器内1000K，2018Fantz报道整体630K
             p=0.3;                      %气压[Pa]
             Tg=630;                     %气体温度[K]
@@ -278,7 +231,7 @@ else
             % 2014Cazzador使用参数范围
             ne=1.8e16;                 %电子密度[m^-3]
             Te=[0.1:0.2:0.9,1:3:100];                 %电子温度[eV]
-        case 'HUST_excitation'
+        case 'HUST_large_driver_base'
                 dne=14:0.1:18;             %指数
                 ne=10.^dne;                 %电子密度[m^-3]
                 Te=6:2:10;                 %电子温度[eV]                
@@ -385,18 +338,15 @@ switch flag_experiment_data
         l_plasma=l_chamber;
         l_coil=0.08;
         % 一次线圈为短螺线管，二次线圈为长-短螺线管
-    case 'HUST_excitation'
-        r_chamber=0.14;             %放电腔内径[m]
-        r_plasma=r_chamber; %简化：以放电腔半径为等离子体半径
-        r_coil=0.158;             %线圈绕线半径[m]
-        r_wire_of_coil=0.004;             %线圈导线半径[m] %200625改正，之前为0.003
-        N_coil=6;                  %线圈匝数
-        l_chamber=0.14;               %线圈、等离子体长度[m]
-        l_plasma=l_chamber;
-        l_coil=0.08;       
-        
-        
-        
+    case 'HUST_large_driver_base'
+        r_chamber=0.142;             %放电腔内径[m]
+        r_plasma=r_chamber; %以放电腔半径为等离子体半径
+        r_coil=0.155;             %线圈绕线半径[m]
+        r_wire_of_coil=0.003;             %线圈导线半径[m] 
+        N_coil=9;                  %线圈匝数
+        l_chamber=0.147;               %放电腔长度[m] 
+        l_plasma=l_chamber; %以放电腔长度为等离子体长度
+        l_coil=0.08935;   %线圈长度     
     case 'BATMAN_base'
         warning('no data')
         %TODO: 待修改。目前是copy ELISE数据
@@ -456,6 +406,7 @@ end
 % 理论计算线圈阻抗
 disp('理论计算线圈阻抗')
 % TODO:考虑FEM中引线长度，计算一个理论电阻
+% TODO: 验算以下公式是否在适用范围内
 Rcoil_th=N_coil*2*pi*r_coil*sqrt(mu0*w_RF*sigma_Cu/2)/2/pi/r_wire_of_coil/sigma_Cu;%已考虑集肤效应，未考虑邻近效应
 Lcoil_th=mu0*check_Nagaoka(2*r_coil/l_coil)*pi*r_coil^2*N_coil^2/l_coil;  %一次螺线管线圈电感理论计算表达式
 fprintf('%s = %.2e MHz\n','f',f/1e6);
@@ -469,9 +420,9 @@ switch flag_experiment_data
         Rmetal_ex=0.5;
         Lcoil_ex=7.5e-6;
         % 2018Jainb在变压器模型中加入了一个表征其他金属损耗的电阻
-    case 'HUST_excitation'
-        Rmetal_ex=0.5;
-        Lcoil_ex=7.5e-6;
+    case 'HUST_large_driver_base'
+        Rmetal_ex=1.45;
+        Lcoil_ex=16.04e-6;
     case 'BATMAN_base'
         warning('no data')
         %TODO: 待修改。目前是copy ELISE数据
@@ -505,19 +456,23 @@ switch flag_experiment_data
 end
 
 switch flag_Rmetal
-    case 'experiment-woplasma'
+    case 'experiment-measured-woplasma'
         Rmetal=Rmetal_ex;
-        disp('使用实验测得无等离子体时系统电阻作为Rmetal')
-        disp('有可能部分实验数据是线圈电阻而非系统电阻')
+        disp('基于Subtractive method，使用实验测得Rs wo plasma作为Rmetal')
+        disp('有可能部分实验数据是Rcoil而非Rs')
     case 'theory-coil-woplasma'
         Rmetal=Rcoil_th;
-        disp('使用理论计算无等离子体时线圈电阻作为Rmetal')
+        disp('使用理论计算Rcoil wo plasma作为Rmetal')
 end
 
-% Lcoil=Lcoil_th;
-%         disp('使用理论计算的Lcoil')
-Lcoil=Lcoil_ex;
+switch flag_Lcoil
+    case 'experiment-measured'
+        Lcoil=Lcoil_ex;
         disp('使用实验测得的Lcoil')
+case 'theory-coil'
+Lcoil=Lcoil_th;
+        disp('使用理论计算的Lcoil')
+end
 
 Qcoil=w_RF.*Lcoil./Rmetal;
 
@@ -722,9 +677,9 @@ if ~flag_using_stored_data
             mu_p=mu0; %等离子体磁导率取为真空磁导率
             sigma_medium(X1i,X2i)=eps0*veff(X1i,X2i)*wpe(X1i,X2i)^2/(w_RF^2+veff(X1i,X2i)^2); %与Re(sigmap)一致
             eps_medium(X1i,X2i)=eps0*(1-wpe(X1i,X2i)^2/(w_RF^2+veff(X1i,X2i)^2)); %与Re(eps0*epsp_r)一致
-            if flag_sigma_only_real
+            if flag_good_conductor_approximation
                 % 复电导率忽略虚部，即epsp_real=1,epsp_imag不变
-                disp('复电导率忽略虚部')
+                disp('等离子体等效电磁媒质模型中使用良导体近似')
                 epsp_r(X1i,X2i)=1+1i*imag(epsp_r(X1i,X2i));
                 sigmap(X1i,X2i)=real(sigmap(X1i,X2i));
                 eps_medium(X1i,X2i)=1;
@@ -1676,11 +1631,12 @@ switch flag_electric_model
         % (1-8*r_plasma/(3*pi*l_plasma))与长冈系数结果有显著差别。长冈系数计算结果更接近2018Jain
         for X1i=1:num_X1%不同的ne
             for X2i=1:num_X2%不同的Te
-                Rp(X1i,X2i)=2*pi*r_plasma/(skin_depth_eff(X1i,X2i)*sigmap_real(X1i,X2i)*l_plasma); %二次侧等离子体电阻
-                Lp(X1i,X2i)=Rp(X1i,X2i)/veff(X1i,X2i); %等离子体中电子惯性形成的电感。复电导率虚部的体现
-                if flag_sigma_only_real
+                Rp(X1i,X2i)=pi*r_plasma/(skin_depth_eff(X1i,X2i)*sigmap_real(X1i,X2i)*l_plasma); %二次侧等离子体电阻，2011Chabert
+                Lp(X1i,X2i)=Rp(X1i,X2i)/veff(X1i,X2i); %等离子体中电子惯性形成的电感。
+                if flag_good_conductor_approximation
                     % 这似乎并不是忽略复电导率虚部
-                    disp('变压器模型中忽略Lp')
+                    disp('变压器模型中使用良导体近似')
+                    Rp(X1i,X2i)=2*pi*r_plasma/(skin_depth_eff(X1i,X2i)*sigmap_real(X1i,X2i)*l_plasma); %二次侧等离子体电阻，2011Chabert
                     Lp(X1i,X2i)=0;
                 end
                 
