@@ -115,6 +115,7 @@ ylabel('\it\nu_{\rma}=\it\nu_{\rmst}/\omega');
 axis([0,0.7,0,7]) %绘图显示范围，即[xmin,xmax,ymin,ymax]
 
 % eqn2
+% K0=constants.me*constants.me/(constants.mu0*constants.e^3); %与频率无关 %Te取eV，不需要再乘以e
 K0=me*me/(mu0*e^3); %与频率无关 %Te取eV，不需要再乘以e
 % % 判断X范围
 % for nei=1:num_ne

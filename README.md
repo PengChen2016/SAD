@@ -1,5 +1,5 @@
-# ICP_power_deposition_model
-RF-ICP源功率沉积模型，负源激励器功率耦合（激励器等效阻抗与RF传输效率）分析代码
+# NIS_driver_power_deposition
+负源激励器功率沉积分析代码
   
 # 文件说明
 ## 主脚本
@@ -25,7 +25,6 @@ check_Nagaoka.m+Nagaoka.txt 查表得长冈系数，对理想螺线管电感做�
   
 # 单独脚本
 solve_stoc_eqns.m 单独脚本，用于求解stoc方程组  
-temp_test_code.m 单独脚本，测试子函数 (gitignore)  
 
 # History before SVM by Git
 v190111 等效媒质模型与变压器模型初版自左晨，赵鹏  
