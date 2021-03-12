@@ -72,46 +72,6 @@ verify_equal(kenp, [1.0505e-13*ones(1,3);9.1450e-14*ones(1,3)])
 verify_equal(keniz, [1.3344e-21*ones(1,3);6.4445e-15*ones(1,3)])
 end
 
-function test_get_skin_depth(testCase)
-% test 	get_skin_depth and get_skin_depth_plasma
-
-f=1e6*[ones(1,3);10*ones(1,3)];
-vc=1e7*[ones(1,3);10*ones(1,3)];
-wpe=1e9*[ones(1,3);10*ones(1,3)];
-r_plasma=1;
-
-get_plasma_skin_depth('as-medium',1e6,vc,wpe,r_plasma)
-get_plasma_skin_depth('as-medium',f,vc,wpe,r_plasma)
-get_plasma_skin_depth('as-medium-simplified-finite-radius',f,vc,wpe,r_plasma)
-
-tolerance=1/100;
-verify_equal=@(actual, expected) verifyEqual(testCase,actual,expected,'RelTol',tolerance);
-
-% 根据ZP/ZC结果验算
-verify_equal(kenp, [1.0505e-13*ones(1,3);9.1450e-14*ones(1,3)])
-verify_equal(keniz, [1.3344e-21*ones(1,3);6.4445e-15*ones(1,3)])
-
-%     % 经典集肤深度随vc变化
-%     d_vc=4:0.1:8;
-%     num_x=length(d_vc);
-%     vc=10.^d_vc;
-%     for i=1:num_x
-%         delta1(i)=delta_simplified_fun(vc(i),1e9);
-%         delta2(i)=delta_geo_simplified_fun(vc(i),1e9);
-%         delta3(i)=delta_fun(vc(i),1e9);
-%     end
-%     handle_fig=figure;
-%     loglog(vc,delta1,'-');
-%     hold on
-%     loglog(vc,delta2,'--s');
-%     loglog(vc,delta3,'-.o');
-%     legend('simplified','geo simplified','full')
-%     % 可见经典集肤深度基本与vc正相关。
-%     % delta_geo_simplified_fun有问题
-
-
-end
-
 
 %% Optional file fixtures  
 function setupOnce(testCase)  % do not change function name

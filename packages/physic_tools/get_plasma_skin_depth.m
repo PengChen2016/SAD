@@ -49,5 +49,4 @@ switch type
         error('No such type.')
 end
 
-
 end

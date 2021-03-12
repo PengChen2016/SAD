@@ -11,7 +11,6 @@ function [ input ] = get_input_plasma( flag_input_plasma )
 % input.ng %中性气体分子密度[m^-3]
 % input.Pin % 总输入功率 W
 
-fprintf('Use input plasma dataset: %s \n',flag_input_plasma);
 input.flag=flag_input_plasma;
 
 constants=get_constants();% 全局常数 结构体

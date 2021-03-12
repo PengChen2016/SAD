@@ -77,7 +77,7 @@ switch input_geo.flag
 end
 
 %% 用户选择使用
-fprintf('Choose %s as Rloss with plasma\n',flag.Rmetal)
+fprintf('[INFO] Choose %s as Rloss with plasma\n',flag.Rmetal)
 switch flag.Rmetal
     case 'measured-Rmetal-woplasma'
         if isnan(input.Rmetal_ex)
@@ -95,7 +95,7 @@ switch flag.Rmetal
         input.Rmetal=input.Rcoil_th;
 end
 
-fprintf('Use %s as Lcoil with plasma\n',flag.Lcoil)
+fprintf('[INFO] Use %s as Lcoil with plasma\n',flag.Lcoil)
 switch flag.Lcoil
     case 'measured-Lcoil-woplasma'
         input.Lcoil=input.Lcoil_ex;

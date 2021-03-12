@@ -9,7 +9,7 @@ function [ input ] = get_input_geometry( flag_input_geometry )
 % input.N_coil %线圈匝数
 % input.r_wire %线圈导线半径[m]
 
-fprintf('Use input ICPs geometry dataset: %s \n',flag_input_geometry );
+fprintf('[INFO] Use input ICPs geometry dataset: %s \n',flag_input_geometry );
 input.flag=flag_input_geometry ;
 
 %% 导入几何参数

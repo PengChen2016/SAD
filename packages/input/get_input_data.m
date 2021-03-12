@@ -2,6 +2,7 @@ function [ input ] = get_input_data( flag )
 % 返回预置 模型输入数据
 
 %% input of  equivalent_medium_model_of_plasma
+fprintf('[INFO] Use input plasma dataset: %s \n',flag.input_plasma);
 % 导入预置数据
 switch flag.input_plasma
     case 'CHARLIE_10Pa_4MHz_520W'
@@ -26,7 +27,7 @@ switch flag.input_plasma
 end
 
 %% 等离子体不均匀分布处理
-plasma.r=inf; %均匀无限大/半无限大
+input.plasma.r=inf; %均匀无限大/半无限大
 
 %% 外场信息
 % 磁场
@@ -49,7 +50,7 @@ if ~isempty(flag.electric_model)
     input.geometry.l_plasma=input.geometry.l_chamber;
     % input.geometry.l_plasma=2*input.geometry.l_coil; %几何校正
     % 当Lmp≥Rp/veff，可见Rp对PER影响小，则lplasma对PER影响小
-    plasma.r=input.geometry.r_plasma_eff;
+    input.plasma.r=input.geometry.r_plasma_eff;
     
     % 外电路数据
     switch input.plasma.flag
