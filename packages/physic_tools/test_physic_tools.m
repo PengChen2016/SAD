@@ -18,15 +18,13 @@ debye_length=get_debye_length( n0, T0 );
 omega_pe= get_omega_pe( n0 );
 omega_pHp= get_omega_pi( n0, 1 ,1 );
 omega_pHn= get_omega_pi( n0,-1,1 );
-vth_e=sqrt(-constants.q_m_ration_e*T0);
-N_D=get_N_D(n0, T0);
+vth_e=sqrt(-constants.q_m_ratio_e*T0);
 
 verify_equal(debye_length, 1.66e-5)
 verify_equal(omega_pe/2/pi, 5.679e9)
 verify_equal(omega_pHp/2/pi, 1.325e8)
 verify_equal(omega_pHn/2/pi, 1.325e8)
 verify_equal(vth_e, 5.93e5)
-verify_equal(N_D, n0*debye_length^3*4*pi/3)
 end
 
 function test_vectorization(testCase)
@@ -42,15 +40,13 @@ debye_length=get_debye_length( n0, T0 );
 omega_pe= get_omega_pe( n0 );
 omega_pHp= get_omega_pi( n0, 1 ,1 );
 omega_pHn= get_omega_pi( n0,-1,1 );
-vth_e=sqrt(-constants.q_m_ration_e*T0);
-N_D=get_N_D(n0, T0);
+vth_e=sqrt(-constants.q_m_ratio_e*T0);
 
 verify_equal(debye_length, 1.66e-5*ones(2,3))
 verify_equal(omega_pe/2/pi, 5.679e9*ones(2,3))
 verify_equal(omega_pHp/2/pi, 1.325e8*ones(2,3))
 verify_equal(omega_pHn/2/pi, 1.325e8*ones(2,3))
 verify_equal(vth_e, 5.93e5*ones(2,3))
-verify_equal(N_D, n0.*debye_length.^3*4*pi/3)
 end
 
 function test_get_Xsec_and_k(testCase)
@@ -72,6 +68,25 @@ verify_equal(kenp, [1.0505e-13*ones(1,3);9.1450e-14*ones(1,3)])
 verify_equal(keniz, [1.3344e-21*ones(1,3);6.4445e-15*ones(1,3)])
 end
 
+function test_get_Nagaoka(testCase)
+% test 	get_Nagaoka
+get_Nagaoka(nan);
+hold on
+a=0:1:11+0.005;
+k=get_Nagaoka(a);
+scatter(a,k)
+legend('Nagaoka data','func get Nagaoka')
+close
+% 与1909Nagaoka - The inductance coefficients
+% of solenoids中P31的表对比
+tolerance=1/100;
+verify_equal=@(actual, expected) verifyEqual(testCase,actual,expected,'RelTol',tolerance);
+verify_equal(get_Nagaoka(0), 1)
+verify_equal(get_Nagaoka(0.25), 0.901649)
+verify_equal(get_Nagaoka(1), 0.688423)
+verify_equal(get_Nagaoka(5), 0.319825)
+verify_equal(get_Nagaoka(10), 0.203315)
+end
 
 %% Optional file fixtures  
 function setupOnce(testCase)  % do not change function name

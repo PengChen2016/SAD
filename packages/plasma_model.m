@@ -1,10 +1,9 @@
 function [ plasma ] = plasma_model( flag, plasma)
 % ICP的等效电磁媒质模型 equivalent_medium_model_of_plasma
-% 主要基于2014Cazzador、1995Vahedia，借鉴2018Jain
-
 constants=get_constants();
 
 %% ICP heating model
+% 主要基于2014Cazzador、1995Vahedia，借鉴2018Jain
 if strcmp(flag.input_plasma,'given_directly')
     fprintf('[WARN] Use ICP heating model: Set ν directly \n');
     given_nu_m=plasma.nu_m;
@@ -33,7 +32,7 @@ else
 end
 
 % 分析等效碰撞频率中的主导加热机制
-plasma.nu_m2nu_st=plasma.nu_m./plasma.nu_eff;
+plasma.nu_m2nu_eff=plasma.nu_m./plasma.nu_eff;
 % 若上述比值大于1，则欧姆加热占主
 
 % 分析带电粒子是否响应电磁场
@@ -61,7 +60,7 @@ switch flag.medium_approximation
         % 有损介质，do nothing
     case 'consider_real(sigma)_only'
         % 复电导率忽略虚部，即Re(eps_c_r)=1,Im(eps_c_r)不变
-        disp('[WARN] Use good conductor approximation.')
+        disp('[WARN] consider_real(sigma)_only before solving EM field.')
         plasma.eps_c_r=1+1i*imag(plasma.eps_c_r);
     case 'sigma_dc'
         % 复电导率近似为直流电导率，即Re(eps_c_r)=1,Im(eps_c_r)由sigma_dc计算
@@ -100,22 +99,22 @@ end
 
 idx=find(plasma.r<3*plasma.skin_depth);
 if ~isempty(idx)
-    if strcmp(flag.electric_model,'transformer_base')...
+    if strfind(flag.electric_model,'transformer')...
             || isempty(flag.stoc_model)
         disp('[WARN] δ>≈R的元素的索引')
-        disp(idx)
+        disp(idx')
         warning('随机加热模型、变压器模型长直圆柱涡流问题电阻计算 有bug')
-        pause
+%         pause
     end
 end
 
 idx=find(plasma.wavelength<3*plasma.r);
 if ~isempty(idx)
-    if strcmp(flag.electric_model,'transformer_base')
+    if strfind(flag.electric_model,'transformer')
         disp('[WARN] λ＜≈R的元素的索引')
-        disp(idx)
+        disp(idx')
         warning('集中参数电路模型有bug')
-        pause
+%         pause
     end
 end
 

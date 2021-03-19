@@ -6,7 +6,6 @@ Xsec.enp=[E,a];
 Xsec.eniz=[E,a];
 
 if flag_plot
-    % TODO：参考Main.m中代码，做截面-能量关系可视化
     plot_line_width=3;
     gca_line_width=1;
     font_size=15;

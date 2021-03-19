@@ -75,35 +75,6 @@ switch type
         idx5=idx2 & (plasma.delta_st>10);
         plasma.nu_st(idx5)=pi/4./(plasma.w_RF(idx5).^2).*(plasma.ve(idx5)./plasma.delta_st(idx5)).^3;
         %%% end
-        
-        %         if alpha_st_Vahedi1<0.03
-        %             plasma.nu_st=plasma.ve/(2*pi*delta_st_Vahedi1); %190922PC，根据1995Vahedia
-        %             % 测试stoc model
-        %             plasma.alpha_st=alpha_st_Vahedi1;
-        %             plasma.delta_st=delta_st_Vahedi1;
-        %             %             vst2(X1i,X2i)=(4/pi)^0.2*(plasma.w_RF^0.4)*(plasma.ve/delta_st_Vahedi1)^0.6; %待询问2019Zuo
-        %             %             vst3(X1i,X2i)=-pi*plasma.ve/4/delta_st_Vahedi1/(log(alpha_st_Vahedi1)+1.58); %待询问2019Zuo
-        %             %             fprintf('%s = %.2e \n','nu_st',plasma.nu_st);
-        %             %             fprintf('%s = %.2e \n','vst2',vst2(X1i,X2i));
-        %             %             fprintf('%s = %.2e \n','vst3',vst3(X1i,X2i));
-        %         else
-        %             if alpha_st_Vahedi2<0.03
-        %                 warning('α分段存在问题')
-        %                 %                 pause %测试时使用
-        %                 % 200422 ne=1e16,Te=15/20两次,出现bug
-        %                 % 仍然使用α>0.03时的δst算出来的α
-        %                 plasma.nu_st=plasma.ve/delta_st_Vahedi2/4;
-        %             else
-        %                 if alpha_st_Vahedi2<10
-        %                     plasma.nu_st=plasma.ve/delta_st_Vahedi2/4;
-        %                 else
-        %                     plasma.nu_st=pi/4/(plasma.w_RF^2)*(plasma.ve/delta_st_Vahedi2)^3;
-        %                 end
-        %             end
-        %             plasma.alpha_st=alpha_st_Vahedi2;
-        %             plasma.delta_st=delta_st_Vahedi2;
-        %         end
-        
     case 'Cazzador-simplify'
         error('Not implemented.')
         % 基于2018Jain model

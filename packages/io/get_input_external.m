@@ -1,4 +1,4 @@
-function [ input ] = get_input_external( flag, input_geo, input_plasma )
+function [ input ] = get_input_external( flag, geometry, w_RF )
 % 返回预置 ICP源外电路数据 结构体
 
 % input.Rcoil_th % 线圈电阻计算值
@@ -16,26 +16,28 @@ constants=get_constants();% 全局常数 结构体
 % TODO:考虑FEM中引线长度，计算一个理论电阻
 % TODO: 验算以下公式是否在适用范围内
 % 计算电阻：考虑导线表面集肤效应，未考虑邻近效应
-l_wire=input_geo.N_coil*2*pi*input_geo.r_coil;
-C_wire=2*pi*input_geo.r_wire;
-delta_Cu=sqrt(2./(input_plasma.w_RF*constants.mu0*constants.sigma_Cu));
+l_wire=geometry.N_coil*2*pi*geometry.r_coil;
+C_wire=2*pi*geometry.r_wire;
+delta_Cu=sqrt(2./(w_RF*constants.mu0*constants.sigma_Cu));
 S_current_path=delta_Cu.*C_wire;
 input.Rcoil_th=l_wire./(constants.sigma_Cu.*S_current_path);
-% 计算电感：无限长直螺线管自感+长冈因子校正
-L_infinite_long=constants.mu0*pi*input_geo.r_coil^2*input_geo.N_coil^2/input_geo.l_coil;
-input.Lcoil_th=L_infinite_long*check_Nagaoka(2*input_geo.r_coil/input_geo.l_coil);
-% 20210304 pengchen reviewed these formulas: ok,
-% same as previous version by pengzhao/chenzuo
 
-% 计算功率绝对值时需要电流实验值
-if 3==length(input_plasma.size)
-    input.Icoil_rms=nan(input_plasma.size);
-else
-    input.Icoil_rms=nan;
+% 线圈电感
+switch flag.electric_model
+    case 'transformer-2018Jainb'
+        input.Lcoil_th=geometry.N_coil^2*0.002*pi*(2*geometry.r_coil*100)* ...
+            (log(4*2*geometry.r_coil/geometry.l_coil)-0.5)*1e-6;
+    otherwise
+        L_infinite_long=constants.mu0*pi*geometry.r_coil^2*geometry.N_coil^2/geometry.l_coil;
+        input.Lcoil_th=L_infinite_long*get_Nagaoka(2*geometry.r_coil/geometry.l_coil);
+        % 20210304 pengchen reviewed these formulas: ok,
+        % same as previous version by pengzhao/chenzuo
 end
+
 %% 导入Zloss实验值
+input.Icoil_rms=nan; % 计算功率绝对值时需要电流实验值
 % 实验测量线圈阻抗（一般按照相减方法来测量）
-switch input_geo.flag
+switch geometry.flag
     case 'ELISE_base'
         % 2018Jain
         input.Rcoil_ex=0.5;
@@ -103,6 +105,6 @@ switch flag.Lcoil
         input.Lcoil=input.Lcoil_th;
 end
 
-input.Qcoil=input_plasma.w_RF.*input.Lcoil./input.Rmetal;
+input.Qcoil=w_RF.*input.Lcoil./input.Rmetal;
 
 end

@@ -5,6 +5,16 @@ tests = functiontests(localfunctions);
 end
 
 %% Test Functions
+function test_basic(testCase)
+% test basic
+flag = get_example_flag(2);
+input=get_input_data(flag);
+input.plasma=plasma_model(flag, input.plasma);
+source=transformer_model( flag, input );
+
+end
+
+
 function test_2018Jain(testCase)
 % test 2018Jain
 

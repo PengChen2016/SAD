@@ -68,8 +68,10 @@ if ~isempty(flag.electric_model)
             end
             input.external.Qcoil=temp.Qcoil(idx);
         otherwise
-            input.external=get_input_external( flag, input.geometry, input.plasma );
+            input.external=get_input_external( flag, input.geometry, input.plasma.w_RF );
     end
 end
+
+% get_output_json( input, 'input');
 
 end

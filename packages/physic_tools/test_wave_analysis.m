@@ -8,6 +8,9 @@ end
 function test_get_skin_depth_plasma(testCase)
 % test get_skin_depth_plasma
 
+
+% skin_depth(5.8e7,50,1)=0.0093 
+% lambda(1,1e6,1)=300
 end
 
 function test_skin_depth(testCase)
