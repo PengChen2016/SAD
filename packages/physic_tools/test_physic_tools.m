@@ -50,11 +50,8 @@ verify_equal(vth_e, 5.93e5*ones(2,3))
 end
 
 function test_get_Xsec_and_k(testCase)
-% test 	get_Xsec and get_k
-% Xsec截面的可靠性不在此处test，通过结果ν
-% 与2014Cazzador中ν对比来test
-
-Xsec=get_Xsec(true);
+% test 	formula of get_Xsec and get_k
+Xsec=get_Xsec('1990Tawara', true);
 close
 Te=[ones(1,3);10*ones(1,3)];
 kenp=get_k(Te, Xsec.enp);
@@ -67,6 +64,71 @@ verify_equal=@(actual, expected) verifyEqual(testCase,actual,expected,'RelTol',t
 verify_equal(kenp, [1.0505e-13*ones(1,3);9.1450e-14*ones(1,3)])
 verify_equal(keniz, [1.3344e-21*ones(1,3);6.4445e-15*ones(1,3)])
 end
+
+function test_different_Xsec(testCase)
+% test 	get_Xsec and get_k
+% Xsec截面的可靠性不在此处test，通过结果ν
+% 与2014Cazzador中ν对比来test
+% get Xsec
+Xsec1=get_Xsec('1990Tawara', false);
+Xsec2=get_Xsec('Phelps-m', false);
+
+% plot Xsec
+plot_line_width=3;
+gca_line_width=1;
+font_size=15;
+
+handle_fig=figure;
+loglog(Xsec1.enp(:,1),Xsec1.enp(:,2),'-r','LineWidth',2*plot_line_width)
+hold on
+loglog(Xsec1.eniz(:,1),Xsec1.eniz(:,2),'--k','LineWidth',2*plot_line_width)
+loglog(Xsec2.enp(:,1),Xsec2.enp(:,2),'-.m','LineWidth',plot_line_width)
+loglog(Xsec2.eniz(:,1),Xsec2.eniz(:,2),'-.c','LineWidth',plot_line_width)
+
+ylabel('Cross section (m^2)');
+xlabel('Energy (eV)')
+set(gca,'FontSize',font_size)
+set(gca, 'LineWidth',gca_line_width)
+%             title([name_Y ' \rmat \rm' now_str]);
+grid on%显示网格
+%     text(0.4*X1(1),0.5e5,'(b)','FontSize',font_size)
+
+L1=legend('{\it\bf\sigma}_{en}^p-1990Tawara','{\it\bf\sigma}_{en}^{iz}-1990Tawara',...
+    '{\it\bf\sigma}_{en}^p-Phelps','{\it\bf\sigma}_{en}^{iz}-Phelps');
+set(L1,'FontSize',font_size);
+set(L1,'location','southwest');
+set(L1,'box','off')
+set(L1,'AutoUpdate','off')
+hold off
+
+% get k
+Te=logspace(-1,2,40);
+kenp1=get_k(Te, Xsec1.enp);
+keniz1=get_k(Te, Xsec1.eniz);
+kenp2=get_k(Te, Xsec2.enp);
+keniz2=get_k(Te, Xsec2.eniz);
+
+% plot k
+figure
+loglog(Te,kenp1,'-r');
+hold on
+loglog(Te,keniz1,'-b');
+loglog(Te,kenp2,'-.c');
+loglog(Te,keniz2,'-.m');
+ylabel('k');
+xlabel('Te (eV)')
+grid on
+L1=legend('{\itk}_{en}^p-1990Tawara','{\itk}_{en}^{iz}-1990Tawara',...
+    '{\itk}_{en}^p-Phelps','{\itk}_{en}^{iz}-Phelps');
+set(L1,'FontSize',font_size);
+set(L1,'location','southwest');
+set(L1,'box','off')
+set(L1,'AutoUpdate','off')
+hold off
+
+end
+% test result: Xsec from 1990Tawara and Phelps are almost the same.
+% details are recorded in .\others\Figures during code developing.pptx 
 
 function test_get_Nagaoka(testCase)
 % test 	get_Nagaoka

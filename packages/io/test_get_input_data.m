@@ -44,23 +44,25 @@ end
 
 function test_get_external_formula(testCase)
 % test get_input_external_base
-flag.Rmetal='measured-Rmetal-woplasma';
-flag.Lcoil='measured-Lcoil-woplasma';
 input_plasma=get_input_plasma( '2018Jainb_ELISE_typical' );
 input_geo=get_input_geometry( 'HUST_small_driver_ZL' );
-external=get_input_external( flag, input_geo, input_plasma );
+flag.electric_model='not empty';
+flag.Rmetal='measured-Rmetal-woplasma';
+flag.Lcoil='measured-Lcoil-woplasma';
+external=get_input_external( flag, input_geo, input_plasma.w_RF );
 % 可见，公式计算值与测量值有较大区别
 verifyEqual(testCase,external.Rmetal,external.Rmetal_ex)
 verifyEqual(testCase,external.Lcoil,external.Lcoil_ex)
 end
 
 function test_get_external_other_case(testCase)
-% test get_input_external_base
-flag.Rmetal='measured-Rmetal-woplasma';
-flag.Lcoil='calculated-Lcoil-woplasma';
+% test get_input_external_other_case
 input_plasma=get_input_plasma( '2018Jainb_ELISE_typical' );
 input_geo=get_input_geometry( 'ELISE_base' );
-external=get_input_external( flag, input_geo, input_plasma );
+flag.electric_model='not empty';
+flag.Rmetal='measured-Rmetal-woplasma';
+flag.Lcoil='calculated-Lcoil-woplasma';
+external=get_input_external( flag, input_geo, input_plasma.w_RF );
 verifyEqual(testCase,external.Rmetal,external.Rcoil_ex)
 verifyEqual(testCase,external.Lcoil,external.Lcoil_th)
 % 可见，公式计算值与测量值有较大区别
@@ -70,9 +72,9 @@ function test_get_data_base(testCase)
 % test get_input_external_base
 flag.input_plasma='2018Jainb_ELISE_typical';
 flag.input_geometry='ELISE_base';
+flag.electric_model='not empty';
 flag.Rmetal='measured-Rmetal-woplasma';
 flag.Lcoil='calculated-Lcoil-woplasma';
-flag.electric_model='not empty';
 input=get_input_data( flag );
 verifyEqual(testCase,input.geometry.r_plasma_eff,input.geometry.r_chamber)
 end

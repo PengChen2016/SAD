@@ -1,4 +1,5 @@
 function [ source ] = electric_model( flag, input )
+% electric model of ICP source
 % 螺线管线圈ICP源的电模型
 constants=get_constants();
 

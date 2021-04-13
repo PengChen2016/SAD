@@ -13,6 +13,7 @@ function [ input ] = get_input_external( flag, geometry, w_RF )
 
 %% 线圈阻抗计算值-几何决定
 constants=get_constants();% 全局常数 结构体
+assert(isfloat(w_RF))
 % TODO:考虑FEM中引线长度，计算一个理论电阻
 % TODO: 验算以下公式是否在适用范围内
 % 计算电阻：考虑导线表面集肤效应，未考虑邻近效应
@@ -25,9 +26,13 @@ input.Rcoil_th=l_wire./(constants.sigma_Cu.*S_current_path);
 % 线圈电感
 switch flag.electric_model
     case 'transformer-2018Jainb'
+        % Formula in 2018Jainb - Studies and experimental activities to
+        % qualify the behaviour of RF power circuits for Negative Ion
+        % Sources of Neutral Beam Injectors for ITER and fusion experiments
         input.Lcoil_th=geometry.N_coil^2*0.002*pi*(2*geometry.r_coil*100)* ...
             (log(4*2*geometry.r_coil/geometry.l_coil)-0.5)*1e-6;
     otherwise
+        % Formula using Nagaoka coefficient
         L_infinite_long=constants.mu0*pi*geometry.r_coil^2*geometry.N_coil^2/geometry.l_coil;
         input.Lcoil_th=L_infinite_long*get_Nagaoka(2*geometry.r_coil/geometry.l_coil);
         % 20210304 pengchen reviewed these formulas: ok,

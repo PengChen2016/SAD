@@ -1,5 +1,8 @@
 function [ input ] = get_input_data( flag )
 % 返回预置 模型输入数据
+% If flag.electric_model='', only input_data of plasma model are got.
+
+constants=get_constants();
 
 %% input of  equivalent_medium_model_of_plasma
 fprintf('[INFO] Use input plasma dataset: %s \n',flag.input_plasma);
@@ -26,21 +29,15 @@ switch flag.input_plasma
         input.plasma=get_input_plasma( flag.input_plasma );
 end
 
-%% 等离子体不均匀分布处理
-input.plasma.r=inf; %均匀无限大/半无限大
-
-%% 外场信息
-% 磁场
-
 %% 等离子体特征参数计算
-constants=get_constants();
+% TODO: 提取这一部分，供单独使用
 input.plasma.wpe=get_omega_pe(input.plasma.ne); %电子等离子体频率
 input.plasma.wpi=get_omega_pi(input.plasma.ne,1,1); %离子等离子体频率
 input.plasma.ve=sqrt(8*input.plasma.Te*constants.e/(pi*constants.me));    %电子平均速率，计算自由程用
-%             plasma.wce=constants.e;     %电子拉莫尔运动频率
+%             wce=constants.e;     %电子拉莫尔运动频率
 
 %% input of electric model
-if ~isempty(flag.electric_model)
+if isfield(flag,'electric_model') && ~isempty(flag.electric_model)
     % 几何数据
     input.geometry=get_input_geometry( flag.input_geometry ); % 导入预置数据
     
@@ -55,7 +52,7 @@ if ~isempty(flag.electric_model)
     % 外电路数据
     switch input.plasma.flag
         case 'CHARLIE_10Pa_4MHz_520W'
-            temp=get_input_external(flag, input.geometry, input.plasma);
+            temp=get_input_external(flag, input.geometry, input.plasma.w_RF);
             input.external=temp;
             % Rcoil_th, Lcoil_th, Lcoil_ex等只有单个数据
             % 从多维数组中选择

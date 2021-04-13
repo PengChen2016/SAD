@@ -1,10 +1,23 @@
-function [ Xsec ] = get_Xsec( flag_plot )
-% 读赵鹏截面文件, 得到弹性与电离反应截面。
-[E,a]=textread('ELASTIC.txt','%n %n','headerlines',10);
-Xsec.enp=[E,a];
-[E,a]=textread('IONIZATION.txt','%n %n','headerlines',10);
-Xsec.eniz=[E,a];
+function [ Xsec ] = get_Xsec( type, flag_plot )
+%% get Xsec from source
+switch type
+    case '1990Tawara'
+        % PengZhao get data from 1990Tawara - Cross Sections and Related Data for
+        % Electron Collisions with Hydrogen Molecules and Molecular Ions
+        [E,a]=textread('ELASTIC-1990Tawara.txt','%n %n','headerlines',10);
+        Xsec.enp=[E,a];
+        [E,a]=textread('IONIZATION-1990Tawara.txt','%n %n','headerlines',10);
+        Xsec.eniz=[E,a];
+    case 'Phelps-m'
+        % PengChen2016 get data from Phelps (details are recorded in the data
+        % files)
+        [E,a]=textread('ELASTIC-Phelps.txt','%n %n','headerlines',12);
+        Xsec.enp=[E,a];
+        [E,a]=textread('IONIZATION-Phelps.txt','%n %n','headerlines',10);
+        Xsec.eniz=[E,a];
+end
 
+%% plot
 if flag_plot
     plot_line_width=3;
     gca_line_width=1;
@@ -21,7 +34,7 @@ if flag_plot
     set(gca, 'LineWidth',gca_line_width)
     %             title([name_Y ' \rmat \rm' now_str]);
     grid on%显示网格
-%     text(0.4*X1(1),0.5e5,'(b)','FontSize',font_size)
+    %     text(0.4*X1(1),0.5e5,'(b)','FontSize',font_size)
     
     L1=legend('{\it\bf\sigma}_{en}^p','{\it\bf\sigma}_{en}^{iz}');
     set(L1,'FontSize',font_size);
