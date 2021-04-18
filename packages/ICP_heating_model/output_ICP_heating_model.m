@@ -1,9 +1,15 @@
 function output_ICP_heating_model( flag,plasma )
 % 对ICP heating model的输出与可视化
+if isfield(flag,'stoc_model') && ~isempty(flag.stoc_model)
+    flag_use_stoc_model=true;
+else
+    flag_use_stoc_model=false;
+end
+
 if 1==plasma.size
-    %% 单数据点：输出文本
+    %% single point
     fprintf('%s = %.2e , ','ν_m',plasma.nu_m);
-    if ~isempty(flag.stoc_model)
+    if flag_use_stoc_model
         fprintf('%s = %.2e , ','ν_stoc',plasma.nu_st);
     end
     fprintf('%s = %.2e \n','ν_eff',plasma.nu_eff);
@@ -21,21 +27,21 @@ if 1==plasma.size
         disp('ν_m/ν_eff < 0.1, 加热机制以随机加热为主.')
     elseif plasma.nu_m2nu_eff<=0.9
         disp('需同时考虑欧姆加热和随机加热.')
-    elseif ~isempty(flag.stoc_model)
+    elseif flag_use_stoc_model
         disp('ν_stoc/ν_eff > 0.9, 加热机制以欧姆加热为主.')
     end
-    if ~isempty(flag.stoc_model)
+    if flag_use_stoc_model
         fprintf('%s = %.2e , ','趋肤层渡越时间τ',plasma.delta_st/plasma.ve);
     end
     
     % 带电粒子响应RF电磁场
-    if ~isempty(flag.stoc_model) && plasma.wpi2wRF>=1
+    if flag_use_stoc_model && plasma.wpi2wRF>=1
         fprintf('%s = %.2e \n','ω_pi/ω_RF',plasma.wpi2wRF);
-        disp('[WARN] 1995Vahedia的ICP heating model要求离子不响应电场, 但当前等离子体参数集并不满足')
+        disp('[WARN] 1995Vahedia的stoc model要求离子不响应电场, 但当前等离子体参数集并不满足')
     end
     disp('')
 else
-    %% 多数据点：输出图像
+    %% multi point
 %     % 对比不同加热机制
 %     if ~isempty(flag.stoc_model)
 %         name_Y='\nu_c';
@@ -92,8 +98,6 @@ else
 %     title(['不同种类碰撞频率 \rmat \rm' now_str]);
 %     axis([X1(1),X1(end),1e4,1e10]) %绘图显示范围，即[xmin,xmax,ymin,ymax]
 %     grid on%显示网格
-    
-    
     
 end
 

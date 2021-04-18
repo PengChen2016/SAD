@@ -1,4 +1,4 @@
-function output_equivalent_EM_medium_model( plasma )
+function output_equivalent_EM_medium_model( flag, plasma )
 % 对equivalent EM_medium model的输出与可视化
 if 1==plasma.size
     %% 单数据点：输出文本
@@ -22,6 +22,9 @@ if 1==plasma.size
         fprintf('%s = %.2e \n','σ_dc',plasma.sigma_dc);
     else
         fprintf('%s = %.2e \n','ν/ω_RF, 不应使用σ_dc\n',plasma.nu_eff/plasma.w_RF);
+        if isfield(flag,'medium_approximation') && strcmp(flag.medium_approximation,'sigma_dc')
+            warning('The used medium_approximation sigma_dc is not suitable.')
+        end
     end
     
     % 带电粒子响应RF电磁场

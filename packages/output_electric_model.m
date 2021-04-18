@@ -66,52 +66,52 @@ if flag_output_electric_model
             %             fig_background_transparent(gcf,gca)  %临时使用
             
         else
-            name_Y='等离子体等效阻抗\itZ_{\rmplasma}';
-            Y1=PER;
-            name_Y1='\itPER\rm, namely \itR_{\rmplasma}\rm[\Omega]';
-            Y2=Xplasma;
-            name_Y2='\itX_{\rmplasma}\rm[\Omega]';
-            handle_fig=plot_parametric_2Y(name_Y,Y1,name_Y1,Y2,name_Y2,...
-                X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
-            line([X1(1),X1(end)],[0,0],'linestyle','-.','linewidth',1.5,'color','k');
-            L1=legend([name_Y1 ' at ' legend_X2{1}],[name_Y1 ' at ' legend_X2{no_mid_X2}],[name_Y1 ' at ' legend_X2{end}],...
-                [name_Y2 ' at ' legend_X2{1}],[name_Y2 ' at ' legend_X2{no_mid_X2}],[name_Y2 ' at ' legend_X2{end}],...
-                'Z=0');
-            set(L1,'location','southwest');
-            
-            Y2=-Lplasma*1e6;
-            name_Y2='-\itL_{\rmplasma}\rm[\muH]';
-            handle_fig=plot_parametric_2Yaxi(name_Y,Y1,name_Y1,Y2,name_Y2,...
-                X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
-            pause
-            
-            name_Y='系统等效阻抗\itZ_{\rmsys}即实验可测的端口阻抗';
-            Y1=Rsys;
-            name_Y1='\itR_{\rmsys}\rm[\Omega]';
-            Y2=Xsys;
-            name_Y2='\itX_{\rmsys}\rm[\Omega]';
-            handle_fig=plot_parametric_2Y(name_Y,Y1,name_Y1,Y2,name_Y2,...
-                X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
-            Y2=Lsys*1e6;
-            name_Y2='\itL_{\rmsys}\rm[\muH]';
-            handle_fig=plot_parametric_2Yaxi(name_Y,Y1,name_Y1,Y2,name_Y2,...
-                X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
-            pause
-            
-            
-            
-            
-            name_Y='系统功率传输效率PTE和耦合因数PCF';
-            Y1=PTE;
-            name_Y1='\itPTE';
-            Y2=PCF;
-            name_Y2='\itPCF';
-            handle_fig=plot_parametric_2Yaxi(name_Y,Y1,name_Y1,Y2,name_Y2,...
-                X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
-            L1=legend([name_Y1 ' at ' legend_X2{1}],[name_Y1 ' at ' legend_X2{no_mid_X2}],[name_Y1 ' at ' legend_X2{end}],...
-                [name_Y2 ' at ' legend_X2{1}],[name_Y2 ' at ' legend_X2{no_mid_X2}],[name_Y2 ' at ' legend_X2{end}]);
-            set(L1,'location','northwest');
-            pause
+%             name_Y='等离子体等效阻抗\itZ_{\rmplasma}';
+%             Y1=PER;
+%             name_Y1='\itPER\rm, namely \itR_{\rmplasma}\rm[\Omega]';
+%             Y2=Xplasma;
+%             name_Y2='\itX_{\rmplasma}\rm[\Omega]';
+%             handle_fig=plot_parametric_2Y(name_Y,Y1,name_Y1,Y2,name_Y2,...
+%                 X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
+%             line([X1(1),X1(end)],[0,0],'linestyle','-.','linewidth',1.5,'color','k');
+%             L1=legend([name_Y1 ' at ' legend_X2{1}],[name_Y1 ' at ' legend_X2{no_mid_X2}],[name_Y1 ' at ' legend_X2{end}],...
+%                 [name_Y2 ' at ' legend_X2{1}],[name_Y2 ' at ' legend_X2{no_mid_X2}],[name_Y2 ' at ' legend_X2{end}],...
+%                 'Z=0');
+%             set(L1,'location','southwest');
+%             
+%             Y2=-Lplasma*1e6;
+%             name_Y2='-\itL_{\rmplasma}\rm[\muH]';
+%             handle_fig=plot_parametric_2Yaxi(name_Y,Y1,name_Y1,Y2,name_Y2,...
+%                 X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
+%             pause
+%             
+%             name_Y='系统等效阻抗\itZ_{\rmsys}即实验可测的端口阻抗';
+%             Y1=Rsys;
+%             name_Y1='\itR_{\rmsys}\rm[\Omega]';
+%             Y2=Xsys;
+%             name_Y2='\itX_{\rmsys}\rm[\Omega]';
+%             handle_fig=plot_parametric_2Y(name_Y,Y1,name_Y1,Y2,name_Y2,...
+%                 X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
+%             Y2=Lsys*1e6;
+%             name_Y2='\itL_{\rmsys}\rm[\muH]';
+%             handle_fig=plot_parametric_2Yaxi(name_Y,Y1,name_Y1,Y2,name_Y2,...
+%                 X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
+%             pause
+%             
+%             
+%             
+%             
+%             name_Y='系统功率传输效率PTE和耦合因数PCF';
+%             Y1=PTE;
+%             name_Y1='\itPTE';
+%             Y2=PCF;
+%             name_Y2='\itPCF';
+%             handle_fig=plot_parametric_2Yaxi(name_Y,Y1,name_Y1,Y2,name_Y2,...
+%                 X1,idx_X1,X_var,name_X_var,unit_X_var,legend_X2,no_mid_X2,now_str);
+%             L1=legend([name_Y1 ' at ' legend_X2{1}],[name_Y1 ' at ' legend_X2{no_mid_X2}],[name_Y1 ' at ' legend_X2{end}],...
+%                 [name_Y2 ' at ' legend_X2{1}],[name_Y2 ' at ' legend_X2{no_mid_X2}],[name_Y2 ' at ' legend_X2{end}]);
+%             set(L1,'location','northwest');
+%             pause
             
             %     figure(2)
             %     [constants.c,h]=contour(ne,Te,PTE,'LevelList',[0.7:0.05:1]);

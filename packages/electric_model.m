@@ -1,9 +1,39 @@
 function [ source ] = electric_model( flag, input )
-% electric model of ICP source
-% 螺线管线圈ICP源的电模型
-constants=get_constants();
+% electric model of ICP source (cylinder coil)
+
+%% preparation
+fprintf('[INFO] Use electric model: %s\n',flag.electric_model);
+if isnan(input.external.Icoil_rms)
+    input.external.Icoil_rms=1;
+    disp('[INFO] Use Icoil_rms=1A to calculate power.')
+end
+%% choose electric model
+if strfind(flag.electric_model,'transformer')
+    source=transformer_model( flag, input );
+else
+    switch flag.electric_model
+        case 'analytical_base'
+            source=analytical_EM_model( flag, input );
+        case 'multi-filament'
+            error('To be realized.')
+        otherwise
+            warning('Unexpected electric model. Please stop and check.')
+            pause
+    end
+end
+%% derived parameters
+source.PTE=source.PER./source.Rsys;   %射频功率传输效率 PTE
+source.PCF=source.Rsys./source.Xsys;  %激励器射频功率耦合因数
+
+%% output
+if flag.output_electric_model
+    output_electric_model( flag, source )
+end
+
+end
 
 %% 几何校正
+% constants=get_constants();
 % l_equ=l_chamber; %等离子体、线圈均与腔室同长
 % %         N_equ=N_coil;
 % N_equ=N_coil*l_equ/l_coil; %变换线圈长度
@@ -34,35 +64,3 @@ constants=get_constants();
     %             end
     %             fprintf('%s = %.2e \n','Lcoil',Lcoil);
     %             Qcoil=w_RF*Lcoil/Rcoil;
-
-%% 电模型
-fprintf('[INFO] Use electric model: %s\n',flag.electric_model);
-if isnan(input.external.Icoil_rms)
-    input.external.Icoil_rms=1;
-    disp('[INFO] Use Icoil_rms=1A to calculate power.')
-end
-if strfind(flag.electric_model,'transformer')
-    source=transformer_model( flag, input );
-else
-    switch flag.electric_model
-        case 'analytical_base'
-            source=analytical_EM_model( flag, input );
-        case 'multi-filament'
-            error('To be realized.')
-        otherwise
-            warning('Unexpected electric model. Please stop and check.')
-            pause
-    end
-end
-
-%% 功率与阻抗计算
-
-source.PTE=source.PER./source.Rsys;   %射频功率传输效率 PTE
-source.PCF=source.Rsys./source.Xsys;  %激励器射频功率耦合因数
-
-%% 输出与可视化
-if flag.output_electric_model
-    output_electric_model( flag, source )
-end
-
-end
