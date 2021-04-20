@@ -2,41 +2,41 @@ function output_plasma_model(flag,plasma)
 % output information of plasma model
 % mainly for single point now
 
-    fprintf('[INFO] Results from plasma model.\n');
-    if 1==plasma.size
-        % single point
-        disp('等离子体参数')
-        fprintf('%s = %.1e m^-3 , ','ne',plasma.ne);
-        fprintf('%s = %.1f eV\n','Te',plasma.Te);
-        fprintf('%s = %.2e Hz, ','f',plasma.f);
-        fprintf('%s = %.2e Pa, ','p',plasma.p);
-        fprintf('%s = %.2e K, ','Tg',plasma.Tg)
-        fprintf('%s = %.2e m^-3\n','ng',plasma.ng);
-        disp('特征频率')
-        fprintf('%s = %.2e rad/s, ','ω_RF',plasma.w_RF);
-        fprintf('%s = %.2e rad/s, ','ω_pe',plasma.wpe);
-        fprintf('%s = %.2e rad/s\n','ω_pi',plasma.wpi);
-        disp('特征时间')
-        fprintf('%s = %.2e s\n','RF周期T',2*pi/plasma.w_RF);
-    else
-        % multi point
-        disp('等离子体参数')
-        fprintf('%s = %.1e ~ %.1e m^-3 , ','ne',min(plasma.ne(:)),max(plasma.ne(:)));
-        fprintf('%s = %.1f ~ %.1f eV\n','Te',min(plasma.Te(:)),max(plasma.Te(:)));
-        fprintf('%s = %.2e ~ %.2e Hz, ','f',min(plasma.f(:)),max(plasma.f(:)));
-        fprintf('%s = %.1f ~ %.1f Pa, ','p',min(plasma.p(:)),max(plasma.p(:)));
-        fprintf('%s = %.1f ~ %.1f K, ','Tg',min(plasma.Tg(:)),max(plasma.Tg(:)));
-        fprintf('%s = %.2e ~ %.2e m^-3\n','ng',min(plasma.ng(:)),max(plasma.ng(:)));
-        disp('特征频率')
-        fprintf('%s = %.2e ~ %.2e rad/s, ','ω_RF',min(plasma.w_RF(:)),max(plasma.w_RF(:)));
-        fprintf('%s = %.2e ~ %.2e rad/s, ','ω_pe',min(plasma.wpe(:)),max(plasma.wpe(:)));
-        fprintf('%s = %.2e ~ %.2e rad/s\n','ω_pi',min(plasma.wpi(:)),max(plasma.wpi(:)));
-        disp('特征时间')
-        fprintf('%s = %.2e ~ %.2e s\n','RF周期T',min(2*pi./plasma.w_RF(:)),max(2*pi./plasma.w_RF(:)));
-    end
-    % child model
-    output_ICP_heating_model( flag, plasma );
-    output_equivalent_EM_medium_model( flag, plasma )
+fprintf('[INFO] Results from plasma model.\n');
+if 1==plasma.size
+    % single point
+    disp('等离子体参数')
+    fprintf('%s = %.1e m^-3 , ','ne',plasma.ne);
+    fprintf('%s = %.1f eV\n','Te',plasma.Te);
+    fprintf('%s = %.2e Hz, ','f',plasma.f);
+    fprintf('%s = %.2e Pa, ','p',plasma.p);
+    fprintf('%s = %.2e K, ','Tg',plasma.Tg)
+    fprintf('%s = %.2e m^-3\n','ng',plasma.ng);
+    disp('特征频率')
+    fprintf('%s = %.2e rad/s, ','ω_RF',plasma.w_RF);
+    fprintf('%s = %.2e rad/s, ','ω_pe',plasma.wpe);
+    fprintf('%s = %.2e rad/s\n','ω_pi',plasma.wpi);
+    disp('特征时间')
+    fprintf('%s = %.2e s\n','RF周期T',2*pi/plasma.w_RF);
+else
+    % multi point
+    disp('等离子体参数')
+    fprintf('%s = %.1e ~ %.1e m^-3 , ','ne',min(plasma.ne(:)),max(plasma.ne(:)));
+    fprintf('%s = %.1f ~ %.1f eV\n','Te',min(plasma.Te(:)),max(plasma.Te(:)));
+    fprintf('%s = %.2e ~ %.2e Hz, ','f',min(plasma.f(:)),max(plasma.f(:)));
+    fprintf('%s = %.1f ~ %.1f Pa, ','p',min(plasma.p(:)),max(plasma.p(:)));
+    fprintf('%s = %.1f ~ %.1f K, ','Tg',min(plasma.Tg(:)),max(plasma.Tg(:)));
+    fprintf('%s = %.2e ~ %.2e m^-3\n','ng',min(plasma.ng(:)),max(plasma.ng(:)));
+    disp('特征频率')
+    fprintf('%s = %.2e ~ %.2e rad/s, ','ω_RF',min(plasma.w_RF(:)),max(plasma.w_RF(:)));
+    fprintf('%s = %.2e ~ %.2e rad/s, ','ω_pe',min(plasma.wpe(:)),max(plasma.wpe(:)));
+    fprintf('%s = %.2e ~ %.2e rad/s\n','ω_pi',min(plasma.wpi(:)),max(plasma.wpi(:)));
+    disp('特征时间')
+    fprintf('%s = %.2e ~ %.2e s\n','RF周期T',min(2*pi./plasma.w_RF(:)),max(2*pi./plasma.w_RF(:)));
+end
+% child model
+output_ICP_heating_model( flag, plasma );
+output_equivalent_EM_medium_model( flag, plasma )
 end
 
 %% 留存

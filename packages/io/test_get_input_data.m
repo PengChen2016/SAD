@@ -43,7 +43,7 @@ verifyEqual(testCase,plasma.size,[size(plasma.ne),1])
 end
 
 function test_get_external_formula(testCase)
-% test get_input_external_base
+% test get_input_external formula
 input_plasma=get_input_plasma( '2018Jainb_ELISE_typical' );
 input_geo=get_input_geometry( 'HUST_small_driver_ZL' );
 flag.electric_model='not empty';
@@ -69,7 +69,7 @@ verifyEqual(testCase,external.Lcoil,external.Lcoil_th)
 end
 
 function test_get_data_base(testCase)
-% test get_input_external_base
+% test get_input_data base
 flag.input_plasma='2018Jainb_ELISE_typical';
 flag.input_geometry='ELISE_base';
 flag.electric_model='not empty';
@@ -80,7 +80,7 @@ verifyEqual(testCase,input.geometry.r_plasma_eff,input.geometry.r_chamber)
 end
 
 function test_get_data_CHARLIE_single(testCase)
-% test get_input_external_base
+% test get_input_data CHARLIE_single case
 flag.input_plasma='CHARLIE_10Pa_4MHz_520W';
 flag.input_geometry='CHARLIE_base';
 flag.Rmetal='measured-Rmetal-woplasma';
@@ -91,6 +91,24 @@ input=get_input_data( flag );
 verifyEqual(testCase,input.plasma.ne,3.7e17)
 verifyEqual(testCase,input.external.Rmetal,0.213659)
 end
+
+function test_CHARLIE_raza_sweep(testCase)
+flag.input_plasma='CHARLIE_raza_sweep';
+input=get_input_data( flag );
+actual_plasma=input.plasma;
+
+excepted_plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
+ratio_origin2goal.ne_r=nonuniform_dist.get_ne_r([0,45.5])/nonuniform_dist.get_ne_r(10);
+excepted_plasma.ne= excepted_plasma.ne*ratio_origin2goal.ne_r;
+constants=get_constants();
+excepted_plasma.wpe=get_omega_pe(excepted_plasma.ne); 
+excepted_plasma.wpi=get_omega_pi(excepted_plasma.ne,1,1); %离子等离子体频率
+excepted_plasma.ve=sqrt(8*excepted_plasma.Te*constants.e/(pi*constants.me));
+
+verifyEqual(testCase,actual_plasma,excepted_plasma)
+end
+% test result: ok  20210420
+
 %% Optional file fixtures  
 function setupOnce(testCase)  % do not change function name
 % set a new path, for example

@@ -21,6 +21,7 @@ else
             pause
     end
 end
+source.size=input.plasma.size;
 %% derived parameters
 source.PTE=source.PER./source.Rsys;   %射频功率传输效率 PTE
 source.PCF=source.Rsys./source.Xsys;  %激励器射频功率耦合因数

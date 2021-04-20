@@ -25,6 +25,10 @@ switch flag.input_plasma
         input.plasma.ng=temp.ng(idx);
         input.plasma.size=[length(input.plasma.p),...
             length(input.plasma.f),length(input.plasma.Pin)];
+    case 'CHARLIE_raza_sweep'
+        input.plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
+        ratio_origin2goal.ne_r=nonuniform_dist.get_ne_r([0,45.5])/nonuniform_dist.get_ne_r(10);
+        input.plasma.ne= input.plasma.ne*ratio_origin2goal.ne_r;
     otherwise
         input.plasma=get_input_plasma( flag.input_plasma );
 end

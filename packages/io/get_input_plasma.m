@@ -201,8 +201,6 @@ switch flag_input_plasma
         % Tg=[500.364, 529.95, 574.556, 623.714, 652.39, 704.051]'; %1MHz
         Tg_CHARLIE=@(p) 128.7*log10(p)+568.5; % 根据2017Rauner_CHARLIE数据拟合
         plasma.Tg=Tg_CHARLIE(plasma.p);
-        
-        
         plasma.size=[num_p, num_f, num_Pin];
     otherwise
         error('no data')

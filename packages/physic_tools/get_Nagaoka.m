@@ -13,7 +13,7 @@ if ~isnan(a)
     k = interp1(Nagaoka_data(:,1),Nagaoka_data(:,2),a,'linear',0);
     idx=find(a<Nagaoka_data(1,1) | a<Nagaoka_data(1,end),1);
     if ~isempty(idx)
-        warning('[WARN] Out of the range of Nagaoka.txt, make k=0')
+        warning('[WARN] Out of the range of Nagaoka.txt, make k=0. idx:')
         disp(idx')
     end
 else

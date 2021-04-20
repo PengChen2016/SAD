@@ -84,12 +84,14 @@ if ~isempty(idx)
     disp(idx')
     error('Lplasma of ICP source should < 0')
 end
+source.Rmetal=external.Rmetal;
+source.Xplasma=source.Lplasma.*w_RF;
 
 %系统等效阻抗
 source.w_RF=w_RF;
 source.Rsys=external.Rmetal+source.PER; % 系统电阻
 source.Lsys=external.Lcoil+source.Lplasma;   %系统电感
-source.Xsys=source.Lsys*w_RF;   %系统电抗
+source.Xsys=source.Lsys.*w_RF;   %系统电抗
 
 %% 功率
 source.P_abs=source.PER.*external.Icoil_rms.^2; % 等离子体吸收功率

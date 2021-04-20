@@ -3,6 +3,9 @@
 % 计算等效阻抗与RF传输效率
 % MATLAB R2017a
 
+% TODO
+% 根据CHARLIE_for_paper来修改
+
 %% 初始化
 close all
 clear
