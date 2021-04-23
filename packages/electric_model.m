@@ -1,12 +1,18 @@
 function [ source ] = electric_model( flag, input )
 % electric model of ICP source (cylinder coil)
-
+% 如果将input_geo和input_external赋给source，则改为
+% function [ source ] = electric_model( flag, plasma, source )
+    
 %% preparation
 fprintf('[INFO] Use electric model: %s\n',flag.electric_model);
-if isnan(input.external.Icoil_rms)
+
+% 若将Icoil_rms移出具体model，则以下条件语句移到本文件最后
+if ~isfield(input.external,'Icoil_rms') || isempty(input.external.Icoil_rms)...
+        || isempty(find(~isnan(input.external.Icoil_rms),1))
     input.external.Icoil_rms=1;
-    disp('[INFO] Use Icoil_rms=1A to calculate power.')
+    disp('[WARN] No given Icoil. Use Icoil_rms=1A to calculate power.')
 end
+
 %% choose electric model
 if strfind(flag.electric_model,'transformer')
     source=transformer_model( flag, input );
@@ -21,8 +27,19 @@ else
             pause
     end
 end
-source.size=input.plasma.size;
+
 %% derived parameters
+source.size=input.plasma.size;
+
+% 如果 Pin或Icoil_rms相关的运算 与具体电模型无关，则提出来放在这里
+% source.Pin=input.plasma.Pin; % Pin需保留在input_plasma内，是常用表征参数
+% 与Pin或Icoil_rms相关的运算
+% 一般至少有Pin
+% 有Pin，则由Rsys计算Isys
+% 有Icoil_rms，则由Rsys计算Psys
+% 同时有Pin和Icoil_rms，则计算Rsys_given
+% source.Rsys_experiment=input.plasma.Pin./input.external.Icoil_rms
+
 source.PTE=source.PER./source.Rsys;   %射频功率传输效率 PTE
 source.PCF=source.Rsys./source.Xsys;  %激励器射频功率耦合因数
 
@@ -32,36 +49,3 @@ if flag.output_electric_model
 end
 
 end
-
-%% 几何校正
-% constants=get_constants();
-% l_equ=l_chamber; %等离子体、线圈均与腔室同长
-% %         N_equ=N_coil;
-% N_equ=N_coil*l_equ/l_coil; %变换线圈长度
-% r_p=r_chamber; %等离子体与腔室同半径
-
-    % 增大线圈阻抗的校正方法
-    %             % 理论计算线圈阻抗
-    %             fprintf('几何校正前线圈阻抗：')
-    %             fprintf('%s = %.2e , ','Rcoil',Rcoil);
-    %             fprintf('%s = %.2e \n','Lcoil',Lcoil);
-    %             Rcoil_modified=N_equ*2*pi*r_coil*sqrt(constants.mu0*w_RF*constants.sigma_Cu/2)/2/pi/r_wire_of_coil/constants.sigma_Cu;%已考虑集肤效应，未考虑邻近效应
-    %             Lcoil_modified=constants.mu0*check_Nagaoka(2*r_coil/l_equ)*pi*r_coil^2*N_equ^2/l_equ;  %一次螺线管线圈电感理论计算表达式
-    %             fprintf('几何校正后，理论计算线圈阻抗：')
-    %             fprintf('%s = %.2e , ','Rcoil',Rcoil_modified);
-    %             fprintf('%s = %.2e \n','Lcoil',Lcoil_modified);
-    %             if Rcoil<Rcoil_modified
-    %                 Rcoil=Rcoil_modified*ones(size(Rcoil));
-    %                 fprintf('使用几何校正后')
-    %             else
-    %                 fprintf('使用几何校正前')
-    %             end
-    %             fprintf('%s = %.2e \n','Rcoil',Rcoil);
-    %             if abs(Lcoil)<abs(Lcoil_modified)
-    %                 Lcoil=Lcoil_modified;
-    %                 fprintf('使用几何校正后')
-    %             else
-    %                 fprintf('使用几何校正前')
-    %             end
-    %             fprintf('%s = %.2e \n','Lcoil',Lcoil);
-    %             Qcoil=w_RF*Lcoil/Rcoil;

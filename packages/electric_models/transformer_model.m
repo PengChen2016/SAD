@@ -84,6 +84,8 @@ if ~isempty(idx)
     disp(idx')
     error('Lplasma of ICP source should < 0')
 end
+source.Iplasma_rms=external.Icoil_rms.*...
+    (-1i*w_RF.*M./(1i*w_RF.*(Lmp+Lp)+Rp)); % phase of Icoil is assumed as 0.
 source.Rmetal=external.Rmetal;
 source.Xplasma=source.Lplasma.*w_RF;
 
@@ -94,7 +96,8 @@ source.Lsys=external.Lcoil+source.Lplasma;   %系统电感
 source.Xsys=source.Lsys.*w_RF;   %系统电抗
 
 %% 功率
-source.P_abs=source.PER.*external.Icoil_rms.^2; % 等离子体吸收功率
+source.Pplasma=source.PER.*external.Icoil_rms.^2; % 等离子体吸收功率
+source.Psys=source.Rsys.*external.Icoil_rms.^2;
 
 %% out data struct assembly
 source.transform.Rp=Rp;

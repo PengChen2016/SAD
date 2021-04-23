@@ -26,6 +26,11 @@ check_Nagaoka.m+Nagaoka.txt 查表得长冈系数，对理想螺线管电感做�
 # 单独脚本
 solve_stoc_eqns.m 单独脚本，用于求解stoc方程组  
 
+# TODO
+1. global model
+2. multi-filament model
+3. inverse formula of electric model, or inverse by try-optimization
+
 # History before SVM by Git
 v190111 等效媒质模型与变压器模型初版自左晨，赵鹏  
 190916 by陈鹏 进行等效媒质模型代码整理  

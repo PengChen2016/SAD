@@ -33,6 +33,6 @@ plasma.nu_m2nu_eff=plasma.nu_m./plasma.nu_eff;
 % 若上述比值大于1，则欧姆加热占主
 
 % 分析带电粒子是否响应电磁场
-plasma.wp2iwRF=plasma.wpi./plasma.w_RF;
+plasma.wpi2wRF=plasma.wpi./plasma.w_RF;
 % 若驱动频率较低，上述比值远大于1，则粒子可以响应电磁场
 end

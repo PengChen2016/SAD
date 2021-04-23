@@ -16,7 +16,7 @@ else
         disp(idx')
         if isfield(flag,'electric_model') && ~isempty(strfind(flag.electric_model,'transformer'))
             warning('集中参数电路模型有bug')
-            %         pause
+            %         pause flag.electric_model='transformer-base';
         end
     end
     
@@ -26,11 +26,9 @@ else
         disp(idx')
         if isfield(flag,'stoc_model') && ~isempty(flag.stoc_model)
             warning('随机加热模型计算 有bug')
-            %         pause
         end
         if isfield(flag,'electric_model') && ~isempty(strfind(flag.electric_model,'transformer'))
-            warning('假设电场指数衰减规律 有bug')
-            %         pause
+            warning('变压器模型中，计算Rp-Lp的圆柱媒质涡流模型适用性存疑.')
         end
     end
 end

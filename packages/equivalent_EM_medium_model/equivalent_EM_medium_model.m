@@ -67,11 +67,12 @@ end
 
 if strcmp(flag.input_plasma,'given_directly') && ...
         isfield(plasma,'skin_depth')
+    disp('[WARN] Use given δ_skin data.');
     given_skin_depth=plasma.skin_depth;
     plasma = wave_analysis( plasma, flag.skin_depth );
-    warning('Use given δ_skin data instead!')
     plasma.skin_depth=given_skin_depth;
 else
+    fprintf('[INFO] Use skin depth formula: %s \n',flag.skin_depth );
     plasma = wave_analysis( plasma, flag.skin_depth );
 end
 
