@@ -6,14 +6,18 @@ close all
 clear
 tic
 addpath(genpath('./packages'))
-project_name='CHARLIE_raza_sweep210420';
 now_str=datestr(now,'yyyymmdd_HHMMSS');
 %% flag
+solution_name='for_paper210415';
+program_name='CHARLIE_raza_smaller_plasma210424';
+
+addpath(genpath(['./others/' solution_name '/']))
 flag.using_stored_data=false;
 % flag.using_stored_data=true;
-save_mat_name=['./others/' project_name '.mat'];
+save_mat_name=['./others/' solution_name '/' program_name '.mat'];
 %%%%%%%% plasma model
 flag.input_plasma='CHARLIE_raza_sweep';
+% flag.input_plasma='2019Raunera_CHARLIE_sweep';
 
 % stoc expression
 % flag.stoc_model='';
@@ -56,17 +60,17 @@ flag.output_electric_model=true;
 %% solving
 if ~flag.using_stored_data
     % calculate
-    log_name=['.\others\' project_name '.log'];
+    log_name=['./others/' solution_name '/' program_name '.log'];
     diary(log_name) % append to the end of the log file
-    fprintf('\n-----%s-----\n\n',now_str)
+    fprintf('\n-----%s %s-----\n\n',program_name,now_str)
 
     input=get_input_data( flag );
     
-% modify geometry
-% 应有flag.skin_depth='as-medium-simplified-finite-radius';
-% 等离子体长度取为线圈长度，密度在线圈长度内平均
-% geometry中的plasma尺寸需改变
-% 区分source中的plasma尺寸（电模型等效尺寸），和plasma中的plasma尺寸（真实尺寸）
+    % modify geometry
+    % 应有flag.skin_depth='as-medium-simplified-finite-radius';
+    % 等离子体长度取为线圈长度，密度在线圈长度内平均
+    % geometry中的plasma尺寸需改变
+    % 区分source中的plasma尺寸（电模型等效尺寸），和plasma中的plasma尺寸（真实尺寸）
     
     input.plasma=plasma_model(flag, input.plasma);
     
@@ -138,85 +142,4 @@ plot_2Yaxis(input.plasma.wpe2wRF, '\omega_{pe}/\omega_{RF}',input.plasma.wpi2wRF
 if ~flag.using_stored_data
     fprintf('\n-----END %s-----\n\n',now_str)
     diary off
-end
-%% aid function
-% plot Y for specified X(size specified in this file: p×f)
-function handle_fig=plot_1Y(Y, name_Y)
-p=[0.3, 0.5, 1, 3, 5, 10]'; 
-handle_fig=figure;
-if max(Y(:))-min(Y(:))<100 && max(Y(:))/min(Y(:))<100
-    semilogx(p,Y(:,1),'-.c');
-    hold on
-    semilogx(p,Y(:,2),'-.m');
-else
-    loglog(p,Y(:,1),'-.c');
-    hold on
-    loglog(p,Y(:,2),'-.m');
-end
-axis([0.3,10,-inf,inf])
-xticks(p)
-xlabel('{\itp} [Pa]');
-ylabel(name_Y);
-L1=legend('f=1MHz','f=4MHz');
-set(L1,'Location','best');
-set(L1,'AutoUpdate','off');
-grid on%显示网格
-end
-
-function handle_fig=plot_1Ylog(Y, name_Y)
-p=[0.3, 0.5, 1, 3, 5, 10]'; 
-handle_fig=figure;
-loglog(p,Y(:,1),'-.c');
-hold on
-loglog(p,Y(:,2),'-.m');
-axis([0.3,10,-inf,inf])
-xticks(p)
-xlabel('{\itp} [Pa]');
-ylabel(name_Y);
-L1=legend('f=1MHz','f=4MHz');
-set(L1,'Location','best');
-set(L1,'AutoUpdate','off');
-grid on%显示网格
-end
-
-function handle_fig=plot_2Yaxis(Y1, name_Y1, Y2, name_Y2)
-p=[0.3, 0.5, 1, 3, 5, 10]'; 
-handle_fig=figure;
-if max(Y1(:))-min(Y1(:))<100 && max(Y1(:))/min(Y1(:))<100 ...
-        && max(Y2(:))-min(Y2(:))<100 && max(Y2(:))/min(Y2(:))<100
-    yyaxis left
-    semilogx(p,Y1(:,1),'-.c');
-    ylabel(name_Y1);
-    axis([0.3,10,-inf,inf])
-    yyaxis right
-    semilogx(p,Y2(:,1),'--y');
-    ylabel(name_Y2);
-    axis([0.3,10,-inf,inf])
-    hold on
-    yyaxis left
-    semilogx(p,Y1(:,2),'-.m');
-    yyaxis right
-    semilogx(p,Y2(:,2),'--g');
-else
-    yyaxis left
-    loglog(p,Y1(:,1),'-.c');
-    ylabel(name_Y1);
-    axis([0.3,10,-inf,inf])
-    yyaxis right
-    loglog(p,Y2(:,1),'--y');
-    ylabel(name_Y2);
-    axis([0.3,10,-inf,inf])
-    hold on
-    yyaxis left
-    loglog(p,Y1(:,2),'-.m');
-    yyaxis right
-    loglog(p,Y2(:,2),'--g');
-end
-xticks(p)
-xlabel('{\itp} [Pa]');
-L1=legend([name_Y1 ',f=1MHz'],[name_Y1 ',f=4MHz'],...
-    [name_Y2 ',f=1MHz'],[name_Y2 ',f=4MHz']);
-set(L1,'Location','best');
-set(L1,'AutoUpdate','off');
-grid on%显示网格
 end

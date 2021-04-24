@@ -100,10 +100,10 @@ source.Pplasma=source.PER.*external.Icoil_rms.^2; % 等离子体吸收功率
 source.Psys=source.Rsys.*external.Icoil_rms.^2;
 
 %% out data struct assembly
-source.transform.Rp=Rp;
-source.transform.Lp=Lp;
-source.transform.Lmp=Lmp;
-source.transform.kp=kp;
-source.transform.M=M;
+source.transformer.Rp=Rp;
+source.transformer.Lp=Lp;
+source.transformer.Lmp=Lmp;
+source.transformer.kp=kp;
+source.transformer.M=M;
 
 end
