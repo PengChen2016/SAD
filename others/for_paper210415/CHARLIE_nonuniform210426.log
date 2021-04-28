@@ -1,0 +1,35 @@
+
+-----CHARLIE_nonuniform210426 20210428_100934-----
+
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W_nonuniform 
+{引用了不存在的字段 'flag'。
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('get_input_data', 'E:\GitRepos\NIS_driver_power_deposition\packages\io\get_input_data.m', 51)" style="font-weight:bold">get_input_data</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\io\get_input_data.m',51,0)">line 51</a>)
+        input=get_input_data( flag_temp.flag );
+
+出错 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('CHARLIE_nonuniform210426', 'E:\GitRepos\NIS_driver_power_deposition\CHARLIE_nonuniform210426.m', 52)" style="font-weight:bold">CHARLIE_nonuniform210426</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\CHARLIE_nonuniform210426.m',52,0)">line 52</a>)
+    input=get_input_data( flag );
+} 
+opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\io\get_input_data.m',51,0)
+CHARLIE_nonuniform210426
+
+-----CHARLIE_nonuniform210426 20210428_101009-----
+
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W_nonuniform 
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W 
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[INFO] Use skin depth formula: as-medium 
+[INFO] Use semi-infinite medium model.
+[INFO] Radius of plasma is assumed to be infinite.
+[INFO] Results from plasma model.
+等离子体参数
+ne = 3.8e+16 ~ 2.4e+17 m^-3 , Te = 2.1 ~ 2.1 eV
+f = 1.00e+06 ~ 1.00e+06 Hz, p = 10.0 ~ 10.0 Pa, Tg = 697.2 ~ 697.2 K, ng = 1.04e+21 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 6.28e+06 rad/s, ω_pe = 1.10e+10 ~ 2.78e+10 rad/s, ω_pi = 2.57e+08 ~ 6.49e+08 rad/s
+特征时间
+RF周期T = 1.00e-06 ~ 1.00e-06 s
+
+-----END 20210428_101009-----
+

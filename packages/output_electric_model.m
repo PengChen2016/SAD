@@ -16,6 +16,22 @@ fprintf('[INFO] Results from electric model.\n');
         fprintf('%s = %.2e \n','射频功率传输效率 PTE',source.PTE);
         fprintf('%s = %.2e \n','射频功率耦合因数 PCF',source.PCF);
     else
+        % multi point
+        disp('等离子体等效阻抗')
+        fprintf('%s = %.2f ~ %.2f Ω, ','PER',min(source.PER(:)), max(source.PER(:)));
+        fprintf('%s = %.2e ~ %.2e , ','Lplasma',min(source.Lplasma(:)), max(source.Lplasma(:)));
+        fprintf('%s = %.2e ~ %.2e \n','Xplasma',min(source.Xplasma(:)), max(source.Xplasma(:)));
+        disp('系统等效阻抗Zsys')
+        fprintf('%s = %.2e ~ %.2e , ','Rsys',min(source.Rsys(:)), max(source.Rsys(:)));
+        fprintf('%s = %.2e ~ %.2e , ','Lsys',min(source.Lsys(:)), max(source.Lsys(:)));
+        fprintf('%s = %.2e ~ %.2e \n','Xsys',min(source.Xsys(:)), max(source.Xsys(:)));
+        fprintf('%s = %.2e ~ %.2e \n','Rmetal',min(source.Rmetal(:)), max(source.Rmetal(:)));
+        disp('效率')
+        fprintf('%s = %.1f%% ~ %.1f%% \n','射频功率传输效率 PTE',100*min(source.PTE(:)), 100*max(source.PTE(:)));
+        fprintf('%s = %.2e ~ %.2e \n','射频功率耦合因数 PCF',min(source.PCF(:)), max(source.PCF(:)));
+    end
+end
+
         %% multi point
 %             % 等离子体等效阻抗
 %             figure
@@ -140,5 +156,3 @@ fprintf('[INFO] Results from electric model.\n');
 %         end
 %     end
 %     
-    end
-end

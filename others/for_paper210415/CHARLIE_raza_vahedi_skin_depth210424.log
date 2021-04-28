@@ -1,0 +1,23 @@
+
+-----CHARLIE_raza_vahedi_skin_depth210424 20210424_204720-----
+
+[INFO] Use input plasma dataset: CHARLIE_raza_sweep 
+[INFO] Use input ICPs geometry dataset: CHARLIE_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+[INFO] Use measured-Lcoil-woplasma as Lcoil with plasma
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[INFO] Use skin depth formula: as-medium-simplified-finite-radius 
+[INFO] Results from plasma model.
+等离子体参数
+ne = 3.7e+16 ~ 2.0e+17 m^-3 , Te = 2.1 ~ 5.5 eV
+f = 1.00e+06 ~ 4.00e+06 Hz, p = 0.3 ~ 10.0 Pa, Tg = 501.2 ~ 697.2 K, ng = 4.34e+19 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 2.51e+07 rad/s, ω_pe = 1.09e+10 ~ 2.51e+10 rad/s, ω_pi = 2.55e+08 ~ 5.85e+08 rad/s
+特征时间
+RF周期T = 2.50e-07 ~ 1.00e-06 s
+[INFO] Use electric model: transformer-base
+[INFO] Results from electric model.
+
+-----END 20210424_204720-----
+
