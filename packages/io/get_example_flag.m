@@ -7,8 +7,9 @@ switch code
     case 2
         flag.input_plasma='2020Chen_NIS_sweep1';
     case 3
-        flag.input_plasma='2020Chen_NIS_sweep_p';
+        flag.input_plasma='2021Chen_NIS_sweep_all';
 end
+flag.type_Xsec='e-H2-Phelps';
 flag.stoc_model='Cazzador-fit';
 flag.medium_approximation='';
 flag.output_plasma_model=false;

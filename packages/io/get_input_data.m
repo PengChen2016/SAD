@@ -13,6 +13,19 @@ if isa(flag,'char')
     flag.input_plasma=temp;
 end
 
+if ~isfield(flag,'type_Xsec') || isempty(flag.type_Xsec)
+    switch flag.input_plasma
+        case '2011Chabert'
+            flag.type_Xsec='e-Ar-Biagi';
+%             error('No given type_Xsec. ');
+        otherwise
+            flag.type_Xsec='e-H2-Phelps';
+    end
+    warning(['Use the default type_Xsec: ' flag.type_Xsec])
+else
+    fprintf('[INFO] Use type_Xsec: %s \n',flag.type_Xsec);
+end
+
 % 导入预置数据
 fprintf('[INFO] Use input plasma dataset: %s \n',flag.input_plasma);
 switch flag.input_plasma
@@ -77,9 +90,17 @@ input.plasma.flag=flag.input_plasma;
 %% 等离子体特征参数计算
 % TODO: 提取这一部分，供单独使用
 input.plasma.wpe=get_omega_pe(input.plasma.ne); %电子等离子体频率
+switch flag.type_Xsec(3:4)
+    case 'H2'
 input.plasma.wpi=get_omega_pi(input.plasma.ne,1,1); %离子等离子体频率
+    case 'Ar'
+        input.plasma.wpi=get_omega_pi(input.plasma.ne,1,39.948); %离子等离子体频率
+end
+
 input.plasma.ve=sqrt(8*input.plasma.Te*constants.e/(pi*constants.me));    %电子平均速率，计算自由程用
 %             wce=constants.e;     %电子拉莫尔运动频率
+
+
 
 %% input of electric model
 if isfield(flag,'electric_model') && ~isempty(flag.electric_model)

@@ -61,6 +61,11 @@ load('experiment_fem_results.mat')
 load('CHARLIE_raza_sweep210423.mat')
 plasma_raza=input.plasma;
 source_raza=source;
+plasma_t=input.plasma;
+source_t=source;
+load('CHARLIE_raza_sweep_analyticalEM210508.mat')
+plasma_a=input.plasma;
+source_a=source;
 
 % 变压器模型的细节，不在本文范围之内。作为一个test去对比更合适
 % load('CHARLIE_raza_vahedi_skin_depth210424.mat')
@@ -104,90 +109,36 @@ p=[0.3, 0.5, 1, 3, 5, 10]';
 % set(L1,'Location','best');
 % set(L1,'AutoUpdate','off');
 
-%1MHz 对比实验与两个模型（标准）的PER
-% 不同坐标刻度
-scale_type={'loglog','semilogx','plot'};
-
-handle_fig=figure;
-legend_text={};
-
-loglog(p,experiment.PER(:,1),'-xk');
-legend_text{end+1}='subtractive method, 1MHz';
-
-hold on
-xticks(p)
-xlabel('{\itp} [Pa]');
-axis([0.3,10,-inf,inf])
-grid on
-
-loglog(p,fem.dielectric_PER(:,1),'-or','MarkerSize',8);
-legend_text{end+1}='FEM model, 1MHz';
-loglog(p,source_raza.PER(:,1),'-sb');
-legend_text{end+1}='transformer model, 1MHz';
-ylabel('PER');
-yticks([0.1,0.2,0.5,1,2,5,10])
-axis([0.3,10,0.1,10])
-
-L1=legend(legend_text);
-set(L1,'Location','best');
-set(L1,'AutoUpdate','off');
-
-% semilogx
-handle_fig=figure;
-legend_text={};
-
-semilogx(p,experiment.PER(:,1),'-xk');
-legend_text{end+1}='subtractive method, 1MHz';
-
-hold on
-xticks(p)
-xlabel('{\itp} [Pa]');
-axis([0.3,10,-inf,inf])
-grid on
-
-semilogx(p,fem.dielectric_PER(:,1),'-or','MarkerSize',8);
-legend_text{end+1}='FEM model, 1MHz';
-semilogx(p,source_raza.PER(:,1),'-sb');
-legend_text{end+1}='transformer model, 1MHz';
-ylabel('PER');
-% yticks([0.1,0.2,0.5,1,2,5,10])
-% axis([0.3,10,0.1,10])
-
-L1=legend(legend_text);
-set(L1,'Location','best');
-set(L1,'AutoUpdate','off');
-
+%1MHz 对比实验与模型（标准）的PER
+h_fig=plot_nY(experiment.PER(:,1),'subtractive method',...
+    fem.dielectric_PER(:,1),'FEM model',...
+    source_t.PER(:,1),'transformer model',...
+    source_a.PER(:,1),'analytical EM model',...
+    'PER [\Omega]','all');
+for i=1:length(h_fig)
+    figure(h_fig{i})
+    title('1MHz')
+%     yticks([0.1,0.2,0.5,1,2,5,10])
+%     axis([0.3,10,0.1,10])
+end
+% yticks([0.1,0.2,0.5,1,2,3]) % for loglog
 
 % 4MHz
-handle_fig=figure;
-legend_text={};
+h_fig=plot_nY(experiment.PER(:,2),'subtractive method',...
+    fem.dielectric_PER(:,2),'FEM model',...
+    source_t.PER(:,2),'transformer model',...
+    source_a.PER(:,2),'analytical EM model',...
+    'PER [\Omega]','all');
+for i=1:length(h_fig)
+    figure(h_fig{i})
+    title('4MHz')
+%     yticks([0.1,0.2,0.5,1,2,5,10])
+%     axis([0.3,10,0.1,10])
+end
 
-loglog(p,experiment.PER(:,1),'-xk');
-legend_text{end+1}='subtractive method, 1MHz';
-
-hold on
-xticks(p)
-xlabel('{\itp} [Pa]');
-axis([0.3,10,-inf,inf])
-grid on
-
-loglog(p,experiment.PER(:,2),'-.xk');
-legend_text{end+1}='subtractive method, 4MHz';
-loglog(p,fem.dielectric_PER(:,1),'-or','MarkerSize',8);
-legend_text{end+1}='FEM model, 1MHz';
-loglog(p,fem.dielectric_PER(:,2),'-.or','MarkerSize',8);
-legend_text{end+1}='FEM model, 4MHz';
-loglog(p,source_raza.PER(:,1),'-sb');
-legend_text{end+1}='transformer model, 1MHz';
-loglog(p,source_raza.PER(:,2),'-.sb');
-legend_text{end+1}='transformer model, 4MHz';
-ylabel('PER');
-yticks([0.1,0.2,0.5,1,2,5,10])
-axis([0.3,10,0.1,10])
-
-L1=legend(legend_text);
-set(L1,'Location','best');
-set(L1,'AutoUpdate','off');
+h_fig=plot_nY(plasma_raza.ne(:,1),'1MHz',...
+    plasma_raza.ne(:,2),'4MHz',...
+    'n_e [m^{-3}]','loglog');
 
 
 %% FEM nonuniform

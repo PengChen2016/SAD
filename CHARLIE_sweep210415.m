@@ -9,16 +9,18 @@ addpath(genpath('./packages'))
 now_str=datestr(now,'yyyymmdd_HHMMSS');
 %% flag
 solution_name='for_paper210415';
-program_name='CHARLIE_razcoil_sweep210428';
+program_name='CHARLIE_raza_sweep_analyticalEM210508';
 
 addpath(genpath(['./others/' solution_name '/']))
 flag.using_stored_data=false;
 % flag.using_stored_data=true;
 save_mat_name=['./others/' solution_name '/' program_name '.mat'];
 %%%%%%%% plasma model
-% flag.input_plasma='CHARLIE_raza_sweep';
+flag.type_Xsec='e-H2-Phelps';
+
+flag.input_plasma='CHARLIE_raza_sweep';
 % flag.input_plasma='2019Raunera_CHARLIE_sweep';
-flag.input_plasma='CHARLIE_razcoil_sweep';
+% flag.input_plasma='CHARLIE_razcoil_sweep';
 
 % stoc expression
 % flag.stoc_model='';
@@ -42,18 +44,18 @@ flag.output_plasma_model=true;
 
 %%%%%%%% electric model
 % flag.electric_model='';
-flag.electric_model='transformer-base';
+% flag.electric_model='transformer-base';
 % flag.electric_model='transformer-2011Chabert';
 % flag.electric_model='transformer-2015Bandyopadhyay';
 % flag.electric_model='transformer-2018Jainb';
-% flag.electric_model='analytical_base';
+flag.electric_model='analytical_base';
 
 flag.input_geometry='CHARLIE_base';
 
 flag.Rmetal='measured-Rmetal-woplasma';
 % flag.Rmetal=calculated-Rcoil-woplasma';
-flag.Lcoil='measured-Lcoil-woplasma';
-% flag.Lcoil='calculated-Lcoil-woplasma';
+% flag.Lcoil='measured-Lcoil-woplasma';
+flag.Lcoil='calculated-Lcoil-woplasma';
 
 flag.output_electric_model=true;
 % flag.output_electric_model=false;
@@ -120,7 +122,11 @@ yyaxis left
 line([0.3,8],[input.plasma.r,input.plasma.r],'linestyle','--')
 plot_2Yaxis(input.plasma.sigma_dc, '\sigma_{dc} [S/m]', input.plasma.skin_depth, '\delta_{skin} [m]');
 % power and impedance
-plot_2Yaxis(source.transformer.Rp, 'R_p [\Omega]',source.PER, 'R_{plasma} [\Omega]');
+if strfind(flag.electric_model,'analytical')
+    plot_2Yaxis(source.Rp, 'R_p [\Omega]',source.PER, 'R_{plasma} [\Omega]');
+else
+    plot_2Yaxis(source.transformer.Rp, 'R_p [\Omega]',source.PER, 'R_{plasma} [\Omega]');
+end
 plot_2Yaxis(source.Pplasma, 'P_{plasma} [W]',source.Psys, 'P_{sys} [W]');
 plot_2Yaxis(source.Rsys, 'R_{sys} [\Omega]',source.Xsys, 'X_{sys} [\Omega]');
 
@@ -134,7 +140,11 @@ yyaxis left
 axis([0.3,10,0,100])
 yyaxis right
 axis([0.3,10,0,100])
-plot_1Y(source.transformer.Lp, 'L');
+if strfind(flag.electric_model,'analytical')
+    plot_1Y(source.Lp, 'L');
+else
+    plot_1Y(source.transformer.Lp, 'L');
+end
 line([0.3,10],[source.transformer.Lmp,source.transformer.Lmp],'linestyle','--')
 legend('L_p, 1MHz','L_p, 4MHz','L_{mp}');
 % other

@@ -14,7 +14,8 @@ function test_Cazzador_fit(testCase)
 % basic
 flag=get_example_flag(0);
 input=get_input_data( flag );
-plasma=stochastic_heating_model('Cazzador-fit', input.plasma);
+flag.stoc_model='Cazzador-fit';
+plasma=stochastic_heating_model(flag, input.plasma);
 verifyEqual(testCase,size(plasma.nu_st),size(plasma.ne))
 
 % formula
@@ -42,7 +43,8 @@ function test_Vahedi_simplify(testCase)
 % basic
 flag=get_example_flag(0);
 input=get_input_data( flag );
-plasma=stochastic_heating_model('Vahedi-simplify', input.plasma);
+flag.stoc_model='Vahedi-simplify';
+plasma=stochastic_heating_model(flag, input.plasma);
 verifyEqual(testCase,size(plasma.nu_st),size(plasma.ne))
 end
 % test result: ok. Code for this case run.
@@ -51,10 +53,12 @@ function test_compare_with_v1(testCase)
 % compare with fig S1 for code v1 paper v1
 flag=get_example_flag(2);
 input=get_input_data( flag );
+flag.stoc_model='Cazzador-fit';
 plasma_Cazzador_fit=stochastic_heating_model(...
-    'Cazzador-fit', input.plasma);
+    flag, input.plasma);
+flag.stoc_model='Vahedi-simplify';
 plasma_Vahedi_simplify=stochastic_heating_model(...
-    'Vahedi-simplify', input.plasma);
+    flag, input.plasma);
 
 ne=input.plasma.ne(:,1);
 % compare nu_st and delta_st
@@ -91,7 +95,7 @@ function test_reproduce_2018Jainb(testCase)
 % Sources of Neutral Beam Injectors for ITER and fusion experiments
 flag.input_plasma='2018Jainb_ELISE_sweep_f';
 input=get_input_data( flag );
-plasma= Ohmic_heating_model( input.plasma, 'Phelps-m' );
+plasma= Ohmic_heating_model( input.plasma, 'e-H2-Phelps' );
 
 % plasma1=plasma;
 % constants=get_constants();
@@ -169,7 +173,8 @@ plasma= Ohmic_heating_model( input.plasma, 'Phelps-m' );
 % %         plasma.nu_st(idx2)=pi/4./(temp_w_RF(idx2).^2).*...
 % %             (8*constants.mu0*constants.e^3*x(idx2).*temp_w_RF(idx2)/pi/constants.me^2).^(3/2);
 % case 4: Vahedi/Cazzador-simplify 2 phase. Used.
-plasma2=stochastic_heating_model('2018Jainb-simplify', plasma);
+flag.stoc_model='2018Jainb-simplify';
+plasma2=stochastic_heating_model(flag, plasma);
 % plot
 figure
 loglog(plasma2.f(:,1),plasma2.nu_st(:,1),'-.c');
@@ -190,10 +195,12 @@ function test_compare_models(testCase)
 % test compare different stoc models
 flag=get_example_flag(2);
 input=get_input_data( flag );
+flag.stoc_model='Cazzador-fit';
 plasma_Cazzador_fit=stochastic_heating_model(...
-    'Cazzador-fit', input.plasma);
+    flag, input.plasma);
+flag.stoc_model='Vahedi-simplify';
 plasma_Vahedi_simplify=stochastic_heating_model(...
-    'Vahedi-simplify', input.plasma);
+    flag, input.plasma);
 % flag.stoc_model='Cazzador-simplify';
 
 ne=input.plasma.ne(:,1);

@@ -14,26 +14,41 @@ input.flag=flag_input_geometry ;
 
 %% 导入几何参数
 switch flag_input_geometry
+    case '2011Chabert'
+         % 2011Chabert - Physics of Radio-Frequency Plasmas
+         % ch7.5, P245
+        input.r_chamber=0.065;
+        input.l_chamber=0.3;
+        input.r_coil=0.08;
+        input.l_coil=input.l_chamber;
+        input.N_coil=5;
+        input.r_wire=0.003; % assumed by PengChen2016
     case 'ELISE_base'
-        % Jain
-        input.r_chamber=0.14;
-        input.l_chamber=0.14;
+        % Records of input and output data processing.xlsx
+        input.r_chamber=0.138; % FS as chamber
+        input.l_chamber=0.131;
         input.r_coil=0.158;
         input.l_coil=0.08; % 一次线圈为短螺线管
         input.N_coil=6;
         input.r_wire=0.004; %200625改正，之前为0.003
     case 'HUST_large_driver_base'
+        % to be checked
         input.r_chamber=0.142;
         input.l_chamber=0.147;
         input.r_coil=0.155;
         input.l_coil=0.08935;
         input.N_coil=9;
         input.r_wire=0.003;
-    case 'BATMAN_base'
-        warning('no data')
-        % TODO
+    case 'BUG_base'
+        % Records of input and output data processing.xlsx
+        input.r_chamber=0.116; % FS as chamber
+        input.l_chamber=0.131;
+        input.r_coil=0.134;
+        input.l_coil=0.072;
+        input.N_coil=6;
+        input.r_wire=0.0036;
     case 'HUST_small_driver_base'
-        % ZP % 不确定
+        % ZP  % to be checked
         input.r_chamber=0.051;
         input.l_chamber=0.137;
         input.r_coil=0.063;

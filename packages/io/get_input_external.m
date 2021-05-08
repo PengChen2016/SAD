@@ -26,11 +26,13 @@ input.Rcoil_th=l_wire./(constants.sigma_Cu.*S_current_path);
 % 线圈电感
 switch flag.electric_model
     case 'transformer-2018Jainb'
-        % Formula in 2018Jainb - Studies and experimental activities to
+        % Formula 74  in 2018Jainb - Studies and experimental activities to
         % qualify the behaviour of RF power circuits for Negative Ion
         % Sources of Neutral Beam Injectors for ITER and fusion experiments
         input.Lcoil_th=geometry.N_coil^2*0.002*pi*(2*geometry.r_coil*100)* ...
             (log(4*2*geometry.r_coil/geometry.l_coil)-0.5)*1e-6;
+    case 'analytical_base'
+        input.Lcoil_th=constants.mu0*pi*geometry.r_coil^2*geometry.N_coil^2/geometry.l_coil;
     otherwise
         % Formula using Nagaoka coefficient
         L_infinite_long=constants.mu0*pi*geometry.r_coil^2*geometry.N_coil^2/geometry.l_coil;
@@ -46,21 +48,24 @@ switch geometry.flag
     case 'ELISE_base'
         % 2018Jain
         input.Rcoil_ex=0.5;
-        input.Rmetal_ex=nan;
+        input.Rmetal_ex=[];
         input.Lcoil_ex=7.5e-6;
         % 2018Jainb在变压器模型中加入了一个表征其他金属损耗的电阻
     case 'HUST_large_driver_base'
         % TODO: 待校正
-        input.Rcoil_ex=nan;
+        input.Rcoil_ex=[];
         input.Rmetal_ex=1.45;
         input.Lcoil_ex=16.04e-6;
-    case 'BATMAN_base'
-        warning('no data')
+    case 'BUG_base'
+        input.Rcoil_ex=[];
+        input.Rmetal_ex=0.6;
+        input.Lcoil_ex=[];
     case 'HUST_small_driver_base'
-        input.Rcoil_ex=nan;
+        input.Rcoil_ex=[];
         input.Rmetal_ex=0.8;
         input.Lcoil_ex=18.7e-6;
     case 'HUST_small_driver_ZL'
+        % TODO: 待校正
         input.Rcoil_ex=70.22e-3;
         input.Rmetal_ex=75.22e-3;
         input.Lcoil_ex=3.67e-6;
@@ -79,20 +84,28 @@ switch geometry.flag
         input.Rcoil_ex=1;
         input.Rmetal_ex= input.Rcoil_ex;
         input.Lcoil_ex=2.2e-6; %原文未给出，不关心
+    case '2011Chabert'
+        input.Rcoil_ex=[];
+        input.Rmetal_ex=[];
+        input.Lcoil_ex=[];
+        input.Icoil_rms=3/sqrt(2);
     case 'NIO1_base'
-        warning('no data')
+        warning('no experiment data')
+    otherwise
+        warning('no experiment data')
 end
 
 %% 用户选择使用
 fprintf('[INFO] Choose %s as Rloss with plasma\n',flag.Rmetal)
 switch flag.Rmetal
     case 'measured-Rmetal-woplasma'
-        if isnan(input.Rmetal_ex)
+        if isempty(input.Rmetal_ex)
             disp('No measured-Rmetal-woplasma. ')
-            if isnan(input.Rcoil_ex)
-                error('no data')
+            if isempty(input.Rcoil_ex)
+                disp('[WARN] Use calculated-Rcoil-woplasma instead.')
+                input.Rmetal=input.Rcoil_th;
             else
-                disp('Use measured-Rcoil-woplasma instead.')
+                disp('[WARN] Use measured-Rcoil-woplasma instead.')
                 input.Rmetal=input.Rcoil_ex;
             end
         else
@@ -105,7 +118,13 @@ end
 fprintf('[INFO] Use %s as Lcoil with plasma\n',flag.Lcoil)
 switch flag.Lcoil
     case 'measured-Lcoil-woplasma'
-        input.Lcoil=input.Lcoil_ex;
+         if isempty(input.Lcoil_ex)
+            disp('No measured-Lcoil-woplasma. ')
+            disp('[WARN] Use calculated-Lcoil-woplasma instead.')
+            input.Lcoil=input.Lcoil_th;
+        else
+            input.Lcoil=input.Lcoil_ex;
+        end       
     case 'calculated-Lcoil-woplasma'
         input.Lcoil=input.Lcoil_th;
 end

@@ -6,6 +6,7 @@ function [ source ] = electric_model( flag, input )
 %% preparation
 fprintf('[INFO] Use electric model: %s\n',flag.electric_model);
 
+source.w_RF=input.plasma.w_RF;
 % 若将Icoil_rms移出具体model，则以下条件语句移到本文件最后
 if ~isfield(input.external,'Icoil_rms') || isempty(input.external.Icoil_rms)...
         || isempty(find(~isnan(input.external.Icoil_rms),1))
@@ -41,10 +42,10 @@ source.size=input.plasma.size;
 % source.Rsys_experiment=input.plasma.Pin./input.external.Icoil_rms
 
 source.PTE=source.PER./source.Rsys;   %射频功率传输效率 PTE
-source.PCF=source.Rsys./source.Xsys;  %激励器射频功率耦合因数
+% source.PCF=source.Rsys./source.Xsys;  %激励器射频功率耦合因数
 
 %% output
-if flag.output_electric_model
+if isfield(flag,'output_electric_model') && flag.output_electric_model
     output_electric_model( flag, source )
 end
 

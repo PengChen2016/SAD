@@ -28,11 +28,11 @@ switch type
             && isempty(find(wpe<10*nu_c, 1))...
             && isempty(find(skin_depth>r_plasma, 1));
     case 'collisionless'
-        % wpe>>w,v时，无碰撞集肤深度
+        % collisionless skin depth δ, applicable to ω_RF>>ν_c
         skin_depth=constants.c./wpe;
     case 'collision'
-        % TODO
-        error('Not implemented yet.')
+        % collisionless skin depth δ, applicable to ω_RF<<ν_c
+        skin_depth=(constants.c./wpe).*(2*nu_c./w_RF).^0.5;
     case  'as-medium-simplified-finite-radius'
         % wpe>>w,v时，考虑有限半径的电磁集肤深度。适用范围存疑
         % 1995Vaheda推导

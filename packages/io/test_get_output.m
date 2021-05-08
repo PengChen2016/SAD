@@ -10,7 +10,7 @@ function test_get_output_json(testCase)
 flag = get_example_flag(0);
 input=get_input_data(flag);
 get_output_json( input, 'test_output-input');
-flag.input_plasma='2020Chen_NIS_sweep_p';
+flag.input_plasma='2021Chen_NIS_sweep_all';
 input=get_input_data(flag);
 plasma=plasma_model(flag, input.plasma);
 get_output_json( plasma, 'test_output-plasma');

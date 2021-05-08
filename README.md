@@ -1,5 +1,14 @@
-# NIS_driver_power_deposition
-负源激励器功率沉积分析代码
+#SAD  
+**the Simplified Analysis of the Driver in RF hydrogen ion source**  
+This code is applicable to inductively coupled plasma reactors(ICPs) where a helical coil surrounds the cylindrical dielectric tube. Some modules are mainly applicable to low pressure hydrogen ICPs. 
+  
+
+# collision cross section
+https://nl.lxcat.net/data/set_type.php -> type: Scattering crossing sections -> database: all -> specA: Ground states: e -> specB: Ground states: Ar -> groups: Elastic, Ionization -> processes: Biagi-v7.1, Morgan -> compare and download -> put each data set into a single file, record the reference at the first line -> modify the get_Xsec.m 
+
+# compare data
+output data by get_output_json(), then compare file by arbitrary text comparator, such as plug-in of code editor
+
   
 # 文件说明
 ## 主脚本

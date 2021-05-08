@@ -121,44 +121,6 @@ end
 % test result: ok.
 % details: .\others\Figures during code developing.pptx
 
-% 没必要实现该test
-function test_formula(testCase)
-% % % test formula
-% % flag = get_example_flag(0);
-% % flag.electric_model='';
-% % input=get_input_data(flag);
-% % plasma=plasma_model(flag, input.plasma);
-% 
-% %%%%%%% 介电常数/电导率
-% % plasma.sigma_medium=constants.eps0*plasma.nu_eff.*...
-% %     plasma.wpe.^2./(plasma.w_RF.^2+plasma.nu_eff.^2); %与Re(sigmap)一致
-% % plasma.eps_medium=constants.eps0*(1-...
-% %     plasma.wpe.^2./(plasma.w_RF.^2+plasma.nu_eff.^2)); %与Re(epsc)一致
-% % 
-% % plasma.sigma_p=constants.eps0*plasma.wpe.^2./...
-% %     (1i*plasma.w_RF+plasma.nu_eff); % 等离子体复电导率，即常见的sigma_p
-% % plasma.sigma_c=plasma.sigma_p+1i*plasma.w_RF*constants.eps0; 
-% 
-% %         epsp_r_real(X1i,X2i)=1-plasma.wpe^2/(plasma.nu_eff^2+plasma.w_RF^2);         %复介电常数实部
-% %         epsp_r_imag(X1i,X2i)=-plasma.nu_eff*plasma.wpe^2/(plasma.nu_eff^2+plasma.w_RF^2)/plasma.w_RF;         %复介电常数虚部
-% %         sigma_from_epsp=-plasma.w_RF*constants.eps0*epsp_r_imag(X1i,X2i); %与sigmap_real一致
-% %         %检验表达式用-断点调试
-% %         sigmap_real(X1i,X2i)=constants.eps0*plasma.wpe^2*plasma.nu_eff/(plasma.nu_eff^2+plasma.w_RF^2);
-% %         sigmap_imag(X1i,X2i)=constants.eps0*plasma.wpe^2*(-plasma.w_RF)/(plasma.nu_eff^2+plasma.w_RF^2);
-% %         eps_r_from_sigmap(X1i,X2i)=sigmap_imag(X1i,X2i)/plasma.w_RF/constants.eps0+1; %与epsp_r_real一致
-% %         tandelta_from_sigmap(X1i,X2i)=sigmap_real(X1i,X2i)/(plasma.w_RF*constants.eps0*eps_r_from_sigmap(X1i,X2i)); %与tandelta一致
-% % fprintf('\n\n')
-% % end
-% 
-% % function test_medium_approximation(testCase)
-% % % test different medium_approximation
-% % 
-% % 
-end
-
-
-     
-
 %% Optional file fixtures  
 function setupOnce(testCase)  % do not change function name
 % set a new path, for example

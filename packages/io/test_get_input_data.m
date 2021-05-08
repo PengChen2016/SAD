@@ -20,20 +20,6 @@ verifyTrue(testCase,isempty(plasma.ne(plasma.ne(end,:)~=ne(end))))
 verifyTrue(testCase,isempty(plasma.Te(plasma.Te(:,end-1)~=Te(end-1))))
 end
 
-function test_get_plasma_multi_decoupled_3D(testCase)
-% test multi point with parameters decoupled
-plasma=get_input_plasma( '2020Chen_NIS_sweep_p' );
-p=0.3:0.3:10;
-dne=16:0.1:19;
-ne=10.^dne;
-Te=1:4:21;
-verifyEqual(testCase,plasma.size,[length(p),1,1,...
-length(ne),length(Te)])
-
-verifyTrue(testCase,isempty(plasma.p(  plasma.p(end,:,:)~=p(end)  )))
-verifyTrue(testCase,isempty(plasma.Te(plasma.Te(:,:,end-1)~=Te(end-1))))
-end
-
 function test_get_plasma_multi_coupled(testCase)
 % test multi point with parameters coupled
 plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
@@ -92,7 +78,8 @@ verifyEqual(testCase,input.plasma.ne,3.7e17)
 verifyEqual(testCase,input.external.Rmetal,0.213659)
 end
 
-function test_CHARLIE_raza_sweep(testCase)
+function test_get_CHARLIE_raza_sweep(testCase)
+% get raza value from r10za value of CHARLIE
 flag.input_plasma='CHARLIE_raza_sweep';
 input=get_input_data( flag );
 actual_plasma=input.plasma;
@@ -105,6 +92,7 @@ excepted_plasma.wpe=get_omega_pe(excepted_plasma.ne);
 excepted_plasma.wpi=get_omega_pi(excepted_plasma.ne,1,1); %离子等离子体频率
 excepted_plasma.ve=sqrt(8*excepted_plasma.Te*constants.e/(pi*constants.me));
 
+excepted_plasma.flag=actual_plasma.flag;
 verifyEqual(testCase,actual_plasma,excepted_plasma)
 end
 % test result: ok  20210420

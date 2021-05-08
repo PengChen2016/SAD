@@ -1,13 +1,13 @@
-function [ plasma ] = stochastic_heating_model( type, plasma )
+function [ plasma ] = stochastic_heating_model( flag, plasma )
 % 随机加热模型
 % 在plasma_model.m中使用
 constants=get_constants();
 
-fprintf('[INFO] Use stoc model: %s\n',type);
+fprintf('[INFO] Use stoc model: %s\n',flag.stoc_model);
 % 表征电子穿过趋肤层耗时与RF周期比值的参数
 alpha_st_fun=@(delta_st,Ve,w_RF) 4*delta_st.^2.*w_RF.^2/pi./(Ve.^2);
 
-switch type
+switch flag.stoc_model
     case 'Cazzador-fit'
         %% Cazzador-fit
         % 2014Cazzador - Analytical and numerical models and first
@@ -139,7 +139,7 @@ switch type
         
         if ~isfield(plasma,'nu_m') || isempty(plasma.nu_m)
             warning('No nu_m value. Run Ohmic heating model first.')
-            plasma=Ohmic_heating_model(plasma, 'Phelps-m');
+            plasma=Ohmic_heating_model(plasma, flag.type_Xsec);
         end
         
         plasma.delta_st=get_plasma_skin_depth('as-medium-simplified-finite-radius',...

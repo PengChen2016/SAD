@@ -37,6 +37,7 @@ function test_different_eps_c(testCase)
 % test the wave of different eps_c
 flag.input_plasma='2018Jainb_ELISE_sweep_f';
 flag.stoc_model='2018Jainb-simplify';
+flag.type_Xsec='e-H2-Phelps';
 flag.skin_depth='';
 input=get_input_data(flag);
 input.plasma.r=0.14; % ELISE_case
@@ -98,6 +99,7 @@ function test_different_skin_depth_2018Jainb(testCase)
 % for ITER and fusion experiments
 flag.input_plasma='2018Jainb_ELISE_sweep_f';
 flag.stoc_model='2018Jainb-simplify';
+flag.type_Xsec='e-H2-Phelps';
 input=get_input_data(flag);
 input.plasma.r=0.14; % ELISE_case
 plasma=ICP_heating_model(flag, input.plasma);
@@ -187,6 +189,7 @@ function test_different_wavelength_vary(testCase)
 % test different wavelength vary with different parameters
 flag.input_plasma='2018Jainb_ELISE_sweep_f';
 flag.stoc_model='2018Jainb-simplify';
+flag.type_Xsec='e-H2-Phelps';
 input=get_input_data(flag);
 input.plasma.r=0.14; % ELISE_case
 plasma=ICP_heating_model(flag, input.plasma);

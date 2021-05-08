@@ -28,7 +28,7 @@ fprintf('[INFO] Results from electric model.\n');
         fprintf('%s = %.2e ~ %.2e \n','Rmetal',min(source.Rmetal(:)), max(source.Rmetal(:)));
         disp('效率')
         fprintf('%s = %.1f%% ~ %.1f%% \n','射频功率传输效率 PTE',100*min(source.PTE(:)), 100*max(source.PTE(:)));
-        fprintf('%s = %.2e ~ %.2e \n','射频功率耦合因数 PCF',min(source.PCF(:)), max(source.PCF(:)));
+%         fprintf('%s = %.2e ~ %.2e \n','射频功率耦合因数 PCF',min(source.PCF(:)), max(source.PCF(:)));
     end
 end
 

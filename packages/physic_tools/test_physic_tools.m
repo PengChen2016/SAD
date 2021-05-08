@@ -51,7 +51,7 @@ end
 
 function test_get_Xsec_and_k(testCase)
 % test 	formula of get_Xsec and get_k
-Xsec=get_Xsec('1990Tawara', true);
+Xsec=get_Xsec('e-H2-1990Tawara', true);
 close
 Te=[ones(1,3);10*ones(1,3)];
 kenp=get_k(Te, Xsec.enp);
@@ -70,8 +70,8 @@ function test_different_Xsec(testCase)
 % Xsec截面的可靠性不在此处test，通过结果ν
 % 与2014Cazzador中ν对比来test
 % get Xsec
-Xsec1=get_Xsec('1990Tawara', false);
-Xsec2=get_Xsec('Phelps-m', false);
+Xsec1=get_Xsec('e-H2-1990Tawara', false);
+Xsec2=get_Xsec('e-H2-Phelps', false);
 
 % plot Xsec
 plot_line_width=3;

@@ -35,5 +35,6 @@ else
         disp(record.Report)
     end
 end
+close all
 diary off
 disp('See the details in ./others/test_all.log.')

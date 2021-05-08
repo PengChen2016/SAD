@@ -1,23 +1,24 @@
 function [ plasma ] = ICP_heating_model( flag, plasma)
 % ICP heating model
 % 主要基于2014Cazzador、1995Vahedia，借鉴2018Jain
+
 if strcmp(flag.input_plasma,'given_directly')
     fprintf('[WARN] Use ICP heating model: Set ν directly \n');
     given_nu_m=plasma.nu_m;
-    plasma=Ohmic_heating_model(plasma, 'Phelps-m');
+    plasma=Ohmic_heating_model(plasma, flag.type_Xsec);
     plasma.nu_m=given_nu_m;
     if isfield(flag,'stoc_model') && ~isempty(flag.stoc_model)
         given_nu_st=plasma.nu_st;
-        plasma=stochastic_heating_model(flag.stoc_model, plasma);
+        plasma=stochastic_heating_model(flag, plasma);
         plasma.nu_st=given_nu_st;
     end
 else
-    plasma=Ohmic_heating_model(plasma, 'Phelps-m');
+    plasma=Ohmic_heating_model(plasma, flag.type_Xsec);
     if isfield(flag,'stoc_model') && isempty(flag.stoc_model)
         fprintf('[INFO] Use ICP heating model: Ohmic heating. \n');
     else
         fprintf('[INFO] Use ICP heating model: Ohmic+stochastic heating \n');
-        plasma=stochastic_heating_model(flag.stoc_model, plasma);
+        plasma=stochastic_heating_model(flag, plasma);
     end
 end
 

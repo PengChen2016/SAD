@@ -25,8 +25,8 @@ plasma.ng=plasma.p./(constants.kB*plasma.Tg);
 plasma.ne=5e18;
 plasma.Te=logspace(-1,2,40);
 plasma.ve=sqrt(8*plasma.Te*constants.e/(pi*constants.me)); 
-plasma= Ohmic_heating_model( plasma, 'Phelps-m' );
-plasma1= Ohmic_heating_model( plasma, '1990Tawara' );
+plasma= Ohmic_heating_model( plasma, 'e-H2-Phelps' );
+plasma1= Ohmic_heating_model( plasma, 'e-H2-1990Tawara' );
 
 % plot
 figure
@@ -70,7 +70,7 @@ plasma.ne=alpha*plasma.ng/(1-alpha)/2; % H2->2H+
 % plasma.ne=alpha*plasma.ng/(1-alpha);
 plasma.Te=logspace(-1,2,40);
 plasma.ve=sqrt(8*plasma.Te*constants.e/(pi*constants.me)); 
-plasma= Ohmic_heating_model( plasma, 'Phelps-m' );
+plasma= Ohmic_heating_model( plasma, 'e-H2-Phelps' );
 
 % plot
 figure
@@ -105,10 +105,14 @@ function test_nu_st_2018Jainb(testCase)
 
 % get_input_plasma
 flag.input_plasma='2018Jainb_ELISE_sweep_f';
+flag.type_Xsec='e-H2-Phelps';
 input=get_input_data( flag );
-plasma1=stochastic_heating_model('2018Jainb-simplify', input.plasma);
-plasma2=stochastic_heating_model('Vahedi-simplify', input.plasma);
-% plasma2=stochastic_heating_model('Cazzador-fit', plasma);
+flag.stoc_model='2018Jainb-simplify';
+plasma1=stochastic_heating_model(flag, input.plasma);
+flag.stoc_model='Vahedi-simplify';
+plasma2=stochastic_heating_model(flag, input.plasma);
+% flag.stoc_model='Cazzador-fit';
+% plasma2=stochastic_heating_model(flag, plasma);
 
 % plot
 figure
@@ -148,6 +152,7 @@ function test_nu_2019Raunera(testCase)
 
 flag.input_plasma='2019Raunera_CHARLIE_sweep';
 flag.stoc_model='Vahedi-simplify';
+flag.type_Xsec='e-H2-Phelps';
 input=get_input_data( flag );
 plasma=ICP_heating_model( flag, input.plasma);
 

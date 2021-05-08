@@ -1,19 +1,25 @@
 function [ Xsec ] = get_Xsec( type, flag_plot )
 %% get Xsec from source
 switch type
-    case '1990Tawara'
+    case 'e-H2-1990Tawara'
         % PengZhao get data from 1990Tawara - Cross Sections and Related Data for
         % Electron Collisions with Hydrogen Molecules and Molecular Ions
-        [E,a]=textread('ELASTIC-1990Tawara.txt','%n %n','headerlines',10);
+        [E,a]=textread('e-H2-ELASTIC-1990Tawara.txt','%n %n','headerlines',10);
         Xsec.enp=[E,a];
-        [E,a]=textread('IONIZATION-1990Tawara.txt','%n %n','headerlines',10);
+        [E,a]=textread('e-H2-IONIZATION-1990Tawara.txt','%n %n','headerlines',10);
         Xsec.eniz=[E,a];
-    case 'Phelps-m'
+    case 'e-H2-Phelps'
         % PengChen2016 get data from Phelps (details are recorded in the data
         % files)
-        [E,a]=textread('ELASTIC-Phelps.txt','%n %n','headerlines',12);
+        [E,a]=textread('e-H2-ELASTIC-Phelps.txt','%n %n','headerlines',12);
         Xsec.enp=[E,a];
-        [E,a]=textread('IONIZATION-Phelps.txt','%n %n','headerlines',10);
+        [E,a]=textread('e-H2-IONIZATION-Phelps.txt','%n %n','headerlines',10);
+        Xsec.eniz=[E,a];
+    case 'e-Ar-Biagi'
+        % PengChen2016 get data from LXCat-Biagi-v7.1
+        [E,a]=textread('e-Ar-ELASTIC-Biagi-v7.1.txt','%n %n','headerlines',10);
+        Xsec.enp=[E,a];
+        [E,a]=textread('e-Ar-IONIZATION-Biagi-v7.1.txt','%n %n','headerlines',9);
         Xsec.eniz=[E,a];
 end
 
@@ -30,6 +36,7 @@ if flag_plot
     
     ylabel('Cross section (m^2)');
     xlabel('Energy (eV)')
+    title(type)
     set(gca,'FontSize',font_size)
     set(gca, 'LineWidth',gca_line_width)
     %             title([name_Y ' \rmat \rm' now_str]);
