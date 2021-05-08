@@ -35,3 +35,7 @@ Result/
 *.mat
 temp_test_code.m
 global_model_LZS_20200801/
+*.lnk
+~$*
+others/*.json
+others/v0.1/

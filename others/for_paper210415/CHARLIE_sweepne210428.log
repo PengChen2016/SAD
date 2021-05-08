@@ -1,0 +1,42 @@
+
+-----CHARLIE_sweepne210428 20210428_102503-----
+
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W_sweepne 
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W 
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[INFO] Use skin depth formula: as-medium 
+[INFO] Use semi-infinite medium model.
+[INFO] Radius of plasma is assumed to be infinite.
+[INFO] Results from plasma model.
+等离子体参数
+ne = 1.0e+16 ~ 1.0e+18 m^-3 , Te = 2.1 ~ 2.1 eV
+f = 1.00e+06 ~ 1.00e+06 Hz, p = 10.0 ~ 10.0 Pa, Tg = 697.2 ~ 697.2 K, ng = 1.04e+21 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 6.28e+06 rad/s, ω_pe = 5.64e+09 ~ 5.64e+10 rad/s, ω_pi = 1.32e+08 ~ 1.32e+09 rad/s
+特征时间
+RF周期T = 1.00e-06 ~ 1.00e-06 s
+
+-----END 20210428_102503-----
+
+
+-----CHARLIE_sweepne210428 20210428_102700-----
+
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W_sweepne 
+[INFO] Use input plasma dataset: CHARLIE_10Pa1MHz520W 
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[INFO] Use skin depth formula: as-medium 
+[INFO] Use semi-infinite medium model.
+[INFO] Radius of plasma is assumed to be infinite.
+[INFO] Results from plasma model.
+等离子体参数
+ne = 1.0e+16 ~ 1.0e+18 m^-3 , Te = 2.1 ~ 2.1 eV
+f = 1.00e+06 ~ 1.00e+06 Hz, p = 10.0 ~ 10.0 Pa, Tg = 697.2 ~ 697.2 K, ng = 1.04e+21 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 6.28e+06 rad/s, ω_pe = 5.64e+09 ~ 5.64e+10 rad/s, ω_pi = 1.32e+08 ~ 1.32e+09 rad/s
+特征时间
+RF周期T = 1.00e-06 ~ 1.00e-06 s
+
+-----END 20210428_102700-----
+

@@ -1,5 +1,14 @@
-# ICP_power_deposition_model
-RF-ICP源功率沉积模型，负源激励器功率耦合（激励器等效阻抗与RF传输效率）分析代码
+#SAD  
+**the Simplified Analysis of the Driver in RF hydrogen ion source**  
+This code is applicable to inductively coupled plasma reactors(ICPs) where a helical coil surrounds the cylindrical dielectric tube. Some modules are mainly applicable to low pressure hydrogen ICPs. 
+  
+
+# collision cross section
+https://nl.lxcat.net/data/set_type.php -> type: Scattering crossing sections -> database: all -> specA: Ground states: e -> specB: Ground states: Ar -> groups: Elastic, Ionization -> processes: Biagi-v7.1, Morgan -> compare and download -> put each data set into a single file, record the reference at the first line -> modify the get_Xsec.m 
+
+# compare data
+output data by get_output_json(), then compare file by arbitrary text comparator, such as plug-in of code editor
+
   
 # 文件说明
 ## 主脚本
@@ -25,7 +34,11 @@ check_Nagaoka.m+Nagaoka.txt 查表得长冈系数，对理想螺线管电感做�
   
 # 单独脚本
 solve_stoc_eqns.m 单独脚本，用于求解stoc方程组  
-temp_test_code.m 单独脚本，测试子函数 (gitignore)  
+
+# TODO
+1. global model
+2. multi-filament model
+3. inverse formula of electric model, or inverse by try-optimization
 
 # History before SVM by Git
 v190111 等效媒质模型与变压器模型初版自左晨，赵鹏  

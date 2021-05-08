@@ -1,0 +1,66 @@
+
+-----CHARLIE_r10za_sweep210423 20210423_203957-----
+
+[INFO] Use input plasma dataset: 2019Raunera_CHARLIE_sweep 
+[INFO] Use input ICPs geometry dataset: CHARLIE_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+[INFO] Use measured-Lcoil-woplasma as Lcoil with plasma
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[INFO] Use skin depth formula: as-medium 
+[WARN] 存在δ>≈R ，电磁波穿透等离子体，电场基本均匀,集肤深度概念不适用
+[WARN] δ>≈R的元素的索引
+     1     2     3     4     5     6     7     8     9    10    11    12
+
+[警告: 随机加热模型计算 有bug] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plasma_model', 'e:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m', 28)" style="font-weight:bold">plasma_model</a> (<a href="matlab: opentoline('e:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m',28,0)">line 28</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('CHARLIE_raza_sweep20210415', 'e:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m', 72)" style="font-weight:bold">CHARLIE_raza_sweep20210415</a> (<a href="matlab: opentoline('e:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m',72,0)">line 72</a>)] 
+[警告: 变压器模型中，计算Rp-Lp的圆柱媒质涡流模型适用性存疑.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plasma_model', 'e:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m', 31)" style="font-weight:bold">plasma_model</a> (<a href="matlab: opentoline('e:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m',31,0)">line 31</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('CHARLIE_raza_sweep20210415', 'e:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m', 72)" style="font-weight:bold">CHARLIE_raza_sweep20210415</a> (<a href="matlab: opentoline('e:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m',72,0)">line 72</a>)] 
+[INFO] Results from plasma model.
+等离子体参数
+ne = 7.0e+16 ~ 3.7e+17 m^-3 , Te = 2.1 ~ 5.5 eV
+f = 1.00e+06 ~ 4.00e+06 Hz, p = 0.3 ~ 10.0 Pa, Tg = 501.2 ~ 697.2 K, ng = 4.34e+19 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 2.51e+07 rad/s, ω_pe = 1.49e+10 ~ 3.43e+10 rad/s, ω_pi = 3.48e+08 ~ 8.01e+08 rad/s
+特征时间
+RF周期T = 2.50e-07 ~ 1.00e-06 s
+[INFO] Use electric model: transformer-base
+[INFO] Results from electric model.
+
+-----END 20210423_203957-----
+
+
+-----CHARLIE_r10za_sweep210423 20210423_223237-----
+
+[INFO] Use input plasma dataset: 2019Raunera_CHARLIE_sweep 
+[INFO] Use input ICPs geometry dataset: CHARLIE_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+[INFO] Use measured-Lcoil-woplasma as Lcoil with plasma
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[INFO] Use skin depth formula: as-medium 
+[WARN] 存在δ>≈R ，电磁波穿透等离子体，电场基本均匀,集肤深度概念不适用
+[WARN] δ>≈R的元素的索引
+     1     2     3     4     5     6     7     8     9    10    11    12
+
+[警告: 随机加热模型计算 有bug] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plasma_model', 'E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m', 28)" style="font-weight:bold">plasma_model</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m',28,0)">line 28</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('CHARLIE_raza_sweep20210415', 'E:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m', 72)" style="font-weight:bold">CHARLIE_raza_sweep20210415</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m',72,0)">line 72</a>)] 
+[警告: 变压器模型中，计算Rp-Lp的圆柱媒质涡流模型适用性存疑.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plasma_model', 'E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m', 31)" style="font-weight:bold">plasma_model</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m',31,0)">line 31</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('CHARLIE_raza_sweep20210415', 'E:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m', 72)" style="font-weight:bold">CHARLIE_raza_sweep20210415</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\CHARLIE_raza_sweep20210415.m',72,0)">line 72</a>)] 
+[INFO] Results from plasma model.
+等离子体参数
+ne = 7.0e+16 ~ 3.7e+17 m^-3 , Te = 2.1 ~ 5.5 eV
+f = 1.00e+06 ~ 4.00e+06 Hz, p = 0.3 ~ 10.0 Pa, Tg = 501.2 ~ 697.2 K, ng = 4.34e+19 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 2.51e+07 rad/s, ω_pe = 1.49e+10 ~ 3.43e+10 rad/s, ω_pi = 3.48e+08 ~ 8.01e+08 rad/s
+特征时间
+RF周期T = 2.50e-07 ~ 1.00e-06 s
+[INFO] Use electric model: transformer-base
+[INFO] Results from electric model.
+
+-----END 20210423_223237-----
+
