@@ -43,6 +43,7 @@ source.PQplasma=S_plasma(geometry.r_plasma_eff)*2*pi*geometry.r_plasma_eff*l_par
 source.Pplasma=real(source.PQplasma);
 source.Xplasma=imag(source.PQplasma)./external.Icoil_rms.^2;
 source.Lplasma=source.Xplasma./w_RF;
+% 注意：与变压器模型中Lplasma定义不同
 
 % impedance
 source.PER=source.Pplasma./external.Icoil_rms.^2; % PER=Rind
@@ -85,3 +86,9 @@ source.emf.Hz_no_plasma=Hz_no_plasma;
 source.emf.Hz_plasma=Hz_plasma;
 source.emf.Etheta_plasma=Etheta_plasma;
 source.emf.S_plasma=S_plasma;
+
+% 逻辑表达式实现匿名分段函数
+source.emf.Bzm_r=@(r) constants.mu0*abs((0<=r & r<=geometry.r_plasma_eff)*Hz_plasma(r)...
+    +(geometry.r_plasma_eff<r & r<=geometry.r_coil)*Hz_no_plasma(r));
+
+end

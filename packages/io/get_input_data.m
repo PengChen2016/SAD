@@ -17,7 +17,7 @@ if ~isfield(flag,'type_Xsec') || isempty(flag.type_Xsec)
     switch flag.input_plasma
         case '2011Chabert'
             flag.type_Xsec='e-Ar-Biagi';
-%             error('No given type_Xsec. ');
+            %             error('No given type_Xsec. ');
         otherwise
             flag.type_Xsec='e-H2-Phelps';
     end
@@ -47,7 +47,7 @@ switch flag.input_plasma
         input.plasma.Tg=temp.Tg(idx);
         input.plasma.w_RF=temp.w_RF(idx);
         input.plasma.ng=temp.ng(idx);
-        input.plasma.r=inf; 
+        input.plasma.r=inf;
         input.plasma.size=[length(input.plasma.p),...
             length(input.plasma.f),length(input.plasma.Pin)];
     case 'CHARLIE_raza_sweep'
@@ -78,7 +78,7 @@ switch flag.input_plasma
         input.plasma.ne=logspace(16,18,21)';
         input.plasma.size=[1,1,1,21];
         input.plasma=rmfield(input.plasma,'idx');
-    case 'CHARLIE_razcoil_sweep'    
+    case 'CHARLIE_razcoil_sweep'
         input.plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
         ratio_origin2goal.ne_z=nonuniform_dist.get_ne_z([-50,50])/nonuniform_dist.get_ne_z([-200,200]);
         input.plasma.ne= input.plasma.ne*ratio_origin2goal.ne_z;
@@ -92,7 +92,7 @@ input.plasma.flag=flag.input_plasma;
 input.plasma.wpe=get_omega_pe(input.plasma.ne); %电子等离子体频率
 switch flag.type_Xsec(3:4)
     case 'H2'
-input.plasma.wpi=get_omega_pi(input.plasma.ne,1,1); %离子等离子体频率
+        input.plasma.wpi=get_omega_pi(input.plasma.ne,1,1); %离子等离子体频率
     case 'Ar'
         input.plasma.wpi=get_omega_pi(input.plasma.ne,1,39.948); %离子等离子体频率
 end
@@ -100,10 +100,8 @@ end
 input.plasma.ve=sqrt(8*input.plasma.Te*constants.e/(pi*constants.me));    %电子平均速率，计算自由程用
 %             wce=constants.e;     %电子拉莫尔运动频率
 
-
-
-%% input of electric model
 if isfield(flag,'electric_model') && ~isempty(flag.electric_model)
+    %% input of electric model
     % 几何数据
     input.geometry=get_input_geometry( flag.input_geometry ); % 导入预置数据
     
@@ -116,8 +114,8 @@ if isfield(flag,'electric_model') && ~isempty(flag.electric_model)
     input.plasma.r=input.geometry.r_plasma_eff;
     
     switch input.plasma.flag
-    case 'CHARLIE_razcoil_sweep'
-             input.geometry.l_plasma=input.geometry.l_coil;
+        case 'CHARLIE_razcoil_sweep'
+            input.geometry.l_plasma=input.geometry.l_coil;
     end
     
     % 外电路数据
@@ -138,8 +136,45 @@ if isfield(flag,'electric_model') && ~isempty(flag.electric_model)
         otherwise
             input.external=get_input_external( flag, input.geometry, input.plasma.w_RF );
     end
+    
+    %% check flag for specified models
+    flag_check=true;
+    switch flag.electric_model
+        case 'transformer-2018Jainb'
+            disp('[INFO] The electric model transformer-2018Jainb needs:')
+            flag_check=check_flag(flag.stoc_model,'stoc_model','2018Jainb-simplify');
+            flag_check=check_flag(flag.skin_depth,'skin_depth','as-medium-simplified-finite-radius') && flag_check;
+            flag_check=check_flag(flag.Rmetal,'Rmetal','measured-Rmetal-woplasma') && flag_check;
+            flag_check=check_flag(flag.Lcoil,'Lcoil','calculated-Lcoil-woplasma') && flag_check;
+            if flag_check
+                disp('ok.')
+            else
+                warning('There are some differences.')
+            end
+        case 'analytical_base'
+            disp('[INFO] The electric model analytical_base needs:')
+            flag_check=check_flag(flag.stoc_model,'stoc_model','Vahedi-simplify');
+            flag_check=check_flag(flag.skin_depth,'skin_depth','as-medium-simplified') && flag_check;
+            flag_check=check_flag(flag.Rmetal,'Rmetal','calculated-Rcoil-woplasma') && flag_check;
+            flag_check=check_flag(flag.Lcoil,'Lcoil','calculated-Lcoil-woplasma') && flag_check;
+            if flag_check
+                disp('ok.')
+            else
+                warning('There are some differences.')
+            end
+    end
+    
+    % get_output_json( input, 'input');
+    
+end
 end
 
-% get_output_json( input, 'input');
 
+function flag_pass=check_flag(flag,name,excepted)
+if ~strcmp(flag,excepted)
+    disp([name ' : excepted ' excepted ', actual ' flag])
+    flag_pass=false;
+else
+    flag_pass=true;
+end
 end

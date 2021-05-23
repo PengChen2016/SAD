@@ -12,8 +12,14 @@ plasma.keniz=get_k(plasma.Te, Xsec.eniz);
 plasma.nu_eniz=plasma.ng.*plasma.keniz;
 lambda_coll_eniz=ve./plasma.nu_eniz;
 %% 电子与离子动量损失碰撞
+switch type_Xsec(3:4)
+    case 'H2'
+        m_ion=constants.mH;
+    case 'Ar'
+        m_ion=39.948*constants.amu;
+end
 lambda_e=(((constants.eps0*constants.e*plasma.Te).^(3/2))./sqrt(plasma.ne))*...
-    (4*pi*constants.mH/(constants.e^3)/(constants.me+constants.mH));%库仑算子中Λ
+    (4*pi*m_ion/(constants.e^3)/(constants.me+m_ion));%库仑算子中Λ
 % 20210406 pengchen2016 bugfix: εkT^(2/3)->(εkT)^(2/3)
 plasma.nu_eip=plasma.ne.*log(lambda_e)./sqrt(constants.me*(constants.e*plasma.Te).^3)*...
     4*sqrt(2*pi)/3*((constants.e^2/4/pi/constants.eps0)^2);

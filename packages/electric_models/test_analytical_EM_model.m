@@ -46,11 +46,16 @@ end
 function test_E_H_2011Chabert(testCase)
 % compare E/H with E/H in the fig7.3 of 2011Chabert - Physics of
 % Radio-Frequency Plasmas
+
+% TODO: E/H与2011Chabert不一样，可能是nu_m计算结果不一样
+% 2011Chabert可能没有使用nu_eip！
+
 flag.type_Xsec='e-Ar-Biagi';
 flag.input_plasma='2011Chabert';
 flag.stoc_model='';
 flag.medium_approximation='';
-flag.skin_depth='as-medium-simplified';
+flag.skin_depth='as-medium-simplified'; 
+% 无碰撞与碰撞趋肤深度都是该趋肤深度表达式在不同条件下的进一步简化
 flag.electric_model='analytical_base';
 flag.input_geometry='2011Chabert';
 flag.Rmetal='calculated-Rcoil-woplasma';
@@ -125,7 +130,7 @@ flag.type_Xsec='e-Ar-Biagi';
 flag.input_plasma='2011Chabert';
 flag.stoc_model='';
 flag.medium_approximation='';
-flag.skin_depth='collisionless';
+flag.skin_depth='as-medium-simplified'; 
 flag.electric_model='analytical_base';
 flag.input_geometry='2011Chabert';
 flag.Rmetal='calculated-Rcoil-woplasma';

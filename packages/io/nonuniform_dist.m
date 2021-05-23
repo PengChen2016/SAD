@@ -1,3 +1,6 @@
+% TODO：目前使用一种rz解耦线平均密度的平均方法，这与诊断是一致的
+% 下一步使用一种rz耦合体积平均密度的计算方法，偏差更小
+
 classdef nonuniform_dist
     properties
         in_type

@@ -14,7 +14,7 @@ fprintf('[INFO] Results from electric model.\n');
         fprintf('%s = %.2e \n','Rmetal',source.Rmetal);
         disp('效率')
         fprintf('%s = %.2e \n','射频功率传输效率 PTE',source.PTE);
-        fprintf('%s = %.2e \n','射频功率耦合因数 PCF',source.PCF);
+%         fprintf('%s = %.2e \n','射频功率耦合因数 PCF',source.PCF);
     else
         % multi point
         disp('等离子体等效阻抗')

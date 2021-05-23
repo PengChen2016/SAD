@@ -24,8 +24,7 @@ else
         case 'multi-filament'
             error('To be realized.')
         otherwise
-            warning('Unexpected electric model. Please stop and check.')
-            pause
+            error('Unexpected electric model. Please stop and check.')
     end
 end
 
