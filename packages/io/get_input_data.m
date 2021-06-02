@@ -72,6 +72,24 @@ switch flag.input_plasma
         input.plasma=rmfield(input.plasma,'idx');
         
         assert(input.plasma.ne(3,3)-6.21e16<1e14)
+%     case 'CHARLIE_10Pa1MHz520W_nonuniform_r5z3'
+%         ratio_origin2goal=nan(5,5);
+%         norm_ne_r10=nonuniform_dist.get_ne_r(10); % origin data from experiments
+%         norm_ne_r0=nonuniform_dist.get_ne_r(0); % peak value at the center
+%         for i=1:5
+%             dist_rp(i)=nonuniform_dist.get_nonuniform_dist_CHARLIE(['rp' num2str(i)]);
+%             for j=1:i
+%                 ratio_origin2goal(i,j)=dist_rp(i).ne_r(j)/norm_ne_r10;
+%             end
+%         end
+%         ratio_origin2goal(1,5)=norm_ne_r0/norm_ne_r10;
+%         flag_temp.input_plasma='CHARLIE_10Pa1MHz520W';
+%         input=get_input_data( flag_temp );
+%         input.plasma.ne=input.plasma.ne*ratio_origin2goal;
+%         input.plasma.size=[1,1,1,15];
+%         input.plasma=rmfield(input.plasma,'idx');
+%         
+%         assert(input.plasma.ne(3,3)-6.21e16<1e14)
     case 'CHARLIE_10Pa1MHz520W_sweepne'
         flag_temp.input_plasma='CHARLIE_10Pa1MHz520W';
         input=get_input_data( flag_temp );

@@ -67,7 +67,8 @@ source_t=source;
 load('CHARLIE_raza_sweep_analyticalEM210508.mat')
 plasma_a=input.plasma;
 source_a=source;
-
+load('CHARLIE_raza_a_long210529.mat')
+source_a_lplasma=source;
 
 % 变压器模型的细节，不在本文范围之内。作为一个test去对比更合适
 % load('CHARLIE_raza_vahedi_skin_depth210424.mat')
@@ -143,6 +144,7 @@ h_fig=plot_nY(p,'{\itp} [Pa]',...
     fem.dielectric_PER(:,1),'FEM model',...
     source_t.PER(:,1),'transformer model',...
     source_a.PER(:,1),'analytical EM model',...
+    source_a_lplasma.PER(:,1),'analytical EM model,long',...
     'PER [\Omega]','plot');
 for i=1:length(h_fig)
     figure(h_fig{i})

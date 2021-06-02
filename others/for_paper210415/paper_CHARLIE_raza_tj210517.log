@@ -1,0 +1,39 @@
+
+-----paper_CHARLIE_raza_tj210517 20210523_142557-----
+
+[INFO] Use type_Xsec: e-H2-Phelps 
+[INFO] Use input plasma dataset: CHARLIE_raza_sweep 
+[INFO] Use input ICPs geometry dataset: CHARLIE_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+[INFO] Use calculated-Lcoil-woplasma as Lcoil with plasma
+[INFO] The electric model transformer-2018Jainb needs:
+ok.
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: 2018Jainb-simplify
+[WARN]  For some elements, ions respond to the RF electric field.
+ω_pe>>ω_pi for these elements, so the ion kinetics is neglected.
+[INFO] Use skin depth formula: as-medium-simplified-finite-radius 
+[INFO] Results from plasma model.
+等离子体参数
+ne = 3.7e+16 ~ 2.0e+17 m^-3 , Te = 2.1 ~ 5.5 eV
+f = 1.00e+06 ~ 4.00e+06 Hz, p = 0.3 ~ 10.0 Pa, Tg = 501.2 ~ 697.2 K, ng = 4.34e+19 ~ 1.04e+21 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 2.51e+07 rad/s, ω_pe = 1.09e+10 ~ 2.51e+10 rad/s, ω_pi = 2.55e+08 ~ 5.85e+08 rad/s
+特征时间
+RF周期T = 2.50e-07 ~ 1.00e-06 s
+[INFO] Use electric model: transformer-2018Jainb
+[警告: Lmp<0. Use Lmp=Nagaoka*Lmp_infinite_long.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('transformer_model', 'E:\GitRepos\NIS_driver_power_deposition\packages\electric_models\transformer_model.m', 58)" style="font-weight:bold">transformer_model</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\electric_models\transformer_model.m',58,0)">line 58</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('electric_model', 'E:\GitRepos\NIS_driver_power_deposition\packages\electric_model.m', 19)" style="font-weight:bold">electric_model</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\electric_model.m',19,0)">line 19</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('CHARLIE_sweep210415', 'E:\GitRepos\NIS_driver_power_deposition\CHARLIE_sweep210415.m', 127)" style="font-weight:bold">CHARLIE_sweep210415</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\CHARLIE_sweep210415.m',127,0)">line 127</a>)] 
+[INFO] Results from electric model.
+等离子体等效阻抗
+PER = 1.03 ~ 25.93 Ω, Lplasma = -1.14e-06 ~ -1.46e-08 , Xplasma = -2.85e+01 ~ -9.20e-02 
+系统等效阻抗Zsys
+Rsys = 1.12e+00 ~ 2.61e+01 , Lsys = 5.61e-07 ~ 1.68e-06 , Xsys = 9.71e+00 ~ 3.22e+01 
+Rmetal = 8.89e-02 ~ 2.46e-01 
+效率
+射频功率传输效率 PTE = 92.0% ~ 99.4% 
+
+-----END 20210523_142557-----
+

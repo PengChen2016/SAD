@@ -19,7 +19,7 @@ for i = 1:length(field)
     fem.(name_i)=[value_i(1:6)',value_i(7:12)'];
 end
 
-fem.nonuniform_in4_PER=[0.8, 0.4, 0.31, 0.27, 0.26, 0.25];
+fem.nonuniform_in4_PER=[0.8, 0.38, 0.31, 0.27, 0.26, 0.25];
 fem.nonuniform_in4_Rmetal=[0.047, 0.047, 0.045, 0.044, 0.044, 0.044];
 fem.nonuniform_in4_Ls=[2.62, 2.64, 2.59, 2.56, 2.55, 2.56];
 fem.nonuniform_in2_PER=[0.73, 0.36, 0.28, 0.26, 0.25, 0.25];

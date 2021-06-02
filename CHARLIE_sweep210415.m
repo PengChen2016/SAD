@@ -13,22 +13,22 @@ addpath(genpath(['./others/' solution_name '/']))
 flag.using_stored_data=false;
 % flag.using_stored_data=true;
 
-%------------------------------ 1. raza, transformer-base
-program_name='paper_CHARLIE_raza_t210517';
-%%%%%%%% plasma model
-flag.type_Xsec='e-H2-Phelps';
-flag.input_plasma='CHARLIE_raza_sweep';
-flag.stoc_model='Cazzador-fit';
-flag.medium_approximation='';
-flag.skin_depth='as-medium';
-flag.output_plasma_model=true;
-%%%%%%%% electric model
-flag.electric_model='transformer-base';
-flag.input_geometry='CHARLIE_base';
-flag.Rmetal='measured-Rmetal-woplasma';
-flag.Lcoil='measured-Lcoil-woplasma';
-flag.output_electric_model=true;
-%------------------------------ 1. flag end
+% %------------------------------ 1. raza, transformer-base
+% program_name='paper_CHARLIE_raza_t210517';
+% %%%%%%%% plasma model
+% flag.type_Xsec='e-H2-Phelps';
+% flag.input_plasma='CHARLIE_raza_sweep';
+% flag.stoc_model='Cazzador-fit';
+% flag.medium_approximation='';
+% flag.skin_depth='as-medium';
+% flag.output_plasma_model=true;
+% %%%%%%%% electric model
+% flag.electric_model='transformer-base';
+% flag.input_geometry='CHARLIE_base';
+% flag.Rmetal='measured-Rmetal-woplasma';
+% flag.Lcoil='measured-Lcoil-woplasma';
+% flag.output_electric_model=true;
+% %------------------------------ 1. flag end
 
 % %------------------------------ 2. raza, analytical-base
 % program_name='paper_CHARLIE_raza_a210517';
@@ -45,7 +45,7 @@ flag.output_electric_model=true;
 % flag.Rmetal='measured-Rmetal-woplasma';
 % flag.Lcoil='calculated-Lcoil-woplasma';
 % flag.output_electric_model=true;
-% flag.magnetized='TODO';
+% % flag.magnetized='TODO';
 % %------------------------------ 2. flag end
 
 % %------------------------------ 3. raza, transformer-2018Jainb
