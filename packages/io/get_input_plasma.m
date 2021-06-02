@@ -228,10 +228,15 @@ switch flag_input_plasma
         num_p=length(p);
         num_f=length(f);
         num_Pin=length(Pin);
+        % 扩展
+        % 各变量，依次占据一个维度
+        plasma.p=reshape(p,[],1,1);
+        plasma.f=reshape(f,1,[],1);
+        plasma.Pin=reshape(Pin,1,1,[]);
         % 相同size的多维数组作为结构体元素
-        plasma.p=repmat(p,1,num_f,num_Pin);
-        plasma.f=repmat(f,num_p,1,num_Pin);
-        plasma.Pin=repmat(Pin,num_p,num_f,1);
+        plasma.p=repmat(plasma.p,1,num_f,num_Pin);
+        plasma.f=repmat(plasma.f,num_p,1,num_Pin);
+        plasma.Pin=repmat(plasma.Pin,num_p,num_f,1);
         i_data=0;
         for i_p=1:3
             for i_Pin=1:3

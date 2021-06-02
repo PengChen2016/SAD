@@ -1,46 +1,16 @@
-#SAD  
-**the Simplified Analysis of the Driver in RF hydrogen ion source**  
-This code is applicable to inductively coupled plasma reactors(ICPs) where a helical coil surrounds the cylindrical dielectric tube. Some modules are mainly applicable to low pressure hydrogen ICPs. 
-  
+# SAD  
+**the Simple Analysis of the Driver in RF hydrogen ion source**  
 
-# collision cross section
-https://nl.lxcat.net/data/set_type.php -> type: Scattering crossing sections -> database: all -> specA: Ground states: e -> specB: Ground states: Ar -> groups: Elastic, Ionization -> processes: Biagi-v7.1, Morgan -> compare and download -> put each data set into a single file, record the reference at the first line -> modify the get_Xsec.m 
 
-# compare data
+
+## get collision cross section
+https://nl.lxcat.net/data/set_type.php -> type: Scattering crossing sections -> database: all -> specA: Ground states: e -> specB: Ground states: Ar -> groups: Elastic, Ionization -> processes: Biagi-v7.1, Morgan -> compare and download -> put each data set into a single file, record the reference at the first line -> modify the get_Xsec.m  
+Cross sections of e-H2, e-Ar has been included in the ./packages/physic_tools.  
+
+## compare data
 output data by get_output_json(), then compare file by arbitrary text comparator, such as plug-in of code editor
 
-  
-# 文件说明
-## 主脚本
-main.m 主脚本，修改输入参数和后处理代码，执行
-
-原理见 eP-190821-01激励器FEM模型.docx  
-注意：电模型非函数，会修改全局变量形式的输入参数。因此每次只能运行一个电模型。  
-使用方法：  
-1. 修改控制位  
-2. 补充输入条件（修改对应case的各处代码）  
-参数化分析时，有两处参数化自动后处理功能设置代码可能需要手动修改  
-3. 后处理  
-  
-典型情况  
-ELISE 单点/多点  
-CHARLIE 参数一一对应  
-
-## equivalent_medium_model_of_plasma部分 的子函数
-k_eniz.m+IONIZATION.txt 计算电子中性粒子电离碰撞反应系数的函数  
-k_enp.m+ELASTIC.txt 计算电子中性粒子弹性碰撞反应系数的函数  
-## electric model部分 的子函数
-check_Nagaoka.m+Nagaoka.txt 查表得长冈系数，对理想螺线管电感做校正得实际电感  
-  
-# 单独脚本
-solve_stoc_eqns.m 单独脚本，用于求解stoc方程组  
-
-# TODO
-1. global model
-2. multi-filament model
-3. inverse formula of electric model, or inverse by try-optimization
-
-# History before SVM by Git
+## History before version control by Git
 v190111 等效媒质模型与变压器模型初版自左晨，赵鹏  
 190916 by陈鹏 进行等效媒质模型代码整理  
 v200413 by陈鹏 完成等效媒质模型与变压器模型检查，单点计算可靠  
@@ -72,5 +42,5 @@ v200607
 气压加入参数化。  
 CHARLIE实现一一对应参数耦合计算  
   
-v201010 期刊论文使用版本  
+v201010 v0.1 
 201030 开始Git版本管理  

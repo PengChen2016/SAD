@@ -1,0 +1,64 @@
+
+-----paper_BUG_edge_a210517 20210523_142736-----
+
+[INFO] Use type_Xsec: e-H2-Phelps 
+[INFO] Use input plasma dataset: 2021Zielke_BUG_sweep 
+[INFO] Use input ICPs geometry dataset: BUG_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+[INFO] Use calculated-Lcoil-woplasma as Lcoil with plasma
+[INFO] The electric model analytical_base needs:
+stoc_model : excepted Vahedi-simplify, actual Cazzador-fit
+skin_depth : excepted as-medium-simplified, actual as-medium
+Rmetal : excepted calculated-Rcoil-woplasma, actual measured-Rmetal-woplasma
+[警告: There are some differences.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('get_input_data', 'E:\GitRepos\NIS_driver_power_deposition\packages\io\get_input_data.m', 163)" style="font-weight:bold">get_input_data</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\io\get_input_data.m',163,0)">line 163</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BUG_sweep210508', 'E:\GitRepos\NIS_driver_power_deposition\BUG_sweep210508.m', 124)" style="font-weight:bold">BUG_sweep210508</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\BUG_sweep210508.m',124,0)">line 124</a>)] 
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Cazzador-fit
+[WARN]  For some elements, ions respond to the RF electric field.
+ω_pe>>ω_pi for these elements, so the ion kinetics is neglected.
+[INFO] Use skin depth formula: as-medium 
+[WARN] 存在λ＜≈R ，需要考虑相位变化
+[WARN] idx of elements with λ＜≈R
+     1     2     3     4     5     6     7     8     9
+
+[INFO] Results from plasma model.
+等离子体参数
+ne = 1.7e+17 ~ 5.5e+17 m^-3 , Te = 4.5 ~ 9.3 eV
+f = 1.00e+06 ~ 1.00e+06 Hz, p = 0.2 ~ 0.5 Pa, Tg = 630.0 ~ 630.0 K, ng = 2.30e+19 ~ 5.75e+19 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 6.28e+06 rad/s, ω_pe = 2.34e+10 ~ 4.18e+10 rad/s, ω_pi = 5.46e+08 ~ 9.76e+08 rad/s
+特征时间
+RF周期T = 1.00e-06 ~ 1.00e-06 s
+[INFO] Use electric model: analytical_base
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[INFO] Results from electric model.
+等离子体等效阻抗
+PER = 22.78 ~ 28.62 Ω, Lplasma = 5.10e-06 ~ 7.63e-06 , Xplasma = 3.21e+01 ~ 4.79e+01 
+系统等效阻抗Zsys
+Rsys = 2.34e+01 ~ 2.92e+01 , Lsys = 1.40e-05 ~ 1.65e-05 , Xsys = 8.79e+01 ~ 1.04e+02 
+Rmetal = 6.00e-01 ~ 6.00e-01 
+效率
+射频功率传输效率 PTE = 97.4% ~ 97.9% 
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[WARN] 存在δ>≈R ，电磁波穿透等离子体，电场基本均匀,集肤深度概念不适用
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[WARN] 存在δ>≈R ，电磁波穿透等离子体，电场基本均匀,集肤深度概念不适用
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[WARN] 存在δ>≈R ，电磁波穿透等离子体，电场基本均匀,集肤深度概念不适用
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[WARN] 存在δ>≈R ，电磁波穿透等离子体，电场基本均匀,集肤深度概念不适用
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[INFO] Use electric model: analytical_base
+[WARN] l_coil≠l_plasma. Use the shorter one: l_part=l_coil. 
+[INFO] Results from electric model.
+等离子体等效阻抗
+PER = 3.12 ~ 9.58 Ω, Lplasma = 2.64e-05 ~ 2.65e-05 , Xplasma = 1.66e+02 ~ 1.67e+02 
+系统等效阻抗Zsys
+Rsys = 3.72e+00 ~ 1.02e+01 , Lsys = 3.53e-05 ~ 3.54e-05 , Xsys = 2.22e+02 ~ 2.23e+02 
+Rmetal = 6.00e-01 ~ 6.00e-01 
+效率
+射频功率传输效率 PTE = 83.9% ~ 94.1% 
+
+-----END 20210523_142736-----
+

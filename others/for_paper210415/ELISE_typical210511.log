@@ -1,0 +1,65 @@
+
+-----ELISE_typical210511 20210511_215156-----
+
+[INFO] Use type_Xsec: e-H2-Phelps 
+[INFO] Use input plasma dataset: 2018Jainb_ELISE_typical 
+[INFO] Use input ICPs geometry dataset: ELISE_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+No measured-Rmetal-woplasma. 
+[WARN] Use measured-Rcoil-woplasma instead.
+[INFO] Use measured-Lcoil-woplasma as Lcoil with plasma
+ok.
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: Vahedi-simplify
+[WARN]  For some elements, ions respond to the RF electric field.
+ω_pe>>ω_pi for these elements, so the ion kinetics is neglected.
+[INFO] Use skin depth formula: as-medium 
+[WARN] 存在λ＜≈R ，需要考虑相位变化
+[WARN] idx of elements with λ＜≈R
+     1
+
+[警告: 集中参数电路模型有bug] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plasma_model', 'E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m', 29)" style="font-weight:bold">plasma_model</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m',29,0)">line 29</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ELISE_typical210511', 'E:\GitRepos\NIS_driver_power_deposition\ELISE_typical210511.m', 76)" style="font-weight:bold">ELISE_typical210511</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\ELISE_typical210511.m',76,0)">line 76</a>)] 
+[INFO] Results from plasma model.
+等离子体参数
+ne = 5.0e+18 m^-3 , Te = 9.0 eV
+f = 1.00e+06 Hz, p = 3.00e-01 Pa, Tg = 1.20e+03 K, ng = 1.81e+19 m^-3
+特征频率
+ω_RF = 6.28e+06 rad/s, ω_pe = 1.26e+11 rad/s, ω_pi = 2.94e+09 rad/s
+特征时间
+RF周期T = 1.00e-06 s
+ν_m = 7.65e+06 , ν_stoc = 3.84e+07 , ν_eff = 4.61e+07 
+碰撞频率
+ν_enp = 1.62e+06 , ν_eniz = 9.10e+04 , ν_eip = 5.94e+06 
+需同时考虑欧姆加热和随机加热.
+趋肤层渡越时间τ = 4.14e-09 , ω_pi/ω_RF = 4.69e+02 
+[WARN] 1995Vahedia的stoc model要求离子不响应电场, 但当前等离子体参数集并不满足
+复介电常数
+eps_c_r = -7.35e+06-5.39e+07i
+eps_r = -7.35e+06 , tandelta = -7.34e+00 
+位移电流占比 = 1.84e-08 
+ω_pe^2/(ω_RF*sqrt(ω_RF^2+ν^2)) >> 1, 可忽略等离子体位移电流，ε_p近似等效为σ_p
+σ_p = 3.00e+03-4.09e+02i
+veff/w_RF = 7.34e+00 
+ν/ω_RF, 不应使用σ_dc\n = 7.34e+00 
+ω_pe/ω_RF = 2.01e+04 , ω_pi/ω_RF = 4.69e+02 
+ω_pe/ω_RF > 1, 电子运动响应RF电场
+ω_pe/ω_pi = 4.29e+01 >>1,  可忽略离子动力学
+特征长度
+debye length = 9.97e-06 
+effective_skin_depth = 8.58e-03 , λ_wave = 6.18e-02 
+r_plasma = 1.38e-01 
+[INFO] Use electric model: transformer-base
+[WARN] No given Icoil. Use Icoil_rms=1A to calculate power.
+[INFO] Results from electric model.
+等离子体等效阻抗
+PER = 3.61e+00 Ω, Lplasma = -4.29e-06 , Xplasma = -2.69e+01 
+系统等效阻抗Zsys
+Rsys = 4.11e+00 , Lsys = 3.21e-06 , Xsys = 2.02e+01 
+Rmetal = 5.00e-01 
+效率
+射频功率传输效率 PTE = 8.78e-01 
+
+-----END 20210511_215156-----
+

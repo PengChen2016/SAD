@@ -31,6 +31,14 @@ switch flag.electric_model
         % Sources of Neutral Beam Injectors for ITER and fusion experiments
         input.Lcoil_th=geometry.N_coil^2*0.002*pi*(2*geometry.r_coil*100)* ...
             (log(4*2*geometry.r_coil/geometry.l_coil)-0.5)*1e-6;
+        
+        % 该表达式不适用于D/L<0.4的长线圈
+        if input.Lcoil_th<0
+            warning('Lcoil_th<0. Use Lcoil_th=Nagaoka*Lcoil_infinite_long.')
+            % Formula using Nagaoka coefficient
+            L_infinite_long=constants.mu0*pi*geometry.r_coil^2*geometry.N_coil^2/geometry.l_coil;
+            input.Lcoil_th=L_infinite_long*get_Nagaoka(2*geometry.r_coil/geometry.l_coil);
+        end
     case 'analytical_base'
         input.Lcoil_th=constants.mu0*pi*geometry.r_coil^2*geometry.N_coil^2/geometry.l_coil;
     otherwise
@@ -41,8 +49,8 @@ switch flag.electric_model
         % same as previous version by pengzhao/chenzuo
 end
 
-%% 导入Zloss实验值
-input.Icoil_rms=nan; % 计算功率绝对值时需要电流实验值
+%% experiment data
+input.Icoil_rms=[]; % 计算功率绝对值时需要电流实验值
 % 实验测量线圈阻抗（一般按照相减方法来测量）
 switch geometry.flag
     case 'ELISE_base'
@@ -60,6 +68,16 @@ switch geometry.flag
         input.Rcoil_ex=[];
         input.Rmetal_ex=0.6;
         input.Lcoil_ex=[];
+        Icoil_rms=[128.45, 176.64, 209.76, 122.47, 162.48, 198.54, 116.19, 154.92, 193.86];
+        input.Icoil_rms=zeros(3,1,3);
+        i_data=0;
+        for i_p=1:3
+            for i_Pin=1:3
+                i_data=i_data+1;
+                input.Icoil_rms(i_p,1,i_Pin)=Icoil_rms(i_data);
+            end
+        end
+        assert(input.Icoil_rms(3,1,1)==116.19)
     case 'HUST_small_driver_base'
         input.Rcoil_ex=[];
         input.Rmetal_ex=0.8;

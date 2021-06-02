@@ -45,6 +45,8 @@ switch flag.stoc_model
         % pre-processing
         if 1==plasma.size
             size_mat=[1,1];
+        elseif length(plasma.size)==3
+            size_mat=plasma.size;
         else
             size_mat=plasma.size(plasma.size>1);
         end
@@ -112,6 +114,8 @@ switch flag.stoc_model
         % pre-processing
         if 1==plasma.size
             size_mat=[1,1];
+        elseif length(plasma.size)==3
+            size_mat=plasma.size;
         else
             size_mat=plasma.size(plasma.size>1);
         end

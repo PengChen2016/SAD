@@ -6,7 +6,6 @@ function [ source ] = electric_model( flag, input )
 %% preparation
 fprintf('[INFO] Use electric model: %s\n',flag.electric_model);
 
-source.w_RF=input.plasma.w_RF;
 % 若将Icoil_rms移出具体model，则以下条件语句移到本文件最后
 if ~isfield(input.external,'Icoil_rms') || isempty(input.external.Icoil_rms)...
         || isempty(find(~isnan(input.external.Icoil_rms),1))
@@ -24,11 +23,11 @@ else
         case 'multi-filament'
             error('To be realized.')
         otherwise
-            warning('Unexpected electric model. Please stop and check.')
-            pause
+            error('Unexpected electric model. Please stop and check.')
     end
 end
 
+source.w_RF=input.plasma.w_RF;
 %% derived parameters
 source.size=input.plasma.size;
 

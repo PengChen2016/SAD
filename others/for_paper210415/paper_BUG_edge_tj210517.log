@@ -1,0 +1,42 @@
+
+-----paper_BUG_edge_tj210517 20210523_142900-----
+
+[INFO] Use type_Xsec: e-H2-Phelps 
+[INFO] Use input plasma dataset: 2021Zielke_BUG_sweep 
+[INFO] Use input ICPs geometry dataset: BUG_base 
+[INFO] Choose measured-Rmetal-woplasma as Rloss with plasma
+[INFO] Use calculated-Lcoil-woplasma as Lcoil with plasma
+[INFO] The electric model transformer-2018Jainb needs:
+ok.
+[INFO] Use ICP heating model: Ohmic+stochastic heating 
+[INFO] Use stoc model: 2018Jainb-simplify
+[WARN]  For some elements, ions respond to the RF electric field.
+ω_pe>>ω_pi for these elements, so the ion kinetics is neglected.
+[INFO] Use skin depth formula: as-medium-simplified-finite-radius 
+[WARN] 存在λ＜≈R ，需要考虑相位变化
+[WARN] idx of elements with λ＜≈R
+     1     2     3     4     5     6     7     8     9
+
+[警告: 集中参数电路模型有bug] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plasma_model', 'E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m', 29)" style="font-weight:bold">plasma_model</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\packages\plasma_model.m',29,0)">line 29</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BUG_sweep210508', 'E:\GitRepos\NIS_driver_power_deposition\BUG_sweep210508.m', 126)" style="font-weight:bold">BUG_sweep210508</a> (<a href="matlab: opentoline('E:\GitRepos\NIS_driver_power_deposition\BUG_sweep210508.m',126,0)">line 126</a>)] 
+[INFO] Results from plasma model.
+等离子体参数
+ne = 1.7e+17 ~ 5.5e+17 m^-3 , Te = 4.5 ~ 9.3 eV
+f = 1.00e+06 ~ 1.00e+06 Hz, p = 0.2 ~ 0.5 Pa, Tg = 630.0 ~ 630.0 K, ng = 2.30e+19 ~ 5.75e+19 m^-3
+特征频率
+ω_RF = 6.28e+06 ~ 6.28e+06 rad/s, ω_pe = 2.34e+10 ~ 4.18e+10 rad/s, ω_pi = 5.46e+08 ~ 9.76e+08 rad/s
+特征时间
+RF周期T = 1.00e-06 ~ 1.00e-06 s
+[INFO] Use electric model: transformer-2018Jainb
+[INFO] Results from electric model.
+等离子体等效阻抗
+PER = 13.11 ~ 14.66 Ω, Lplasma = -4.29e-06 ~ -2.98e-06 , Xplasma = -2.69e+01 ~ -1.87e+01 
+系统等效阻抗Zsys
+Rsys = 1.37e+01 ~ 1.53e+01 , Lsys = 9.05e-06 ~ 1.04e-05 , Xsys = 5.69e+01 ~ 6.51e+01 
+Rmetal = 6.00e-01 ~ 6.00e-01 
+效率
+射频功率传输效率 PTE = 95.6% ~ 96.1% 
+
+-----END 20210523_142900-----
+
