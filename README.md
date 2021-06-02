@@ -7,13 +7,13 @@ If this repository is helpful for you, please email PengChen(pengchen.hust@outlo
 Please feel free to use the Discussions and pull request in Github.  
 The data and the related document(in Chinese) are available from the author upon reasonable request. 
 
-## Content
- ### Examples of the plasma models and other electric models
+## Content (of the master branch)
+### Examples of the plasma models and other electric models
 .\CHARLIE_sweep210415.m
 .\BUG_sweep210508.m
 .\CHARLIE_nonuniform210426.m
  
-#### results and analysis
+### results and analysis
 .\others\for_paper210415\
  
 ### Examples of the FEM model
@@ -21,37 +21,37 @@ The data and the related document(in Chinese) are available from the author upon
 .\others\for_paper210415\CHARLIE_1MHz.aedt 
 
 ## Reference
-[1]	Zielke D P, Briefi S, and Fantz U 2021 J. Phys. D: Appl. Phys. 54 155202, https://doi.org/10.1088/1361-6463/abd8ee
-[2]	Kralkina E A, Rukhadze A A, Pavlov V B, Vavilin K V, Nekliudova P A, Petrov A K and Alexandrov A F 2016 Plasma Sources Sci. Technol. 25 015016
-[3]	Kraus W, Fantz U, Heinemann B and Franzen P. 2015 Fusion Eng. Des. 91 16, https://doi.org/10.1016/j.fusengdes.2014.11.015
-[4]	Rauner D, Briefi S and Fantz U 2017 Plasma Sources Sci. Technol. 26 095004
-[5]	Rauner D, Briefi S and Fantz U. 2019 Plasma Sources Sci. Technol. 28 095011
-[6]	Piejak R B, Godyak V A and Alexandrovich B M 1992 Plasma Sources Sci. Technol. 1 179
-[7]	Cazzador M 2014 MSc Thesis University of Padua, Padua
-[8]	Nishida K, Mochizuki S, Ohta M, Yasumoto M, Lettry J, Mattei S, Mattei S and Hatayama A 2014 Rev. Sci. Instrum. 85 02B117
-[9]	Sudhir D, Bandyopadhyay M, Kraus W, Gahlaut A, Bansal G and Chakraborty A 2014 Rev. Sci. Instrum. 85 013510
-[10]	Bandyopadhyay M, Sudhir D and Chakraborty A 2015 Nucl. Fusion 55 033017
-[11]	Jain P, Recchia M, Veltri P, Cavenago M, Maistrello A and Gaio E 2018 IEEE Access 6 29665
-[12]	Chabert P and Braithwaite N 2011 Physics of Radio-Frequency Plasmas (Cambridge: Cambridge University Press)
-[13]	Zhang L G, Chen D Z, Li D, Liu K F, Li X F, Pan R M and Fan M W Fusion Eng. Des. 2016 103 74
-[14]	Lee S W, Goulding R H, Kang Y W, Shin K and Welton R F 2010 Rev. Sci. Instrum. 81 02A726
-[15]	Grudiev A, Lettry J, Mattei S, Paoluzzi M and Scrivens R Rev. Sci. Instrum. 2014 85 02B134
-[16]	Zhao P, Li D, Chen D Z, Zuo C, Li X F and Fan M W 2018 Fusion Eng. Des. 132 29
-[17]	Chen P, Li D, Chen D Z, Song F, Zuo C, Zhao P, Lei G J 2018 AIP Conf Proc. 2052 040018
-[18]	Zielke D P, Rauner D, Briefi S, Lishev S and Fantz U 2021 Plasma Sources Sci. Technol. in press, https://doi.org/10.1088/1361-6595/ac0396
-[19]	Kobayashi W, Nishida K, Mattei S, Lettry J, Hoshino K and Hatayama A 2018 AIP Conf Proc. 2052 050009
-[20]	Rauner D, Mattei S, Briefi S, Fantz U, Hatayama A, Lettry J, Nishida K and Tran M Q 2017 AIP Conf Proc. 1869 030035
-[21]	Lieberman M A and Lichtenberg A J 2005 Principles of Plasma Discharges and Materials Processing 2nd edn (Hoboken, New Jersey: Wiley)
-[22]	Yoon N S, Kim S S, Chang C S, Choi D I 1996 Phys. Rev. E 54 757
-[23]	Vahedi V et al 1995 J. Appl. Phys. 78 1446
-[24]	Nagaoka H. 1909 J. Coll. Sci., Imp. Univ. Tokyo 27 1, https://doi.org/10.15083/00037799
-[25]	Phelps database, www.lxcat.net, retrieved on December 14, 2020.
-[26]	Buckman S J and Phelps A V, 1995 JILA Information Center Report No. 27, University of Colorado
-[27]	Rauner D 2019 PhD Thesis Augsburg University, Augsburg
-[28]	Briefi S and Fantz U. 2018 AIP Conf Proc. 2052 040005, https://doi.org/10.1063/1.5083739
-[29]	Mcneely P, Wunderlich W and the NNBI Team 2011 Plasma Sources Sci. Technol. 20 045005, http://doi.org/10.1088/0963-0252/20/4/045005
-[30]	McNeely P, Dudin S V, Christ-Koch S and Fantz U. 2009 Plasma Sources Sci. Technol. 18 014011
-[31]	Zhao P, Li D, Chen D, Liu K, Li X, Wang H, Zuo C and Fan M. 2017 Nucl. Instrum. Methods Phys. Res., Sect. A 858 90, http://dx.doi.org/10.1016/j.nima.2017.03.054
+[1]	Zielke D P, Briefi S, and Fantz U 2021 J. Phys. D: Appl. Phys. 54 155202, https://doi.org/10.1088/1361-6463/abd8ee  
+[2]	Kralkina E A, Rukhadze A A, Pavlov V B, Vavilin K V, Nekliudova P A, Petrov A K and Alexandrov A F 2016 Plasma Sources Sci. Technol. 25 015016  
+[3]	Kraus W, Fantz U, Heinemann B and Franzen P. 2015 Fusion Eng. Des. 91 16, https://doi.org/10.1016/j.fusengdes.2014.11.015  
+[4]	Rauner D, Briefi S and Fantz U 2017 Plasma Sources Sci. Technol. 26 095004  
+[5]	Rauner D, Briefi S and Fantz U. 2019 Plasma Sources Sci. Technol. 28 095011  
+[6]	Piejak R B, Godyak V A and Alexandrovich B M 1992 Plasma Sources Sci. Technol. 1 179  
+[7]	Cazzador M 2014 MSc Thesis University of Padua, Padua  
+[8]	Nishida K, Mochizuki S, Ohta M, Yasumoto M, Lettry J, Mattei S, Mattei S and Hatayama A 2014 Rev. Sci. Instrum. 85 02B117  
+[9]	Sudhir D, Bandyopadhyay M, Kraus W, Gahlaut A, Bansal G and Chakraborty A 2014 Rev. Sci. Instrum. 85 013510  
+[10]	Bandyopadhyay M, Sudhir D and Chakraborty A 2015 Nucl. Fusion 55 033017  
+[11]	Jain P, Recchia M, Veltri P, Cavenago M, Maistrello A and Gaio E 2018 IEEE Access 6 29665  
+[12]	Chabert P and Braithwaite N 2011 Physics of Radio-Frequency Plasmas (Cambridge: Cambridge University Press)  
+[13]	Zhang L G, Chen D Z, Li D, Liu K F, Li X F, Pan R M and Fan M W Fusion Eng. Des. 2016 103 74  
+[14]	Lee S W, Goulding R H, Kang Y W, Shin K and Welton R F 2010 Rev. Sci. Instrum. 81 02A726  
+[15]	Grudiev A, Lettry J, Mattei S, Paoluzzi M and Scrivens R Rev. Sci. Instrum. 2014 85 02B134  
+[16]	Zhao P, Li D, Chen D Z, Zuo C, Li X F and Fan M W 2018 Fusion Eng. Des. 132 29  
+[17]	Chen P, Li D, Chen D Z, Song F, Zuo C, Zhao P, Lei G J 2018 AIP Conf Proc. 2052 040018  
+[18]	Zielke D P, Rauner D, Briefi S, Lishev S and Fantz U 2021 Plasma Sources Sci. Technol. in press, https://doi.org/10.1088/1361-6595/ac0396  
+[19]	Kobayashi W, Nishida K, Mattei S, Lettry J, Hoshino K and Hatayama A 2018 AIP Conf Proc. 2052 050009  
+[20]	Rauner D, Mattei S, Briefi S, Fantz U, Hatayama A, Lettry J, Nishida K and Tran M Q 2017 AIP Conf Proc. 1869 030035  
+[21]	Lieberman M A and Lichtenberg A J 2005 Principles of Plasma Discharges and Materials Processing 2nd edn (Hoboken, New Jersey: Wiley)  
+[22]	Yoon N S, Kim S S, Chang C S, Choi D I 1996 Phys. Rev. E 54 757  
+[23]	Vahedi V et al 1995 J. Appl. Phys. 78 1446  
+[24]	Nagaoka H. 1909 J. Coll. Sci., Imp. Univ. Tokyo 27 1, https://doi.org/10.15083/00037799  
+[25]	Phelps database, www.lxcat.net, retrieved on December 14, 2020.  
+[26]	Buckman S J and Phelps A V, 1995 JILA Information Center Report No. 27, University of Colorado  
+[27]	Rauner D 2019 PhD Thesis Augsburg University, Augsburg  
+[28]	Briefi S and Fantz U. 2018 AIP Conf Proc. 2052 040005, https://doi.org/10.1063/1.5083739  
+[29]	Mcneely P, Wunderlich W and the NNBI Team 2011 Plasma Sources Sci. Technol. 20 045005, http://doi.org/10.1088/0963-0252/20/4/045005  
+[30]	McNeely P, Dudin S V, Christ-Koch S and Fantz U. 2009 Plasma Sources Sci. Technol. 18 014011  
+[31]	Zhao P, Li D, Chen D, Liu K, Li X, Wang H, Zuo C and Fan M. 2017 Nucl. Instrum. Methods Phys. Res., Sect. A 858 90, http://dx.doi.org/10.1016/j.nima.2017.03.054  
 
 
 ## get collision cross section
