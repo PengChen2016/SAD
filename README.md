@@ -1,17 +1,24 @@
 # SAD  
 **the Simple Analysis of the Driver in RF hydrogen ion source**  
 
-The code is still under development, though the the existing modules have been compared with the results reported by the literature. (See the unit test cases) 
+The code is still under development, though the the existing modules have been compared with the results reported by the literature. (See the unit test cases, and the results are listed in .\others\Figures during code developing.pptx in Chinese. Sorry for nonstandard references.) 
 
 If this repository is helpful for you, please email PengChen(pengchen.hust@outlook.com) just let me know. It is my honor to know that.  
 Please feel free to use the Discussions and pull request in Github.  
 The data and the related document(in Chinese) are available from the author upon reasonable request. 
 
 ## Content
-Lossy dielectric model of ICP  
-Analytical Electromagnetic model and  transformer models of ICP source  
-Application to CHARLIE  
-Application to BUG  
+ ### Examples of the plasma models and other electric models
+.\CHARLIE_sweep210415.m
+.\BUG_sweep210508.m
+.\CHARLIE_nonuniform210426.m
+ 
+#### results and analysis
+.\others\for_paper210415\
+ 
+### Examples of the FEM model
+.\others\for_paper210415\BUG1.aedt
+.\others\for_paper210415\CHARLIE_1MHz.aedt 
 
 ## Reference
 [1]	Zielke D P, Briefi S, and Fantz U 2021 J. Phys. D: Appl. Phys. 54 155202, https://doi.org/10.1088/1361-6463/abd8ee
