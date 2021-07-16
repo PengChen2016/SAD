@@ -50,14 +50,33 @@ switch flag.input_plasma
         input.plasma.r=inf;
         input.plasma.size=[length(input.plasma.p),...
             length(input.plasma.f),length(input.plasma.Pin)];
+    case {'BUG_0.3Pa_1MHz_55kW'}
+        % 从一个 multi_coupled 数据中取出部分
+        temp=get_input_plasma( '2021Zielke_BUG_sweep' );
+        switch flag.input_plasma
+            case 'BUG_0.3Pa_1MHz_55kW'
+                idx=(temp.p==0.3) & (temp.f==1e6) & (temp.Pin==55e3);
+        end
+        input.plasma.idx=idx; % 用于get_external
+        input.plasma.p=temp.p(idx);
+        input.plasma.f=temp.f(idx);
+        input.plasma.Pin=temp.Pin(idx);
+        input.plasma.ne=temp.ne(idx);
+        input.plasma.Te=temp.Te(idx);
+        input.plasma.Tg=temp.Tg;
+        input.plasma.w_RF=temp.w_RF(idx);
+        input.plasma.ng=temp.ng(idx);
+        input.plasma.r=inf;
+        input.plasma.size=[length(input.plasma.p),...
+            length(input.plasma.f),length(input.plasma.Pin)];
     case 'CHARLIE_raza_sweep'
         input.plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
-        ratio_origin2goal.ne_r=nonuniform_dist.get_ne_r([0,45.5])/nonuniform_dist.get_ne_r(10);
+        ratio_origin2goal.ne_r=nonuniform_dist.get_ne_r_CHARLIE([0,45.5])/nonuniform_dist.get_ne_r_CHARLIE(10);
         input.plasma.ne= input.plasma.ne*ratio_origin2goal.ne_r;
     case 'CHARLIE_10Pa1MHz520W_nonuniform'
         ratio_origin2goal=nan(5,5);
-        norm_ne_r10=nonuniform_dist.get_ne_r(10); % origin data from experiments
-        norm_ne_r0=nonuniform_dist.get_ne_r(0); % peak value at the center
+        norm_ne_r10=nonuniform_dist.get_ne_r_CHARLIE(10); % origin data from experiments
+        norm_ne_r0=nonuniform_dist.get_ne_r_CHARLIE(0); % peak value at the center
         for i=1:5
             dist_rp(i)=nonuniform_dist.get_nonuniform_dist_CHARLIE(['rp' num2str(i)]);
             for j=1:i
@@ -74,8 +93,8 @@ switch flag.input_plasma
         assert(input.plasma.ne(3,3)-6.21e16<1e14)
 %     case 'CHARLIE_10Pa1MHz520W_nonuniform_r5z3'
 %         ratio_origin2goal=nan(5,5);
-%         norm_ne_r10=nonuniform_dist.get_ne_r(10); % origin data from experiments
-%         norm_ne_r0=nonuniform_dist.get_ne_r(0); % peak value at the center
+%         norm_ne_r10=nonuniform_dist.get_ne_r_CHARLIE(10); % origin data from experiments
+%         norm_ne_r0=nonuniform_dist.get_ne_r_CHARLIE(0); % peak value at the center
 %         for i=1:5
 %             dist_rp(i)=nonuniform_dist.get_nonuniform_dist_CHARLIE(['rp' num2str(i)]);
 %             for j=1:i
@@ -98,8 +117,24 @@ switch flag.input_plasma
         input.plasma=rmfield(input.plasma,'idx');
     case 'CHARLIE_razcoil_sweep'
         input.plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
-        ratio_origin2goal.ne_z=nonuniform_dist.get_ne_z([-50,50])/nonuniform_dist.get_ne_z([-200,200]);
+        ratio_origin2goal.ne_z=nonuniform_dist.get_ne_z_CHARLIE([-50,50])/nonuniform_dist.get_ne_z_CHARLIE([-200,200]);
         input.plasma.ne= input.plasma.ne*ratio_origin2goal.ne_z;
+    case 'BUG_nonuniform_from_Tandem' % for the double helical coil
+        z_part=([0 20 20+80/2 20+80 131]/131)';
+        z_part=[z_part(1:end-1),z_part(2:end)];
+        dist_zp=nonuniform_dist.get_ne_z_Tandem(z_part);
+        norm_ne_z65=nonuniform_dist.get_ne_z_Tandem(65/131); % norm ne at z=65mm
+        ratio_origin2goal=dist_zp/norm_ne_z65;
+
+        flag_temp.input_plasma='BUG_0.3Pa_1MHz_55kW';
+        flag_temp.type_Xsec='e-H2-Phelps';
+        input=get_input_data( flag_temp ); % origin data from experiments % ne at z=65mm
+        input.plasma.ne=input.plasma.ne*ratio_origin2goal; 
+        
+        input.plasma.size=[1,1,1,4];
+        input.plasma=rmfield(input.plasma,'idx');
+        
+        assert(input.plasma.ne(1)<1e17)
     otherwise
         input.plasma=get_input_plasma( flag.input_plasma );
 end

@@ -54,21 +54,21 @@ co=my.get_color_order('');
 
 %% input
 % 考虑ne不均匀分布，估算平均值/边缘值
-norm_ne_r10=nonuniform_dist.get_ne_r(10); % origin data from experiments
+norm_ne_r10=nonuniform_dist.get_ne_r_CHARLIE(10); % origin data from experiments
 for i=1:5
     dist_rp(i)=nonuniform_dist.get_nonuniform_dist_CHARLIE(['rp' num2str(i)]);
     ratio_origin2goal(i).ne_r=dist_rp(i).ne_r/norm_ne_r10;
 end
 data_ref=nonuniform_dist.get_ref_CHARLIE();
 r_line=(0:45.5/100:45.5)';
-ne_r_fit=nonuniform_dist.get_ne_r(r_line);
-Te_r_fit=nonuniform_dist.get_Te_r(r_line);
+ne_r_fit=nonuniform_dist.get_ne_r_CHARLIE(r_line);
+Te_r_fit=nonuniform_dist.get_Te_r_CHARLIE(r_line);
 
 z_line=(-200:10:200)';
-ne_z_fit=nonuniform_dist.get_ne_z(z_line);
-Te_z_fit=nonuniform_dist.get_Te_z(z_line);
-mean_ne_z=nonuniform_dist.get_ne_z([-200,200]);
-mean_coil_ne_z=nonuniform_dist.get_ne_z([-50,50]);
+ne_z_fit=nonuniform_dist.get_ne_z_CHARLIE(z_line);
+Te_z_fit=nonuniform_dist.get_Te_z_CHARLIE(z_line);
+mean_ne_z=nonuniform_dist.get_ne_z_CHARLIE([-200,200]);
+mean_coil_ne_z=nonuniform_dist.get_ne_z_CHARLIE([-50,50]);
 
 % ne 分布
 figure

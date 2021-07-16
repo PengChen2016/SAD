@@ -1,5 +1,6 @@
 % CHARLIE_nonuniform case for paper
 % 20210426 created by pengchen2016, Matlab R2017a
+% eP-190821-01激励器FEM模型\paper_v2-210427期刊论文\
 
 %% initialization
 close all
