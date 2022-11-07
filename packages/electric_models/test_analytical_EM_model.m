@@ -169,7 +169,7 @@ set(L1,'AutoUpdate','off');
 
 % fig 7.7
 figure
-semilogx(input1.plasma.ne, 1e6*source3.Lind,'-.r')
+semilogx(input1.plasma.ne, 1e6*source3.Lsys,'-.r')
 hold on
 semilogx(input1.plasma.ne, 1e6*source3.Lm,'-.b')
 xlabel('n_e [m^{-3}]')

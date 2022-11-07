@@ -13,7 +13,7 @@ plasma=input.plasma;
 source_t=source;
 load('paper_BUG_edge_a210517.mat')
 source_a=source;
-plasma_ma=input_m.plasma;
+plasma_a=input_m.plasma;
 load('paper_BUG_edge_tj210517.mat')
 plasma_j=input.plasma;
 source_j=source;
@@ -155,7 +155,10 @@ max_y=10;
 axis([0.2,0.5,0,max_y]) 
 text(0.25,0.95*max_y,'(b)')
 
-% ft.print_fed('vec_emf','neTe')
+% 手动调整图例位置
+fig_name='Fig13';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
 
 
 % % frequency
@@ -350,6 +353,48 @@ max_y=17;
 axis([0.2,0.5,min_y,max_y]) 
 
 
+figure
+set(gca, 'Position',[0.25+0.12 0.19 0.355 0.73])
+legend_text={};
+plot(nan,nan,'-k')
+legend_text{end+1}='{\itP}_{S}=36kW';
+hold on
+plot(nan,nan,'-.k')
+legend_text{end+1}='{\itP}_{S}=55kW';
+set(gca,'ColorOrderIndex',1);
+plot(p,y36kW(experiment.PER),'-o')
+plot(p,y55kW(experiment.PER),'-.o')
+text(0.22,2,'experiment')
+set(gca,'ColorOrderIndex',1);
+plot(p,y36kW(fem.PER),'-s')
+plot(p,y55kW(fem.PER),'-.s')
+text(0.22,7.5,'FEM')
+set(gca,'ColorOrderIndex',1);
+plot(p,y36kW(source_t.PER),'-d')
+plot(p,y55kW(source_t.PER),'-.d')
+text(0.22,14,'transformer')
+% plot(p,d2(fem.PER,1),'--s')
+% legend_text{end+1}='{\itP}_{S}=18kW';
+% plot(p,y36kW(source_j.PER),'-x')
+% plot(p,y55kW(source_j.PER),'-.x')
+ylabel('PER [\Omega]')
+xlabel('{\itp}_{fill} [Pa]')
+xticks(p)
+grid on
+L1=legend(legend_text);
+set(L1,'location','west');
+set(L1,'box','off')
+min_y=0;
+max_y=17;
+axis([0.2,0.5,min_y,max_y]) 
+
+% 手动调整图例位置
+fig_name='Fig14';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
+
+
+% 
 % % PER
 % figure
 % % experiment
@@ -401,6 +446,76 @@ axis([0.2,0.5,min_y,max_y])
 % max_y=17;
 % axis([0.2,0.5,min_y,max_y]) 
 % text(0.3,0.95*(max_y-min_y)+min_y,'(b)')
+% 
+
+% % PER
+% figure
+% % all
+% subplot(1,2,1);
+% set(gca, 'Position',[0.12 0.19 0.355 0.73])
+% legend_text={};
+% plot(nan,nan,'-k')
+% legend_text{end+1}='{\itP}_{S}=36kW';
+% hold on
+% plot(nan,nan,'-.k')
+% legend_text{end+1}='{\itP}_{S}=55kW';
+% set(gca,'ColorOrderIndex',1);
+% plot(p,y36kW(experiment.PER),'-o')
+% plot(p,y55kW(experiment.PER),'-.o')
+% text(0.22,2,'experiment')
+% set(gca,'ColorOrderIndex',1);
+% plot(p,y36kW(fem.PER),'-s')
+% plot(p,y55kW(fem.PER),'-.s')
+% text(0.22,7.5,'FEM')
+% set(gca,'ColorOrderIndex',1);
+% plot(p,y36kW(source_t.PER),'-d')
+% plot(p,y55kW(source_t.PER),'-.d')
+% text(0.22,14,'transformer')
+% % plot(p,d2(fem.PER,1),'--s')
+% % legend_text{end+1}='{\itP}_{S}=18kW';
+% % plot(p,y36kW(source_j.PER),'-x')
+% % plot(p,y55kW(source_j.PER),'-.x')
+% ylabel('PER [\Omega]')
+% xlabel('{\itp}_{fill} [Pa]')
+% xticks(p)
+% grid on
+% L1=legend(legend_text);
+% set(L1,'location','west');
+% set(L1,'box','off')
+% min_y=0;
+% max_y=17;
+% axis([0.2,0.5,min_y,max_y]) 
+% text(0.25,0.95*(max_y-0.5)+0.5,'(a)')
+% % FEM and experiment
+% subplot(1,2,2);
+% set(gca, 'Position',[0.61 0.19 0.355 0.73])
+% legend_text={};
+% plot(nan,nan,'-')
+% legend_text{end+1}='{\itP}_{S}=36kW';
+% hold on
+% plot(nan,nan,'-.')
+% legend_text{end+1}='{\itP}_{S}=55kW';
+% set(gca,'ColorOrderIndex',1);
+% plot(p,y36kW(fem.PER),'-s')
+% plot(p,y55kW(fem.PER),'-.s')
+% text(0.22,7.5,'FEM')
+% set(gca,'ColorOrderIndex',1);
+% plot(p,y36kW(experiment.PER),'-o')
+% plot(p,y55kW(experiment.PER),'-.o')
+% text(0.22,14,'transformer')
+% % plot(p,d2(fem.PER,1),'--s')
+% % legend_text{end+1}='{\itP}_{S}=18kW';
+% % ylabel('PER [\Omega]')
+% xlabel('{\itp}_{fill} [Pa]')
+% xticks(p)
+% grid on
+% % L1=legend(legend_text);
+% % set(L1,'location','best');
+% % set(L1,'box','off')
+% min_y=0;
+% max_y=1.5;
+% axis([0.2,0.5,min_y,max_y]) 
+% text(0.3,0.95*(max_y-min_y)+min_y,'(b)')
 
 % Rs, Ls
 figure
@@ -444,23 +559,30 @@ legend_text{end+1}='{\itP}_{S}=55kW';
 set(gca,'ColorOrderIndex',1);
 plot(p,y36kW(fem.Ls),'-s')
 plot(p,y55kW(fem.Ls),'-.s')
-text(0.4,7.5,'FEM')
+% text(0.4,7.5,'FEM')
 set(gca,'ColorOrderIndex',1);
 plot(p,1e6*y36kW(source_t.Lsys),'-d')
 plot(p,1e6*y55kW(source_t.Lsys),'-.d')
 text(0.3,6,'transformer')
 % plot(p,1e6*y55kW(source_j.Lsys),'--d')
-ylabel('{\itL}_s [\muH]')
+% ylabel('{\itL}_s [\muH]')
 xlabel('{\itp}_{fill} [Pa]')
 xticks(p)
 grid on
 L1=legend(legend_text);
 set(L1,'location','best');
 set(L1,'box','off')
-min_y=0;
-max_y=8.5;
+min_y=6.5;
+max_y=7.6;
 axis([0.2,0.5,min_y,max_y]) 
 text(0.25,0.95*(max_y-min_y)+min_y,'(b)')
+
+% 手动调整图例位置
+% visio处理，导出emf和tif
+fig_name='Fig16_matlab';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
+
 % % Rs
 % figure
 % % experiment
@@ -504,6 +626,8 @@ text(0.25,0.95*(max_y-min_y)+min_y,'(b)')
 % max_value=8;
 % axis([0.2,0.5,min_value,max_value]) 
 % text(0.25,0.95*(max_value-min_value)+min_value,'(b)')
+
+
 
 %% magnetized
 % w_ce
@@ -648,6 +772,12 @@ set(L1,'box','off')
 max_y=4e9;
 axis([0.2,0.5,5e6,max_y]) 
 text(0.25,2.8e9,'(b)')
+
+% 手动调整图例位置
+% visio处理，导出emf和tif
+fig_name='Fig15';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
 
 
 % 0.3Pa, 55kW

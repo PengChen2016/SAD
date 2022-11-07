@@ -11,10 +11,11 @@ now_str=datestr(now,'yyyymmdd_HHMMSS');
 %% flag
 solution_name='eP-210607-01';
 addpath(genpath(['./others/' solution_name '/']))
-flag.using_stored_data=false;
-% flag.using_stored_data=true;
+% flag.using_stored_data=false;
+flag.using_stored_data=true;
 
-program_name='BUG_z_nonuniform210716';
+% program_name='BUG_z_nonuniform210716';
+program_name='BUG_z_nonuniform220304';
 %%%%%%%% plasma model
 flag.type_Xsec='e-H2-Phelps';
 flag.input_plasma='BUG_nonuniform_from_Tandem';
@@ -64,11 +65,41 @@ else
 end
 
 %% post-processing
-% print
-fprintf('电导率\n')
-input.plasma.sigma
-fprintf('相对介电常数\n')
-input.plasma.eps_r
+input.geometry=get_input_geometry( flag.input_geometry );
+z=(0:0.01:1)*input.geometry.l_chamber; % 见input_data
+
+figure
+yyaxis left
+plot(z,input.plasma.ne)
+ylabel('{\itn}_{e} [m^{-3}]');
+yyaxis right
+plot(z,log10(input.plasma.ne))
+ylabel('lg({\itn}_{e}) [m^{-3}]');
+yyaxis left
+axis([0,input.geometry.l_chamber,0,3.5e17])
+xlabel('\itz [m]');
+L1=legend('ne','lg(ne)');
+set(L1,'Location','best');
+set(L1,'AutoUpdate','off');
+grid on%显示网格
+
+figure
+yyaxis left
+plot(z,input.plasma.sigma)
+ylabel('{\it\sigma} [S/m]');
+yyaxis right
+plot(z,-input.plasma.eps_r)
+ylabel('-{\it\epsilon}_{r}');
+yyaxis left
+axis([0,input.geometry.l_chamber,0,500])
+xlabel('\itz [m]');
+L1=legend('{\it\sigma}','-{\it\epsilon}_{r}');
+set(L1,'Location','best');
+set(L1,'AutoUpdate','off');
+grid on%显示网格
+
+% fit
+% see .\others\eP-210607-01\fit_Tandem_nonuniform_plasma.sfit
 
 if ~flag.using_stored_data
     fprintf('\n-----END %s-----\n\n',now_str)

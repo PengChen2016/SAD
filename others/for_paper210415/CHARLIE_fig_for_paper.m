@@ -44,7 +44,7 @@ load('paper_CHARLIE_raza_tj210517.mat')
 plasma_j=input.plasma;
 source_j=source;
 
-constants=get_constants();
+constants=my.get_constants();
 ft=my.figtool;
 ft.init_fed();
 p=[0.3, 0.5, 1, 3, 5, 10]';
@@ -78,18 +78,18 @@ set(gca, 'Position',[0.12 0.19 0.355 0.73])
 plot(r_line,ne_r_fit) 
 hold on
 temp_color=co(2,:);
-line([0,45.5],[dist_rp(1).ne_r(1) dist_rp(1).ne_r(1)],'linestyle','--','color',temp_color);
-axis([0,45.5,0,1]) 
+line([0,45],[dist_rp(1).ne_r(1) dist_rp(1).ne_r(1)],'linestyle','--','color',temp_color);
+axis([0,45,0,1]) 
 xlabel('{\itr} [mm]')
-xticks([0,20,45.5])
+xticks([0,20,45])
 ylabel('normalized {\itn}_e')
 grid on
 line([10,10],[0.8, 1],'linestyle','--','color','k','LineWidth',1);
 text(2,0.7,'diagnostic\newlineport')
-L1=legend('PIC/MCC','averaged');
+L1=legend('PIC','averaged');
 set(L1,'location','southwest');
 set(L1,'box','off')
-text(45.5/3,0.95,'(a)')
+text(45/3,0.95,'(a)')
 % 轴向
 subplot(1,2,2);
 set(gca, 'Position',[0.61 0.19 0.355 0.73])
@@ -108,6 +108,11 @@ L1=legend('experiment','averaged');
 set(L1,'location','north');
 set(L1,'box','off')
 text(200/3,0.95,'(b)')
+
+% 手动调整图例
+fig_name='Fig4';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('bit_tif1000', [path fig_name])
 % % 轴向
 % subplot(1,2,2);
 % set(gca, 'Position',[0.61 0.19 0.355 0.73])
@@ -168,6 +173,10 @@ set(L1,'box','off')
 max_y=6;
 axis([0.3,10,0,max_y]) 
 text(0.4,0.95*max_y,'(b)')
+
+fig_name='Fig5';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('bit_tif1000', [path fig_name])
 
 %% 等离子体模型输出
 % % sigma, eps_r
@@ -277,7 +286,7 @@ hold on
 semilogx(p,fem.dielectric_PER(:,1),'-s')
 legend_text{end+1}='FEM';
 semilogx(p,source_a.PER(:,1),'-d')
-legend_text{end+1}='analytical';
+legend_text{end+1}='analytical EM';
 % semilogx(p,source_t.PER(:,1),'->')
 % legend_text{end+1}='transformer-base';
 % semilogx(p,source_j.PER(:,1),'-x')
@@ -303,7 +312,7 @@ hold on
 semilogx(p,fem.dielectric_PER(:,2),'-.s')
 legend_text{end+1}='FEM';
 semilogx(p,source_a.PER(:,2),'-.d')
-legend_text{end+1}='analytical';
+legend_text{end+1}='analytical EM';
 % semilogx(p,source_t.PER(:,2),'->')
 % legend_text{end+1}='transformer-base';
 % semilogx(p,source_j.PER(:,2),'-x')
@@ -319,6 +328,12 @@ min_y=0;
 max_y=24;
 axis([0.3,10,min_y,max_y]) 
 text(0.4,0.95*max_y,'(b) {\itf}=4MHz')
+
+% 手动调整图例位置
+fig_name='Fig6';
+% ft.print_fed('vec_emf', [path fig_name])
+% ft.print_fed('bit_jpg500', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
 
 % Rs, Ls
 figure
@@ -354,12 +369,14 @@ text(0.4,0.95*max_y,'(a)')
 subplot(1,2,2);
 set(gca, 'Position',[0.61 0.19 0.355 0.73])
 legend_text={};
-set(gca,'ColorOrderIndex',2);
-semilogx(nan,nan,'-s')
+% set(gca,'ColorOrderIndex',2);
+temp=co(2,:);
+semilogx(nan,nan,'-s','Color',temp)
 legend_text{end+1}='FEM';
 hold on
-semilogx(nan,nan,'-d')
-legend_text{end+1}='analytical';
+temp=co(3,:);
+semilogx(nan,nan,'-d','Color',temp)
+legend_text{end+1}='analytical EM';
 set(gca,'ColorOrderIndex',2);
 semilogx(p,fem.dielectric_Ls(:,1),'-s')
 semilogx(p,1e6*source_a.Lsys(:,1),'-d')
@@ -379,6 +396,12 @@ min_y=0;
 max_y=4;
 axis([0.3,10,min_y,max_y]) 
 text(0.4,0.95*max_y,'(b)')
+
+% 手动调整图例位置
+% visio处理，导出emf和tif
+fig_name='Fig9_matlab';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
 
 % % Rs, Ls
 % figure
@@ -448,24 +471,24 @@ figure
 subplot(1,2,1);
 % set(gca, 'Position',[0.12 0.19 0.355 0.75])
 legend_text={};
-temp=co(1,:);
-loglog(nan,nan,'-','Color',temp)
+% temp=co(1,:);
+loglog(nan,nan,'-','Color','k')
 legend_text{end+1}='{\itf}=1MHz';
 hold on
-semilogx(nan,nan,'-.','Color',temp)
+semilogx(nan,nan,'-.','Color','k')
 legend_text{end+1}='{\itf}=1MHz';
 temp=co(1,:);
 loglog(p,plasma.nu_m(:,1),'-o','Color',temp)
 loglog(p,plasma.nu_m(:,2),'-.o','Color',temp)
-text(9,1.5e8,'{\it\nu}_{m}')
+% text(9,1.5e8,'{\it\nu}_{m}')
 temp=co(2,:);
 loglog(p,plasma.nu_st(:,1),'-s','Color',temp)
 loglog(p,plasma.nu_st(:,2),'-.s','Color',temp)
-text(1,4e6,'{\it\nu}_{st}')
+% text(1,4e6,'{\it\nu}_{st}')
 temp=co(3,:);
 line([0.3,10],[w1MHz, w1MHz],'linestyle','-','color',temp);
 line([0.3,10],[w4MHz, w4MHz],'linestyle','-.','color',temp);
-text(3,4e6,'{\it\omega}')
+% text(3,4e6,'{\it\omega}')
 ylabel('frequency [s^{-1}]')
 xlabel('{\itp}_{fill} [Pa]')
 xticks([0.3,1,3,10])
@@ -501,6 +524,12 @@ L1=legend(legend_text);
 set(L1,'location','northwest');
 set(L1,'box','off')
 text(1.4,9.5,'(b)')
+
+% 手动调整图例位置
+% visio处理，导出emf和tif
+fig_name='Fig7_matlab';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
 
 % % nu_c
 % % loglog 与其他图semilogx不一致，且难以突出不同物理量数量对比
@@ -665,17 +694,17 @@ legend_text{end+1}='{\itf}=4MHz';
 temp=co(1,:);
 semilogx(p,1e3*plasma.skin_depth(:,1),'-o','Color',temp)
 semilogx(p,1e3*plasma.skin_depth(:,2),'-.o','Color',temp)
-text(0.4,30,'\delta')
+% text(0.4,30,'\delta')
 temp=co(2,:);
 semilogx(p,1e3*r_L_min(:,1),'-s','Color',temp)
 semilogx(p,1e3*r_L_min(:,2),'-.s','Color',temp)
-text(0.6,30,'r_{Larmor}')
+% text(0.6,30,'r_{Larmor}')
 ylabel('length [mm]')
 xlabel('{\itp}_{fill} [Pa]')
 xticks([0.3,1,3,10])
 grid on
 line([0.3,10],[r_plasma, r_plasma],'linestyle','--','color','k');
-text(3,40,'r_{plasma}')
+% text(3,40,'r_{plasma}')
 L1=legend(legend_text);
 set(L1,'location','north');
 set(L1,'box','off')
@@ -693,7 +722,7 @@ legend_text{end+1}='{\itf}=1MHz';
 hold on
 loglog(p,wce_max(:,2)./plasma.nu_eff(:,2),'-.s','Color',temp)
 legend_text{end+1}='{\itf}=4MHz';
-ylabel('\omega_{ce}/\nu_{eff}')
+% ylabel('\omega_{ce}/\nu_{eff}')
 xlabel('{\itp}_{fill} [Pa]')
 xticks([0.3,1,3,10])
 grid on
@@ -705,6 +734,13 @@ min_y=5e-1;
 max_y=1e2;
 axis([0.3,10,min_y,max_y]) 
 text(0.4,8e1,'(b)')
+
+% 手动调整图例位置
+% visio处理，导出emf和tif
+fig_name='Fig8_matlab';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
+
 
 % % length
 % figure
@@ -787,29 +823,29 @@ set(gca, 'Position',[0.12 0.19 0.355 0.73])
 plot(r_line,ne_r_fit) 
 hold on
 temp_color=co(2,:);
-line([0,45.5],[dist_rp(1).ne_r(1) dist_rp(1).ne_r(1)],'linestyle','--','color',temp_color);
-axis([0,45.5,0,1]) 
+line([0,45],[dist_rp(1).ne_r(1) dist_rp(1).ne_r(1)],'linestyle','--','color',temp_color);
+axis([0,45,0,1]) 
 xlabel('{\itr} [mm]')
-xticks([0,20,45.5])
+xticks([0,20,45])
 ylabel('normalized {\itn}_e')
 grid on
 
 temp_color=co(3,:);
-line([0,45.5],[1,1],'linestyle','-.','color',temp_color, 'LineWidth',3);
+line([0,45],[1,1],'linestyle','-.','color',temp_color, 'LineWidth',3);
 
 temp_color=co(4,:);
 for i=3:3
-    r=0:45.5/i:45.5;
+    r=0:45/i:45;
     ne_r=[dist_rp(i).ne_r; 0];
     for j=1:i
         line([r(j),r(j+1)],[ne_r(j),ne_r(j)],'Color',temp_color,'linestyle',':')
         line([r(j+1),r(j+1)],[ne_r(j),ne_r(j+1)],'Color',temp_color,'linestyle',':')
     end
 end
-L1=legend('origin','uniform averaged','uniform central','nonuniform');
+L1=legend('PIC','uniform averaged','uniform central','nonuniform');
 set(L1,'location','southwest');
 set(L1,'box','off')
-text(45.5/3,0.95,'(a)')
+text(45/3,0.95,'(a)')
 % PER
 subplot(1,2,2);
 set(gca, 'Position',[0.61 0.19 0.355 0.73])
@@ -834,6 +870,11 @@ max_y=1;
 axis([1,5,min_y,max_y]) 
 text(2.5,0.95*max_y,'(b)')
 text(1.3,0.1,'experiment measured')
+
+% 手动调整图例位置
+fig_name='Fig10';
+ft.print_fed('vec_emf', [path fig_name])
+ft.print_fed('vec_eps', [path fig_name])
 
 
 %% 讨论直流电导率应用条件

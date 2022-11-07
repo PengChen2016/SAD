@@ -17,7 +17,8 @@ assert(isfloat(w_RF))
 % TODO:考虑FEM中引线长度，计算一个理论电阻
 % TODO: 验算以下公式是否在适用范围内
 % 计算电阻：考虑导线表面集肤效应，未考虑邻近效应
-l_wire=geometry.N_coil*2*pi*geometry.r_coil;
+% l_wire=geometry.N_coil*2*pi*geometry.r_coil; % 忽略螺旋性
+l_wire=sqrt((geometry.N_coil*2*pi*geometry.r_coil)^2+geometry.l_coil^2); % 螺旋线长度
 C_wire=2*pi*geometry.r_wire;
 delta_Cu=sqrt(2./(w_RF*constants.mu0*constants.sigma_Cu));
 S_current_path=delta_Cu.*C_wire;

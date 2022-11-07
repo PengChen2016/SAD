@@ -1,24 +1,33 @@
-function [ plasma ] = get_input_plasma( flag_input_plasma )
+function [ plasma ] = get_input_plasma( varargin )
 % 返回预置 等离子体输入数据 结构体
 % Please use get_input_data with flag.electric_model='' rather than use
 % this function directly.
 
-% input.flag
+% input: flag_input_plasma, plasma
+% output:
+% plasma.flag
 % plasma.size
-% input.f %驱动频率，单位Hz
-% input.ne %电子密度[m^-3]
-% input.Te  %电子温度[eV]
-% input.p %气压[Pa]
-% input.Tg %气体温度[K]
-% input.w_RF %驱动角频率，单位Hz
-% input.ng %中性气体分子密度[m^-3]
-% input.Pin % 总输入功率 W
+% plasma.f %驱动频率，单位Hz
+% plasma.ne %电子密度[m^-3]
+% plasma.Te  %电子温度[eV]
+% plasma.p %气压[Pa]
+% plasma.Tg %气体温度[K]
+% plasma.w_RF %驱动角频率，单位Hz
+% plasma.ng %中性气体分子密度[m^-3]
+% plasma.Pin % 总输入功率 W
 % plasma.r
-
-plasma.flag=flag_input_plasma;
 constants=get_constants();% 全局常数 结构体
 
-plasma.size=1; %用于指示size
+assert(nargin==1 || nargin==2)
+flag_input_plasma=varargin{1};
+if nargin==2
+   plasma=varargin{2};
+end
+
+plasma.flag=flag_input_plasma;
+
+if nargin==1
+    plasma.size=1; %用于指示size
 switch flag_input_plasma
     %% 单点计算
     case '2018Jainb_ELISE_typical'
@@ -252,7 +261,6 @@ switch flag_input_plasma
     otherwise
         error('no data')
 end
-
 %         % 结构体数组：冗余存储，但便于作为对象被统一引用
 %         % 虽然组建较麻烦，不适用于矩阵操作，但概念简单
 %         input=struct('p',0,'f',0,'Pin',0,'ne',0,'Te',0,'Tg',0,'w_RF',0,'ng',0);
@@ -269,11 +277,15 @@ end
 %                 end
 %             end
 %         end
+end
 
 %% 派生参数
 plasma.w_RF=2*pi*plasma.f;
-% 理想气体状态方程，ng用于碰撞频率计算
-plasma.ng=plasma.p./(constants.kB*plasma.Tg);
+
+if ~isfield(plasma,'ng')
+    % 理想气体状态方程，ng用于碰撞频率计算
+    plasma.ng=plasma.p./(constants.kB*plasma.Tg);
+end
 
 %% 等离子体不均匀分布处理
 plasma.r=inf; %均匀无限大/半无限大

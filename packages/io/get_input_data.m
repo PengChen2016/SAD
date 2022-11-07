@@ -120,8 +120,12 @@ switch flag.input_plasma
         ratio_origin2goal.ne_z=nonuniform_dist.get_ne_z_CHARLIE([-50,50])/nonuniform_dist.get_ne_z_CHARLIE([-200,200]);
         input.plasma.ne= input.plasma.ne*ratio_origin2goal.ne_z;
     case 'BUG_nonuniform_from_Tandem' % for the double helical coil
-        z_part=([0 20 20+80/2 20+80 131]/131)';
-        z_part=[z_part(1:end-1),z_part(2:end)];
+        % for 'BUG_z_nonuniform210716'
+        %         z_part=([0 20 20+80/2 20+80 131]/131)';
+        %         z_part=[z_part(1:end-1),z_part(2:end)];
+        % for 'BUG_z_nonuniform220304'
+        % 20220303 不使用区域离散值，而使用大量散点值
+        z_part=(0:0.01:1)';       
         dist_zp=nonuniform_dist.get_ne_z_Tandem(z_part);
         norm_ne_z65=nonuniform_dist.get_ne_z_Tandem(65/131); % norm ne at z=65mm
         ratio_origin2goal=dist_zp/norm_ne_z65;
@@ -131,7 +135,7 @@ switch flag.input_plasma
         input=get_input_data( flag_temp ); % origin data from experiments % ne at z=65mm
         input.plasma.ne=input.plasma.ne*ratio_origin2goal; 
         
-        input.plasma.size=[1,1,1,4];
+        input.plasma.size=[1,1,1,101];
         input.plasma=rmfield(input.plasma,'idx');
         
         assert(input.plasma.ne(1)<1e17)
@@ -141,17 +145,7 @@ end
 input.plasma.flag=flag.input_plasma;
 
 %% 等离子体特征参数计算
-% TODO: 提取这一部分，供单独使用
-input.plasma.wpe=get_omega_pe(input.plasma.ne); %电子等离子体频率
-switch flag.type_Xsec(3:4)
-    case 'H2'
-        input.plasma.wpi=get_omega_pi(input.plasma.ne,1,1); %离子等离子体频率
-    case 'Ar'
-        input.plasma.wpi=get_omega_pi(input.plasma.ne,1,39.948); %离子等离子体频率
-end
-
-input.plasma.ve=sqrt(8*input.plasma.Te*constants.e/(pi*constants.me));    %电子平均速率，计算自由程用
-%             wce=constants.e;     %电子拉莫尔运动频率
+input.plasma=get_characterstic_parameters( flag, input.plasma );
 
 if isfield(flag,'electric_model') && ~isempty(flag.electric_model)
     %% input of electric model

@@ -1,3 +1,5 @@
+% 手动单个：table(runtests(''))
+
 clc
 clear
 % addpath(genpath('../packages')) % 添加./packages及其子文件夹到路径

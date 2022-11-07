@@ -11,6 +11,26 @@ plasma=get_input_plasma( '2018Jainb_ELISE_typical' );
 verifyEqual(testCase,plasma.size,1)
 end
 
+function test_get_plasma_given(testCase)
+% test get plasma by given input
+flag.input_plasma='test_plasma';
+plasma0.size=1; 
+plasma0.f=1e6;
+plasma0.ne=1.5e18;
+plasma0.Te=10;
+plasma0.p=0.3;
+plasma0.Tg=630;
+plasma0.Pin=[];
+
+plasma1=get_input_plasma( flag.input_plasma, plasma0 );
+constants=get_constants();
+verifyEqual(testCase,plasma1.ng,plasma1.p./(constants.kB*plasma1.Tg))
+
+plasma0.ng=1;
+plasma1=get_input_plasma( flag.input_plasma, plasma0 );
+verifyEqual(testCase,plasma1.ng,1)
+end
+
 function test_get_plasma_multi_decoupled_2D(testCase)
 % test multi point with parameters decoupled
 plasma=get_input_plasma( '2020Chen_NIS_sweep1' );
@@ -85,12 +105,13 @@ input=get_input_data( flag );
 actual_plasma=input.plasma;
 
 excepted_plasma=get_input_plasma( '2019Raunera_CHARLIE_sweep' );
-ratio_origin2goal.ne_r=nonuniform_dist.get_ne_r([0,45.5])/nonuniform_dist.get_ne_r(10);
+ratio_origin2goal.ne_r=nonuniform_dist.get_ne_r_CHARLIE([0,45.5])/nonuniform_dist.get_ne_r_CHARLIE(10);
 excepted_plasma.ne= excepted_plasma.ne*ratio_origin2goal.ne_r;
 constants=get_constants();
 excepted_plasma.wpe=get_omega_pe(excepted_plasma.ne); 
 excepted_plasma.wpi=get_omega_pi(excepted_plasma.ne,1,1); %离子等离子体频率
 excepted_plasma.ve=sqrt(8*excepted_plasma.Te*constants.e/(pi*constants.me));
+excepted_plasma.veth=sqrt(2*excepted_plasma.Te*constants.e/constants.me);
 
 excepted_plasma.flag=actual_plasma.flag;
 verifyEqual(testCase,actual_plasma,excepted_plasma)
